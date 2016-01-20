@@ -1,1 +1,1 @@
-# Explore new technologies
+# Explore new things
