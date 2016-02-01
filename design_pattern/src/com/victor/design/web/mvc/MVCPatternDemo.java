@@ -1,4 +1,4 @@
-package com.victor.design.behavioral.mvc;
+package com.victor.design.web.mvc;
 
 /**
  * Model - Model represents an object or JAVA POJO carrying data. It can also have logic to update controller if its data changes.

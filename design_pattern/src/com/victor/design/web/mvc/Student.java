@@ -1,4 +1,4 @@
-package com.victor.design.behavioral.mvc;
+package com.victor.design.web.mvc;
 
 public class Student {
     private String rollNo;
