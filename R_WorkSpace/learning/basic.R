@@ -27,10 +27,20 @@ min(41:68)
 # find variables
 ls()
 ls(pattern="var")
-ls(all.name=TRUE)           # variables starting with dot(.) are hidden
+ls(all.name=TRUE)                                                       # variables starting with dot(.) are hidden
 
 # Deleting Variables
 rm(var.3)
 print(var.3)
 rm(list=ls())
 print(ls())
+
+
+# packages
+.libPaths()									                            # Get library locations containing R packages
+library()										                        # Get the list of all the packages installed
+search()										                        # Get all packages currently loaded in the R environment
+install.packages("XML")				                                    # Install a New Package directly from CRAN
+install.packages("E:/XML_3.98-1.3.zip", repos = NULL, type="source")	#Install package manually
+library("package Name", lib.loc="path to library")						# load package
+
