@@ -19,9 +19,17 @@ str(emp.data)
 summary(emp.data)
 
 # Extract Data from data frame
-result <- data.frame(emp.data$emp_name,emp.data$salary)				            # Extract Specific columns by column name
-result <- emp.data[1:2,]														# Extract first two rows and all columns
-result <- emp.data[c(3,5),c(2,4)]												# Extract 3rd and 5th row with 2nd and 4th column
+emp.data[1, 2]                                              # by row and column
+emp.data[1, ]                                               # by row
+emp.data[, 2]                                               # by column
+emp.data[["emp_name"]]                                      # by column
+emp.data$emp_name                                           # by column
+emp.data[c(TRUE,TRUE,FALSE,FALSE,FALSE),]
+emp.data[emp.data$emp_id < 3,]
+emp.data[emp.data$emp_name %in% c("Rick", "Dan"),]
+result <- data.frame(emp.data$emp_name,emp.data$salary)		# Extract Specific columns by column name
+result <- emp.data[1:2,]									# Extract first two rows and all columns
+result <- emp.data[c(3,5),c(2,4)]							# Extract 3rd and 5th row with 2nd and 4th column
 
 # Expand data frame
 emp.data$dept <- c("IT","Operations","IT","HR","Finance")					    # Add column

@@ -1,5 +1,5 @@
 # Matrices elements are arranged in a two-dimensional rectangular layout. Elements are the same atomic types.
-matrix(c(3:14), nrow=4, byrow=TRUE)
+m1 <- matrix(c(3:14), nrow=4, byrow=TRUE)
 P <- matrix(c(3:14), nrow=4, byrow=TRUE, dimnames=list(c("row1", "row2", "row3", "row4"), c("col1", "col2", "col3")))
 
 # Accessing Elements of a Matrix
@@ -14,3 +14,7 @@ matrix1 + matrix2
 matrix1 - matrix2
 matrix1 * matrix2
 matrix1 / matrix2
+
+# equals
+m1 == P
+identical(m1, P)

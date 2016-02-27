@@ -1,0 +1,5 @@
+"id","name","salary","start_dtae","dept","bouns"
+3,"Michelle",611 dollor,"2014-11-15","IT",$12Bn
+4,"Ryan",729 dollor,"2014-05-11","IT",$12M
+NA,"Gary",843.25 dollor,"2015-03-27","Finance",$12M
+8,"Guru","722.5 dollor","2014-06-17","Finance",$12K

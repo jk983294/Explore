@@ -1,6 +1,9 @@
 # RStudo usage
 # Ctrl + Enter line by line execute
 
+# help 
+?nrow
+
 # assignment
 var.1 = c(0,1,2,3)           
 var.2 <- c("learn","R")   
@@ -42,106 +45,8 @@ library()										                        # Get the list of all the packages in
 search()										                        # Get all packages currently loaded in the R environment
 install.packages("XML")				                                    # Install a New Package directly from CRAN
 install.packages("E:/XML_3.98-1.3.zip", repos = NULL, type="source")	#Install package manually
+install.packages("rmongodb", repos = "http://mirror.bjtu.edu.cn/cran/")
 library("package Name", lib.loc="path to library")						# load package
-
-
-# Pie Charts
-x <- c(21, 62, 10, 53)
-labels <- c("London", "New York", "Singapore", "Mumbai")
-piepercent<- round(100*x/sum(x), 1)
-png(file = "city.jpg")					# Give the chart file a name.
-pie(x,labels)								# Plot the chart.
-pie(x, labels = piepercent, main = "City pie chart",col = rainbow(length(x)))
-legend("topright", c("London","New York","Singapore","Mumbai"), cex = 0.8, fill = rainbow(length(x)))
-dev.off()									# Save the file.
-
-# 3d pie charts
-library(plotrix)
-x <-  c(21, 62, 10,53)
-lbl <-  c("London","New York","Singapore","Mumbai")
-png(file = "3d_pie_chart.jpg")
-pie3D(x,labels=lbl,explode=0.1, main="Pie Chart of Countries ")
-dev.off()
-
-
-# Bar Charts
-H <- c(7,12,28,3,41)
-M <- c("Mar","Apr","May","Jun","Jul")
-png(file = "barchart.png")
-barplot(H,names.arg = M,xlab = "Month",ylab = "Revenue",col = "blue", main = "Revenue chart",border = "red")
-dev.off()
-
-# Group Bar Chart and Stacked Bar Chart
-colors <- c("green","orange","brown")
-months <- c("Mar","Apr","May","Jun","Jul")
-regions <- c("East","West","North")
-Values <- matrix(c(2,9,3,11,9,4,8,7,3,12,5,2,8,10,11),nrow = 3,ncol = 5,byrow = TRUE)
-png(file = "barchart_stacked.png")
-barplot(Values,main = "total revenue",names.arg = months,xlab = "month",ylab = "revenue",col = colors)
-legend("topleft", regions, cex = 1.3, fill = colors)
-dev.off()
-
-
-# Boxplots
-input <- mtcars[,c('mpg','cyl')]
-print(head(input))
-png(file = "boxplot.png")
-boxplot(mpg ~ cyl, data = mtcars, xlab = "Number of Cylinders",ylab = "Miles Per Gallon", main = "Mileage Data")
-dev.off()
-
-# Boxplot with Notch
-png(file = "boxplot_with_notch.png")
-boxplot(mpg ~ cyl, data = mtcars, 
-   xlab = "Number of Cylinders",
-   ylab = "Miles Per Gallon", 
-   main = "Mileage Data",
-   notch = TRUE, 
-   varwidth = TRUE, 
-   col = c("green","yellow","purple"),
-   names = c("High","Medium","Low")
-)
-dev.off()
-
-
-# Histograms
-v <-  c(9,13,21,8,36,22,12,41,31,33,19)
-png(file = "histogram.png")
-hist(v,xlab = "Weight",col = "yellow",border = "blue")
-hist(v,xlab = "Weight",col = "green",border = "red", xlim = c(0,40), ylim = c(0,5),breaks = 5)
-dev.off()
-
-
-# Line Graphs
-v <- c(7,12,28,3,41)
-png(file = "line_chart.jpg")
-plot(v,type = "o")
-plot(v,type = "o", col = "red", xlab = "Month", ylab = "Rain fall",main = "Rain fall chart")
-dev.off()
-
-# Multiple Lines in a Line Chart
-v <- c(7,12,28,3,41)
-t <- c(14,7,6,19,3)
-png(file = "line_chart_2_lines.jpg")
-plot(v,type = "o",col = "red", xlab = "Month", ylab = "Rain fall", main = "Rain fall chart")
-lines(t, type = "o", col = "blue")
-dev.off()
-
-# Scatterplots
-input <- mtcars[,c('wt','mpg')]
-png(file = "scatterplot.png")
-plot(x = input$wt,y = input$mpg,
-   xlab = "Weight",
-   ylab = "Milage",
-   xlim = c(2.5,5),
-   ylim = c(15,30),
-   main = "Weight vs Milage"
-)
-dev.off()
-
-# Scatterplot Matrices
-png(file = "scatterplot_matrices.png")
-pairs(~wt+mpg+disp+cyl,data = mtcars,main = "Scatterplot Matrix")
-dev.off()
 
 
 # Mean, Median & Mode
