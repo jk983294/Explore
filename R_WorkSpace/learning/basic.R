@@ -130,3 +130,26 @@ dev.off()
 
 
 # Binomial Distribution deals with finding the probability of success of an event which has only two possible outcomes in a series of experiments.
+x <- seq(0,50,by = 1)
+y <- dbinom(x,50,0.5)
+png(file = "dbinom.png")			# Create the binomial distribution.
+plot(x,y)
+dev.off()
+
+x <- pbinom(26,51,0.5)			# Probability of getting 26 or less heads from a 51 tosses of a coin.
+x <- qbinom(0.25,51,1/2)		# How many heads will have a probability of 0.25 will come out when a coin is tossed 51 times.
+x <- rbinom(8,150,.4)			# Find 8 random values from a sample of 150 with probability of 0.4.
+
+# Poisson Regression   	log(y) = a + b1x1 + b2x2 + bnxn.....
+input <- warpbreaks
+print(head(input))
+output <-glm(formula = breaks ~ wool+tension,  data = warpbreaks, family = poisson)
+print(summary(output))
+
+# Covariance
+input <- mtcars
+result1 <- aov(mpg~hp*am,data = input)			# Model with interaction between categorical variable and predictor variable
+print(summary(result1))
+result2 <- aov(mpg~hp+am,data = input)			# Model without interaction between categorical variable and predictor variable
+print(summary(result2))
+print(anova(result1,result2))								# Compare the two models.
