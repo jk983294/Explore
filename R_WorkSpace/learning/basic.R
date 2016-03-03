@@ -153,3 +153,49 @@ print(summary(result1))
 result2 <- aov(mpg~hp+am,data = input)			# Model without interaction between categorical variable and predictor variable
 print(summary(result2))
 print(anova(result1,result2))								# Compare the two models.
+
+# Time Series Analysis
+rainfall <- c(799,1174.8,865.1,1334.6,635.4,918.5,685.5,998.6,784.2,985,882.8,1071)
+rainfall.timeseries <- ts(rainfall,start = c(2012,1),frequency = 12)
+print(rainfall.timeseries)
+png(file = "rainfall.png")
+plot(rainfall.timeseries)
+dev.off()
+
+# Different Time Intervals
+# frequency = 12 pegs the data points for every month of a year.
+# frequency = 4 pegs the data points for every quarter of a year.
+# frequency = 6 pegs the data points for every 10 minutes of an hour.
+# frequency = 24*6 pegs the data points for every 10 minutes of a day.
+
+# Multiple Time Series
+rainfall1 <- c(799,1174.8,865.1,1334.6,635.4,918.5,685.5,998.6,784.2,985,882.8,1071)
+rainfall2 <- c(655,1306.9,1323.4,1172.2,562.2,824,822.4,1265.5,799.6,1105.6,1106.7,1337.8)
+combined.rainfall <-  matrix(c(rainfall1,rainfall2),nrow = 12)
+rainfall.timeseries <- ts(combined.rainfall,start = c(2012,1),frequency = 12)
+print(rainfall.timeseries)
+png(file = "rainfall_combined.png")
+plot(rainfall.timeseries, main = "Multiple Time Series")
+dev.off()
+
+# Nonlinear Least Square, training a model a = b1*x^2+b2
+xvalues <- c(1.6,2.1,2,2.23,3.71,3.25,3.4,3.86,1.19,2.21)
+yvalues <- c(5.19,7.43,6.94,8.11,18.75,14.88,16.06,19.12,3.21,7.58)
+png(file = "nls.png")
+plot(xvalues,yvalues)
+model <- nls(yvalues ~ b1*xvalues^2+b2,start = list(b1 = 1,b2 = 3))			# Take the assumed values and fit into the model.
+new.data <- data.frame(xvalues = seq(min(xvalues),max(xvalues),len = 100))
+lines(new.data$xvalues,predict(model,newdata = new.data))
+dev.off()
+print(sum(resid(model)^2))																		# Get the sum of the squared residuals.
+print(confint(model))																					# Get the confidence intervals on the chosen values of the coefficients.
+
+
+# Decision Tree
+install.packages("party")
+library(party)
+input.dat <- readingSkills[c(1:105),]
+png(file = "decision_tree.png")
+output.tree <- ctree(nativeSpeaker ~ age + shoeSize + score, data = input.dat)
+plot(output.tree)
+dev.off()
