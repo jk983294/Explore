@@ -49,3 +49,6 @@ convertMoney <- function(money){
 }
 mydata$bouns <- sapply(mydata$bouns, convertMoney)
 mean(mydata$bouns)
+
+# save data to csv
+write.csv(mydata, "mydata.csv")
