@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">牛逼的程序</string>
+    <string name="action_settings">设置</string>
+    <string name="button_send">发送</string>
+    <string name="edit_message">输入</string>
+    <string name="title_activity_display_message">My Message</string>
+</resources>

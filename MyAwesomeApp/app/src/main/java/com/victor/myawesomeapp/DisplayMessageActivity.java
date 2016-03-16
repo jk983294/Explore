@@ -35,6 +35,10 @@ public class DisplayMessageActivity extends AppCompatActivity {
         textView.setTextSize(40);
         textView.setText(message);
 
+        // Get a string resource from your app's Resources， // Or supply a string resource to a method that requires a string
+//        String hello = getResources().getString(R.string.app_name);
+//        textView.setText(R.string.app_name);
+
         RelativeLayout layout = (RelativeLayout) findViewById(R.id.content);
         layout.addView(textView);
     }
