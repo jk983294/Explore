@@ -1,6 +1,9 @@
 package com.victor.myawesomeapp;
 
+import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -63,10 +66,67 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /**
+     * activity is sometimes obstructed by other visual components that cause the activity to pause
+     * 1. Stop animations or other ongoing actions that could consume CPU.
+     * 2. Commit unsaved changes, but only if users expect such changes to be permanently saved when they leave (such as a draft email).
+     * 3. Release system resources, such as broadcast receivers, handles to sensors (like GPS),
+     * or any resources that may affect battery life while your activity is paused and the user does not need them.
+     *
+     * avoid performing CPU-intensive work, such as writing to a database
+     */
+    @Override
+    public void onPause() {
+        super.onPause();  // Always call the superclass method first
+    }
+
+    /**
+     * system calls this method every time your activity comes into the foreground, including when it's created for the first time.
+     */
+    @Override
+    public void onResume() {
+        super.onResume();  // Always call the superclass method first
+    }
+
+    /**
+     * it's no longer visible and should release almost all resources that aren't needed while the user is not using it
+     * perform larger, more CPU intensive shut-down operations, such as writing information to a database.
+     */
+    @Override
+    protected void onStop() {
+        super.onStop();  // Always call the superclass method first
+        // Save the note's current draft, because the activity is stopping and we want to be sure the current note progress isn't lost.
+//        ContentValues values = new ContentValues();
+//        values.put("COLUMN_NAME_NOTE", "value");
+//        getContentResolver().update(uri, values, null, null);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();  // Always call the superclass method first
+        // The activity is either being restarted or started for the first time
+        // so this is where we should make sure that GPS is enabled
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        boolean gpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        if (!gpsEnabled) {
+            // Create a dialog here that requests the user to enable GPS, and use an intent with the android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS action to take the user to the Settings screen to enable GPS when they click "OK"
+        }
+    }
+
+    /**
+     * onRestart() also calls the onStart() method, which happens every time your activity becomes visible
+     */
+    @Override
+    protected void onRestart() {
+        super.onRestart();  // Always call the superclass method first
+        // Activity being restarted from stopped state
+    }
+
+    /**
+     * kill background threads that you created during onCreate() or other long-running resources
+     */
     @Override
     public void onDestroy() {
         super.onDestroy();  // Always call the superclass
-        // Stop method tracing that the activity started during onCreate()
-        android.os.Debug.stopMethodTracing();
     }
 }
