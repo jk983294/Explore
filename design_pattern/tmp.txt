@@ -5,3 +5,1195 @@
  * http://download.csdn.net/detail/u010908140/9656275
  * http://download.csdn.net/detail/u010908140/9656314
  */
+ 
+
+package com.victor.script.concurrent.atomic;
+
+import java.util.concurrent.atomic.AtomicBoolean;
+
+/**
+ * a boolean variable which can be read and written atomically
+ */
+public class AtomicBooleanUsage {
+
+    public static void main(String[] args) {
+        AtomicBoolean atomicBoolean = new AtomicBoolean();
+        AtomicBoolean atomicBoolean1 = new AtomicBoolean(true);
+
+        boolean value = atomicBoolean.get();
+
+        atomicBoolean.set(false);
+
+        boolean oldValue = atomicBoolean.getAndSet(true);
+
+        boolean expectedValue = true;
+        boolean newValue      = false;
+
+        boolean wasNewValueSet = atomicBoolean.compareAndSet(expectedValue, newValue);
+        System.out.println(wasNewValueSet);
+    }
+}
+
+
+package com.victor.script.concurrent.atomic;
+
+import java.util.concurrent.atomic.AtomicInteger;
+
+/**
+ * a boolean variable which can be read and written atomically
+ */
+public class AtomicIntegerUsage {
+
+    public static void main(String[] args) {
+        AtomicInteger atomicInteger = new AtomicInteger();
+        AtomicInteger atomicInteger1 = new AtomicInteger(123);
+
+        int theValue = atomicInteger.get();
+
+        atomicInteger.set(234);
+
+        int oldValue = atomicInteger.getAndSet(123);
+
+        int expectedValue = 123;
+        int newValue      = 234;
+        boolean wasNewValueSet = atomicInteger.compareAndSet(expectedValue, newValue);
+        System.out.println(wasNewValueSet);
+
+        System.out.println(atomicInteger.getAndAdd(10));
+        System.out.println(atomicInteger.addAndGet(10));
+        System.out.println(atomicInteger.getAndIncrement());
+        System.out.println(atomicInteger.incrementAndGet());
+
+        System.out.println(atomicInteger.getAndDecrement());
+        System.out.println(atomicInteger.decrementAndGet());
+    }
+}
+
+
+package com.victor.script.concurrent.collection.deque;
+
+import java.util.concurrent.BlockingDeque;
+import java.util.concurrent.LinkedBlockingDeque;
+
+/**
+ * The BlockingDeque interface represents a deque which is thread safe to put into, and take instances from.
+ * it will block if a thread attempts to take elements out of it while it is empty,
+ * regardless of what end the thread is attempting to take elements from.
+ */
+public class LinkedBlockingDequeUsage {
+
+    public static void main(String[] args) throws InterruptedException {
+        BlockingDeque<String> deque = new LinkedBlockingDeque<>();
+
+        deque.addFirst("1");
+        deque.addLast("2");
+
+        String two = deque.takeLast();
+        String one = deque.takeFirst();
+    }
+
+}
+
+package com.victor.script.concurrent.collection;
+
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
+
+/**
+ * ConcurrentHashMap does not lock the Map while you are reading from it.
+ * Additionally, ConcurrentHashMap does not lock the entire Map when writing to it.
+ * It only locks the part of the Map that is being written to, internally.
+ * it does not throw ConcurrentModificationException if the ConcurrentHashMap is changed while being iterated.
+ */
+public class ConcurrentHashMapUsage {
+
+    public static void main(String[] args) {
+        ConcurrentMap concurrentMap = new ConcurrentHashMap();
+
+        concurrentMap.put("key", "value");
+
+        Object value = concurrentMap.get("key");
+    }
+}
+
+package com.victor.script.concurrent.collection;
+
+import java.util.concurrent.ConcurrentNavigableMap;
+import java.util.concurrent.ConcurrentSkipListMap;
+
+/**
+ * support for concurrent access, and which has concurrent access enabled for its submaps.
+ */
+public class ConcurrentSkipListMapUsage {
+
+    public static void main(String[] args) {
+        ConcurrentNavigableMap map = new ConcurrentSkipListMap();
+
+        map.put("1", "one");
+        map.put("2", "two");
+        map.put("3", "three");
+
+        /**
+         * headMap method returns a view of the map containing the keys < given key.
+         * If you make changes to the original map, these changes are reflected in the head map.
+         */
+        ConcurrentNavigableMap headMap = map.headMap("2");
+
+        /**
+         * tailMap method returns a view of the map containing the keys >= given key.
+         * If you make changes to the original map, these changes are reflected in the tail map
+         */
+        ConcurrentNavigableMap tailMap = map.tailMap("2");
+
+        /**
+         * subMap() method returns a view of the original map which contains all keys [from, to)
+         */
+        ConcurrentNavigableMap subMap = map.subMap("2", "3");
+    }
+}
+
+package com.victor.script.concurrent.collection.queue;
+
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
+
+/**
+ * a queue which is thread safe to put into, and take instances from
+ * ArrayBlockingQueue is a bounded blocking queue
+ */
+public class ArrayBlockingQueueUsage {
+
+    public static class Producer implements Runnable{
+
+        protected BlockingQueue queue = null;
+
+        public Producer(BlockingQueue queue) {
+            this.queue = queue;
+        }
+
+        public void run() {
+            try {
+                queue.put("1");
+                Thread.sleep(1000);
+                queue.put("2");
+                Thread.sleep(1000);
+                queue.put("3");
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static class Consumer implements Runnable{
+
+        protected BlockingQueue queue = null;
+
+        public Consumer(BlockingQueue queue) {
+            this.queue = queue;
+        }
+
+        public void run() {
+            try {
+                System.out.println(queue.take());
+                System.out.println(queue.take());
+                System.out.println(queue.take());
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static void main(String[] args) throws InterruptedException {
+        BlockingQueue queue = new ArrayBlockingQueue(1024);
+
+        Producer producer = new Producer(queue);
+        Consumer consumer = new Consumer(queue);
+
+        new Thread(producer).start();
+        new Thread(consumer).start();
+
+        Thread.sleep(4000);
+    }
+}
+
+package com.victor.script.concurrent.collection.queue;
+
+import java.util.concurrent.DelayQueue;
+import java.util.concurrent.Delayed;
+import java.util.concurrent.TimeUnit;
+
+/**
+ * The DelayQueue blocks the elements internally until a certain delay has expired.
+ */
+public class DelayQueueUsage {
+
+    public static class DelayedElement implements Delayed {
+
+        public long time;
+        public String name;
+
+        public DelayedElement(String name, long time) {
+            this.time = time;
+            this.name = name;
+        }
+
+        @Override
+        public long getDelay(TimeUnit unit) {
+            long r =  unit.convert(time - System.currentTimeMillis(), TimeUnit.MILLISECONDS);
+            return r;
+        }
+
+        @Override
+        public int compareTo(Delayed o) {
+            if(this.time < ((DelayedElement)o).time) return -1;
+            else if(this.time > ((DelayedElement)o).time)return 1;
+            else return 0;
+        }
+    }
+
+    public static void main(String[] args) throws InterruptedException {
+        DelayQueue<DelayedElement> queue = new DelayQueue<>();
+
+        long now = System.currentTimeMillis();
+        System.out.println("current time in ms: " + now);
+        DelayedElement ob1 = new DelayedElement("e1", now + 1000);
+        DelayedElement ob2 = new DelayedElement("e2", now + 5000);
+        DelayedElement ob3 = new DelayedElement("e3", now + 1500);
+
+        queue.add(ob1);
+        queue.add(ob2);
+        queue.add(ob3);
+
+        Thread.sleep(1);
+
+        while(queue.size() > 0){
+            try {
+                DelayedElement e = queue.take();
+                System.out.println("current time in ms: " + System.currentTimeMillis() + ", element:" + e.name);
+            } catch (InterruptedException e) {
+                throw new RuntimeException( e );
+            }
+        }
+    }
+}
+
+package com.victor.script.concurrent.collection.queue;
+
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
+
+/**
+ * The LinkedBlockingQueue keeps the elements internally in a linked structure (linked nodes).
+ * This linked structure can optionally have an upper bound if desired.
+ */
+public class LinkedBlockingQueueUsage {
+
+    public static void main(String[] args) throws InterruptedException {
+        BlockingQueue<String> unbounded = new LinkedBlockingQueue<String>();
+        BlockingQueue<String> bounded   = new LinkedBlockingQueue<String>(1024);
+
+        bounded.put("Value");
+
+        String value = bounded.take();
+    }
+}
+
+package com.victor.script.concurrent.collection.queue;
+
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.PriorityBlockingQueue;
+
+/**
+ * The PriorityBlockingQueue is an unbounded concurrent queue.
+ * You cannot insert null into this queue.
+ * it does not enforce any specific behaviour for elements that have equal priority (compare() == 0).
+ * when obtain an Iterator from a PriorityBlockingQueue, the Iterator does not guarantee to iterate the elements in priority order.
+ */
+public class PriorityBlockingQueueUsage {
+
+    public static void main(String[] args) throws InterruptedException {
+        BlockingQueue<String> queue   = new PriorityBlockingQueue<>();
+
+        //String implements java.lang.Comparable
+        queue.put("Value");
+
+        String value = queue.take();
+    }
+}
+
+package com.victor.script.concurrent.collection.queue;
+
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.SynchronousQueue;
+
+/**
+ * The SynchronousQueue is a queue that can only contain a single element internally.
+ * A thread inserting an element into the queue is blocked until another thread takes that element from the queue.
+ * Likewise, if a thread tries to take an element and no element is currently present,
+ * that thread is blocked until a thread insert an element into the queue.
+ */
+public class SynchronousQueueUsage {
+
+    public static void main(String[] args) throws InterruptedException {
+        BlockingQueue<String> queue   = new SynchronousQueue<>();
+
+        queue.put("Value");
+
+        String value = queue.take();
+    }
+}
+
+
+package com.victor.script.concurrent.executor.fork;
+
+import java.util.concurrent.ForkJoinPool;
+
+public class ForkJoinPoolUsage {
+
+    public static void main(String[] args) {
+        ForkJoinPool forkJoinPool = new ForkJoinPool(4);
+
+        MyRecursiveAction myRecursiveAction = new MyRecursiveAction(24);
+        forkJoinPool.invoke(myRecursiveAction);
+
+        MyRecursiveTask myRecursiveTask = new MyRecursiveTask(128);
+        long mergedResult = forkJoinPool.invoke(myRecursiveTask);
+        System.out.println("mergedResult = " + mergedResult);
+    }
+
+}
+
+package com.victor.script.concurrent.executor.fork;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.RecursiveAction;
+
+/**
+ * A RecursiveAction is a task which does not return any value.
+ */
+public class MyRecursiveAction extends RecursiveAction {
+
+    private long workLoad = 0;
+
+    public MyRecursiveAction(long workLoad) {
+        this.workLoad = workLoad;
+    }
+
+    @Override
+    protected void compute() {
+        //if work is above threshold, break tasks up into smaller tasks
+        if(this.workLoad > 16) {
+            System.out.println("Splitting workLoad : " + this.workLoad);
+
+            List<MyRecursiveAction> subtasks = new ArrayList<>();
+
+            subtasks.addAll(createSubtasks());
+
+            for(RecursiveAction subtask : subtasks){
+                subtask.fork();
+            }
+        } else {
+            System.out.println("Doing workLoad myself: " + this.workLoad);
+        }
+    }
+
+    private List<MyRecursiveAction> createSubtasks() {
+        List<MyRecursiveAction> subtasks = new ArrayList<>();
+
+        MyRecursiveAction subtask1 = new MyRecursiveAction(this.workLoad / 2);
+        MyRecursiveAction subtask2 = new MyRecursiveAction(this.workLoad / 2);
+
+        subtasks.add(subtask1);
+        subtasks.add(subtask2);
+
+        return subtasks;
+    }
+
+}
+
+package com.victor.script.concurrent.executor.fork;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.RecursiveTask;
+
+/**
+ * A RecursiveTask is a task that returns a result.
+ */
+public class MyRecursiveTask extends RecursiveTask<Long> {
+
+    private long workLoad = 0;
+
+    public MyRecursiveTask(long workLoad) {
+        this.workLoad = workLoad;
+    }
+
+    protected Long compute() {
+        //if work is above threshold, break tasks up into smaller tasks
+        if(this.workLoad > 16) {
+            System.out.println("Splitting workLoad : " + this.workLoad);
+
+            List<MyRecursiveTask> subtasks = new ArrayList<>();
+            subtasks.addAll(createSubtasks());
+
+            for(MyRecursiveTask subtask : subtasks){
+                subtask.fork();
+            }
+
+            long result = 0;
+            for(MyRecursiveTask subtask : subtasks) {
+                result += subtask.join();
+            }
+            return result;
+        } else {
+            System.out.println("Doing workLoad myself: " + this.workLoad);
+            return workLoad * 3;
+        }
+    }
+
+    private List<MyRecursiveTask> createSubtasks() {
+        List<MyRecursiveTask> subtasks = new ArrayList<>();
+
+        MyRecursiveTask subtask1 = new MyRecursiveTask(this.workLoad / 2);
+        MyRecursiveTask subtask2 = new MyRecursiveTask(this.workLoad / 2);
+
+        subtasks.add(subtask1);
+        subtasks.add(subtask2);
+
+        return subtasks;
+    }
+}
+
+package com.victor.script.concurrent.executor;
+
+
+import com.victor.script.concurrent.thread.MyCallable;
+import com.victor.script.concurrent.thread.MyRunnable;
+import com.victor.script.concurrent.thread.MyThread;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+
+public class FixedThreadPoolExecutorUsage {
+
+    public static void main(String[] args) {
+        ExecutorService executorService = Executors.newFixedThreadPool(10);
+
+        executorService.execute(new MyRunnable());
+        executorService.execute(new MyThread());
+        Future<Integer> result = executorService.submit(new MyCallable());
+        Future result1 = executorService.submit(new MyRunnable());
+
+        try {
+            System.out.println(result.get());
+            result1.get();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        executorService.shutdown();
+    }
+}
+
+
+package com.victor.script.concurrent.executor;
+
+
+import com.victor.script.concurrent.thread.MyCallable;
+import com.victor.script.concurrent.thread.MyRunnable;
+import com.victor.script.concurrent.thread.MyThread;
+
+import java.util.concurrent.*;
+
+public class ScheduledThreadPoolExecutorUsage {
+
+    public static void main(String[] args) {
+        ScheduledExecutorService executorService = Executors.newScheduledThreadPool(10);
+
+        executorService.execute(new MyRunnable());
+        executorService.execute(new MyThread());
+        Future<Integer> result = executorService.submit(new MyCallable());
+        Future result1 = executorService.submit(new MyRunnable());
+
+        try {
+            System.out.println(result.get());
+            result1.get();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        executorService.schedule(new MyRunnable(), 42, TimeUnit.SECONDS);
+        executorService.schedule(new MyCallable(), 42, TimeUnit.SECONDS);
+        /**
+         * periodic action
+         * scheduleAtFixedRate run again at fixed delay no matter current task finished or not
+         * scheduleWithFixedDelay run again when current task finished + fixed delay
+         */
+        executorService.scheduleAtFixedRate(new MyRunnable(), 24, 42, TimeUnit.SECONDS);
+        executorService.scheduleWithFixedDelay(new MyRunnable(), 24, 42, TimeUnit.SECONDS);
+
+        executorService.shutdown();
+    }
+}
+
+
+package com.victor.script.concurrent.executor;
+
+
+import com.victor.script.concurrent.thread.MyCallable;
+import com.victor.script.concurrent.thread.MyRunnable;
+import com.victor.script.concurrent.thread.MyThread;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+
+public class SingleThreadExecutorUsage {
+
+    public static void main(String[] args) {
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+
+        executorService.execute(new MyRunnable());
+        executorService.execute(new MyThread());
+        Future<Integer> result = executorService.submit(new MyCallable());
+        Future result1 = executorService.submit(new MyRunnable());
+
+        try {
+            System.out.println(result.get());
+            result1.get();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        executorService.shutdown();
+    }
+}
+
+package com.victor.script.concurrent.sync.lock;
+
+import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
+
+/**
+ * It allows multiple threads to read a certain resource, but only one to write it, at a time.
+ */
+public class ReadWriteLockUsage {
+
+    static class Data {
+        int data;
+
+        ReadWriteLock readWriteLock = new ReentrantReadWriteLock();
+
+        void read() throws InterruptedException {
+            readWriteLock.readLock().lock();
+
+            System.out.println(Thread.currentThread().getName() + " read: " + data);
+
+            readWriteLock.readLock().unlock();
+        }
+
+        void write(int n) throws InterruptedException {
+            readWriteLock.writeLock().lock();
+
+            data = n;
+            System.out.println(Thread.currentThread().getName() + " write: " + data);
+
+            readWriteLock.writeLock().unlock();
+        }
+    }
+
+    static class Writer implements Runnable {
+        Data d;
+
+        Writer(Data d, String name) {
+            this.d = d;
+            new Thread(this, name).start();
+        }
+
+        public void run() {
+            for (int i = 0; i < 60; i++){
+                try {
+                    d.write(i);
+                    Thread.sleep(50);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    static class Reader implements Runnable {
+        Data d;
+
+        Reader(Data d, String name) {
+            this.d = d;
+            new Thread(this, name).start();
+        }
+
+        public void run() {
+            for (int i = 0; i < 20; i++){
+                try {
+                    d.read();
+                    Thread.sleep(50);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+
+    public static void main(String[] args) {
+        Data d = new Data();
+        new Reader(d, "Reader1");
+        new Reader(d, "Reader2");
+        new Reader(d, "Reader3");
+        new Writer(d, "Writer1");
+    }
+
+}
+
+
+package com.victor.script.concurrent.sync.lock;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
+/**
+ * differences between a Lock and a synchronized block are:
+ * A synchronized block makes no guarantees about the sequence in which threads waiting to entering it are granted access.
+ * a timeout trying to get access to a synchronized block is not possible.
+ * The synchronized block must be fully contained within a single method. A Lock can have it's calls to lock() and unlock() in separate methods.
+ */
+public class ReentrantLockUsage {
+
+    static public class ThreadSafeArrayList<E>
+    {
+        private final Lock lock = new ReentrantLock();
+
+        private final List<E> list = new ArrayList<>();
+
+        private int i = 0;
+
+        public void set(E o){
+            lock.lock();
+
+            try {
+                i++;
+                list.add(o);
+                System.out.println("Adding element by thread" + Thread.currentThread().getName());
+            }
+            finally {
+                lock.unlock();
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        final ThreadSafeArrayList<String> list = new ThreadSafeArrayList<String>();
+
+        Runnable syncThread = new Runnable(){
+            @Override
+            public void run(){
+                while (list.i < 6){
+                    list.set(String.valueOf(list.i));
+
+                    try {
+                        Thread.sleep(100);
+                    }
+                    catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        };
+        Runnable lockingThread = new Runnable(){
+            @Override
+            public void run(){
+                while (list.i < 6){
+                    list.set(String.valueOf(list.i));
+                    try {
+                        Thread.sleep(100);
+                    }
+                    catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        };
+
+        Thread t1 = new Thread(syncThread, "syncThread");
+        Thread t2 = new Thread(lockingThread, "lockingThread");
+        t1.start();
+        t2.start();
+    }
+
+}
+
+
+package com.victor.script.concurrent.sync;
+
+import java.util.concurrent.CountDownLatch;
+
+/**
+ * allows one or more threads to wait for a given set of operations to complete.
+ * threads call await() blocks the thread until the count reaches zero.
+ */
+public class CountDownLatchUsage {
+
+    public static class Waiter implements Runnable{
+
+        CountDownLatch latch = null;
+
+        public Waiter(CountDownLatch latch) {
+            this.latch = latch;
+        }
+
+        public void run() {
+            try {
+                latch.await();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            System.out.println("Waiter Released");
+        }
+    }
+
+    public static class Decrementer implements Runnable {
+
+        CountDownLatch latch = null;
+
+        public Decrementer(CountDownLatch latch) {
+            this.latch = latch;
+        }
+
+        public void run() {
+            try {
+                Thread.sleep(1000);
+                this.latch.countDown();
+
+                Thread.sleep(1000);
+                this.latch.countDown();
+
+                Thread.sleep(1000);
+                this.latch.countDown();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static void main(String[] args) throws InterruptedException {
+        CountDownLatch latch = new CountDownLatch(3);
+
+        Waiter      waiter      = new Waiter(latch);
+        Decrementer decrementer = new Decrementer(latch);
+
+        new Thread(waiter)     .start();
+        new Thread(decrementer).start();
+
+        Thread.sleep(4000);
+    }
+}
+
+package com.victor.script.concurrent.sync;
+
+import java.util.concurrent.BrokenBarrierException;
+import java.util.concurrent.CyclicBarrier;
+
+/**
+ * it is a barrier that all threads must wait at, until all threads reach it, before any of the threads can continue
+ */
+public class CyclicBarrierUsage {
+
+    public static class CyclicBarrierRunnable implements Runnable{
+
+        CyclicBarrier barrier1 = null;
+        CyclicBarrier barrier2 = null;
+
+        public CyclicBarrierRunnable(CyclicBarrier barrier1, CyclicBarrier barrier2) {
+            this.barrier1 = barrier1;
+            this.barrier2 = barrier2;
+        }
+
+        public void run() {
+            try {
+                Thread.sleep(1000);
+                System.out.println(Thread.currentThread().getName() + " waiting at barrier 1");
+                this.barrier1.await();
+
+                Thread.sleep(1000);
+                System.out.println(Thread.currentThread().getName() + " waiting at barrier 2");
+                this.barrier2.await();
+
+                System.out.println(Thread.currentThread().getName() + " done!");
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (BrokenBarrierException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        Runnable barrier1Action = new Runnable() {
+            public void run() {
+                System.out.println("BarrierAction 1 executed ");
+            }
+        };
+        Runnable barrier2Action = new Runnable() {
+            public void run() {
+                System.out.println("BarrierAction 2 executed ");
+            }
+        };
+
+        CyclicBarrier barrier1 = new CyclicBarrier(2, barrier1Action);
+        CyclicBarrier barrier2 = new CyclicBarrier(2, barrier2Action);
+
+        CyclicBarrierRunnable barrierRunnable1 = new CyclicBarrierRunnable(barrier1, barrier2);
+
+        CyclicBarrierRunnable barrierRunnable2 = new CyclicBarrierRunnable(barrier1, barrier2);
+
+        new Thread(barrierRunnable1).start();
+        new Thread(barrierRunnable2).start();
+    }
+}
+
+package com.victor.script.concurrent.sync;
+
+import java.util.concurrent.Exchanger;
+
+/**
+ * Exchanger represents a kind of rendezvous point where two threads can exchange objects
+ */
+public class ExchangerUsage {
+
+    public static class ExchangerRunnable implements Runnable{
+
+        Exchanger exchanger = null;
+        Object    object    = null;
+
+        public ExchangerRunnable(Exchanger exchanger, Object object) {
+            this.exchanger = exchanger;
+            this.object = object;
+        }
+
+        public void run() {
+            try {
+                Object previous = this.object;
+
+                this.object = this.exchanger.exchange(this.object);
+
+                System.out.println(Thread.currentThread().getName() + " exchanged " + previous + " for " + this.object);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        Exchanger exchanger = new Exchanger();
+
+        ExchangerRunnable exchangerRunnable1 = new ExchangerRunnable(exchanger, "A");
+        ExchangerRunnable exchangerRunnable2 = new ExchangerRunnable(exchanger, "B");
+
+        new Thread(exchangerRunnable1).start();
+        new Thread(exchangerRunnable2).start();
+    }
+}
+
+package com.victor.script.concurrent.sync;
+
+import java.util.LinkedList;
+import java.util.concurrent.Semaphore;
+
+/**
+ * The counting semaphore is initialized with a given number of "permits".
+ * For each call to acquire() a permit is taken by the calling thread.
+ * For each call to release() a permit is returned to the semaphore.
+ */
+public class SemaphoreUsage {
+
+    static class Queue {
+        LinkedList<Integer> data = new LinkedList<>();
+
+        Semaphore consumerCount = new Semaphore(0);
+        Semaphore producerCount = new Semaphore(5);
+        Semaphore mutex = new Semaphore(1);
+
+        void get() throws InterruptedException {
+            consumerCount.acquire();
+
+            mutex.acquire();
+            Integer value = data.removeFirst();
+            System.out.println(Thread.currentThread().getName() + " got: " + value);
+            mutex.release();
+
+            producerCount.release();
+        }
+
+        void put(int n) throws InterruptedException {
+            producerCount.acquire();
+
+            mutex.acquire();
+            data.offerLast(n);
+            System.out.println(Thread.currentThread().getName() + " put: " + n);
+            mutex.release();
+
+            consumerCount.release();
+        }
+    }
+
+    static class Producer implements Runnable {
+        Queue q;
+
+        Producer(Queue q, String name) {
+            this.q = q;
+            new Thread(this, name).start();
+        }
+
+        public void run() {
+            for (int i = 0; i < 60; i++){
+                try {
+                    q.put(i);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    static class Consumer implements Runnable {
+        Queue q;
+
+        Consumer(Queue q, String name) {
+            this.q = q;
+            new Thread(this, name).start();
+        }
+
+        public void run() {
+            for (int i = 0; i < 20; i++){
+                try {
+                    q.get();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+
+    public static void main(String[] args) {
+        Queue q = new Queue();
+        new Consumer(q, "Consumer1");
+        new Consumer(q, "Consumer2");
+        new Consumer(q, "Consumer3");
+        new Producer(q, "Producer1");
+    }
+}
+
+
+package com.victor.script.concurrent.thread;
+
+
+import java.util.concurrent.*;
+
+public class MyCallable implements Callable<Integer> {
+
+    @Override
+    public Integer call() throws Exception {
+        String threadName = Thread.currentThread().getName();
+        System.out.println("Hello " + threadName);
+        return 42;
+    }
+
+    public static void main(String args[]) {
+        Callable<Integer> callable = new MyCallable();
+        FutureTask<Integer> futureTask = new FutureTask<>(callable);
+
+        Thread t=new Thread(futureTask);
+        t.start();
+
+        try {
+            Integer result = futureTask.get();
+            System.out.println(result);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+}
+
+package com.victor.script.concurrent.thread;
+
+
+public class MyRunnable implements Runnable {
+
+    @Override
+    public void run() {
+        String threadName = Thread.currentThread().getName();
+        System.out.println("Hello " + threadName);
+    }
+
+    public static void main(String args[]) {
+        new Thread(new MyRunnable()).start();
+    }
+
+}
+
+
+package com.victor.script.concurrent.thread;
+
+
+public class MyThread extends Thread {
+
+    public void run() {
+        String threadName = Thread.currentThread().getName();
+        System.out.println("Hello " + threadName);
+    }
+
+    public static void main(String args[]) {
+        new MyThread().start();
+    }
+
+}
+
+
+package com.victor.script.concurrent.thread;
+
+
+public class ThreadLambdaUsage {
+
+    public static void main(String[] args) {
+        Runnable task = () -> {
+            String threadName = Thread.currentThread().getName();
+            System.out.println("Hello " + threadName);
+        };
+
+        task.run();
+
+        Thread thread = new Thread(task);
+        thread.start();
+
+        System.out.println("Done!");
+    }
+}
+
+
+package com.victor.script.concurrent.time;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
+
+/**
+ * TimeUnit
+ */
+public class TimeUnitUsage {
+
+    public static void main(String[] args) throws ParseException {
+        testUnitConvert();
+        testTimeDuration();
+        testSleep();
+    }
+
+    static void testUnitConvert(){
+        long seconds = 120;
+        long minutes = TimeUnit.MINUTES.convert(seconds, TimeUnit.SECONDS);
+        System.out.println(seconds + " seconds equals to " + minutes + "minutes.");
+
+        minutes = TimeUnit.SECONDS.toMinutes(seconds);
+        System.out.println(seconds + " seconds equals to " + minutes + "minutes.\n");
+    }
+
+    static void testTimeDuration() throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+
+        Date beginDate = sdf.parse("2011/12/1");
+        Date endDate = sdf.parse("2012/1/9");
+        long days = TimeUnit.MILLISECONDS.toDays(endDate.getTime() - beginDate.getTime());
+
+        System.out.println("beginDate: " + sdf.format(beginDate));
+        System.out.println("endDate: " + sdf.format(endDate));
+        System.out.println("duration: " + days + " days");
+    }
+
+    static void testSleep(){
+        try {
+            TimeUnit.SECONDS.sleep(5);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+
+
+对别人无偿的帮助却只会令我产生负收益，且会降低我在别人心目中的价值。所以我就不再对那些不懂得感谢的人伸出援手了。
+Money Management Mathematics
+花钱买时间。钱只是介质，除了购买实际的物品，还能用来重组我们的时间。不会的东西，找会的人搞定，或者向会的人学习。花费时间寻找免费资源，不如直接购买付费资源。
+低调行事并没有什么好处
+立即去做 比等到万事俱备再做 效果更好。
+先做出来再慢慢修改 比拖到deadline再做效果更好。
+生活是过出来的不是想出来的。不要怂就是干
+悟已往之不谏，知来者之可追。从追忆过往转变为思考未来。现在这个世界，与唐宋元明清真的不一样了。想从唐宋元明清的历史中挖掘出指导未来的营养，不可能的。
+当前社会上到处都在强调道德滑坡，其实是新的道德正在诞生。社会在变革，社会也在成长。
+校园的整个体系是建立在个体竞争上的（战胜别人），而社会的玩法是建立在各种有形无形的联盟上的（团结别人）。
+茫茫宇宙，我们只是星尘
+交朋友的观念从寻求“认同感”，到寻求“冲击感”的转变。一个小圈子，背景和活法都太相似的人，聊天已经聊不出东西了，不过是一次次自我强化，坐井观天地认为自己活在全部的世界。当你觉得一个人很“吓人”的时候，只是因为他所做的事情比你丰富N倍，让你相形见绌。而一个让人轻松愉快的人，他从不让你感受到你的平庸。仅此而已。
+以大多数人决策能力之低，只能做选择题，不会做填空题。
+锻炼左手的最好方法，早晚左手刷牙。
+
+
+Programming Windows
+http://www.win32developer.com/tutorial/windows/windows_tutorial_1.shtm
+
+华宝证券程序化交易
+股票万1.8-2。LOF ETF、分级基金万0.6没有五元最低一笔0元起。债二折、货币基金免费。B股万4
+www.zcxh.com
+交易接口还是用模拟键盘容易实现
+windows消息模拟其实不错，永远不怕被封
+
+预言家的水晶球
+
+散户在下降趋势中不停的抄底，积累大把亏损头寸，最终在最后一波猛跌中割肉；在上涨趋势中不停的卖出，丧失头寸，最后在市场癫狂中入场接盘。
+
+bug note
+concurrent modification exception
+ArrayList getIterator Collections.sort(list);
+
+数据库系统实现
+插件网
+一键管理所有扩展
+Raindrop
+
+
+Something rss = objectMapper.readValue(in, Something.class);
+
+你有什么想问我的吗？
+进入公司，我的发展方向是怎样的呢
+或者，“我们部门的氛围是什么样的呢？
+
+说谎者的扑克牌
+why job, 挑战，同事，做大单的喜悦
+公司开始招收来路不明的人，这一行为本身就是一个前期的预兆。
+做交易时，我从不沾沾自喜，沾沾自喜之后必是伤魂落魄，做事须有定力方可长久。
+成功的秘诀：假如周围都是瞎子，哪怕只有一只眼睛的人也可以当老大。
+鉴别市场信息真伪的方法，知者不言，言者不知
+卖空的最佳时机：就在业务滑坡的前夜。因为公司的做派越来越官僚。
+风险本身也是一种商品。不同的投资者对风险定价大不一样。如果你能做到，从一个投资者手上廉价买入风险，再以高价卖给另一位投资者，那你就可以从中牟利而自己却无需承担任何风险。结构性基金(A+B)
+奇怪的是，虽说公司不赚钱，可人人都觉得自己干得挺好
+
+称傲牛熊市的秘密
+控制自己的贪婪和恐惧；发现并解读市场提供给你的明显的线索
+相对强弱，股价除以大盘，找相对强弱转弯点
+停损限价取消前有效买单，突破时买入
+市场会像你所预期的那样变化，但不会在你所预期的时候变化
+4年总统周期，总统第一年大概率熊市，第二年继续熊市，第三年牛市，第四年起伏不定，上半年低迷，下半年强劲
+统计月份强度，11，12，1，7，8较好，2，5，6，9较差
+牛熊度指标，计算分别处于1，2，3，4阶段的个数判断大势
