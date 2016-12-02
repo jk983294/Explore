@@ -6,137 +6,63 @@
  * http://download.csdn.net/detail/u010908140/9656314
  */
 
+/**
+ * renderer for displayfield's field value with color, there is no API to change the fieldCls dynamically, use this hack
+ */
+numberColor: function (value, metaData) {
+	if (isNA(value)) {
+		return '-';
+	}
 
-曾以为长大后的自己事事能胸有成竹、妥善解决，而如今长大后依旧事与愿违。你的能力就表现在当下，不在想象中的将来
+	var data = ((value * 100).toFixed(2) + "%");
+	if(value > 1.0){
+		return '<font color="red">' + data +'</font>';
+	} else {
+		return '<font color="green">' + data +'</font>';
+	}
+},
 
-星罗棋布，天地为枰，众生为子，问苍茫大地，谁主沉浮？
-风生水起，河川如弦，山岳似鼓，闻法愿妙音，皆是轮回。 
-梵音禅唱，梦幻如露，泡影如电，明五蕴皆空，可见如来。
-
-自然法则，顶尖底平
-
-长线的精髓是时刻保持有大量闲余的资金，在没机会时只动用小资金甚至不动资金，并耐心的等待高赔率机会出现时重仓出击，然后长期持有，利用高赔率的一波行情将资金增长10倍甚至20倍。唯有如此，才能将降低频率的效率充分甚至超额的补充到盈亏比上，在连续涨停板的大行情中，每一分钱都在以100%甚至1000%的效率利用单边趋势的动能和势能，这一点是任何其他策略都比不上的
-不是不可以重仓，而是大部分人并不知道什么是真正的大机会，普通人并不能充分利用势能将趋势的威力发挥到极致也无法识别什么是真正的大机会。而作为普通散户异常喜欢的短线，看似每天进进出出勤快无比，但他们的效率异常低下甚至比无意义的长线更低
-
-对冲的价值在于可以选择性的对冲掉一部分你不想承担的风险，仅留下你比较在行的那部分风险
-
-幽灵的礼物
-Money Management Mathematics Ralph Vince
-
-永硕e盘
-善用佳软
-西林街搜索
-
-宽客网： http://www.iamquant.com/forum.php29
-中国量化投资网： http://www.myvc.com.cn/24
-宽客俱乐部： http://www.quant-club.com/16
-中国量化投资俱乐部： http://www.go-goal.com/qclub/Index.aspx12
-中国量化投资学会： http://chinaqi.org/12
-海洋部落： http://www.hylt.net/vb/8
-Matlab技术论坛： http://www.matlabsky.com/5
-Matlab中文论坛： http://www.ilovematlab.cn/forum.php1
-Quantzone： http://www.quantzone.org/6
-faruto的博客： http://blog.sina.com.cn/s/blog_4cf8aad30102e5dh.html2
-中国统计网： http://www.itongji.cn/5
-统计之都： http://cos.name/3
-SAS博客： http://blog.sina.com.cn/episas1
-冰火岛的博客： http://blog.sina.com.cn/s/articlelist_1640260361_0_1.html9
-郑来轶博客： http://blog.sina.com.cn/s/articlelist_1606645093_0_1.html4
-数据挖掘学习交流站： http://www.businessanalysis.cn/portal.php8
-知乎量化投资话题： http://www.zhihu.com/topic/19669103/questions20
-人大经济论坛SAS专版： http://bbs.pinggu.org/forum-68-1.html6
+/**
+ * icon tooltip, it could beside some component
+ */
+{
+	xtype: 'image',
+	src: '../lib/view/resource/something.png',
+	height: 20,
+	width: 20,
+	margin: '5 5 5 5',
+	shrinkWrap: 3,
+	listeners: {
+		afterrender: function(c) {
+			Ext.create('Ext.tip.ToolTip', {
+				target: c.getEl(),
+				html: 'something description placeholder'
+			});
+		}
+	}
+},
 
 
 
--- for performance purpose, share the same temp table, two sub table query is against temp table
-CREATE PROCEDURE SCHEMA.GET_MULTIPLY_DYNAMIC_RESULTS_USING_TMP_TABLE (IN I_PARAM0 VARCHAR(128),
-                                                      IN I_PARAM1 VARCHAR(8),
-                                                      IN I_PARAM2 VARCHAR(8),
-                                                      IN I_PARAM3 VARCHAR(8),
-                                                      IN I_QUERY_TYPE INTEGER)-- 0 both, 1 table A, 2 table B
-  SPECIFIC SCHEMA.GET_MULTIPLY_DYNAMIC_RESULTS_USING_TMP_TABLE
-  DYNAMIC RESULT SETS 2
-  MODIFIES SQL DATA
-  NOT DETERMINISTIC
-  NULL CALL
-  LANGUAGE SQL EXTERNAL ACTION
-  INHERIT SPECIAL REGISTERS
-BEGIN
-  DECLARE v_sql_str       VARCHAR(30000);
-  DECLARE V_WHERE_CONDITION VARCHAR(3000);
-  DECLARE v_sql_str1       VARCHAR(30000);
-  DECLARE V_WHERE_CONDITION1 VARCHAR(3000);
-
-  -- Create temp table to store query results
-  DECLARE GLOBAL TEMPORARY TABLE session.MY_SHARED_TEMP_TABLE as (
-    SELECT  a.*, b.column1, b.column2 FROM MY_TABLE_X a INNER JOIN MY_TABLE_Y b ON a.x=b.x AND a.y=b.y
-  ) DEFINITION ONLY WITH REPLACE ON COMMIT PRESERVE ROWS NOT LOGGED;
-
-  INSERT INTO session.MY_SHARED_TEMP_TABLE
-    SELECT  a.*, b.column1, b.column2 FROM MY_TABLE_X a INNER JOIN MY_TABLE_Y b ON a.x=b.x AND a.y=b.y;
-
-  -- Update column based on aggregation
-  MERGE INTO session.MY_SHARED_TEMP_TABLE AS TARGET
-    USING (SELECT category1, category2, SUM(score) AS total_score
-             FROM session.MY_SHARED_TEMP_TABLE
-             GROUP BY category1, category2) AS SRC
-      ON SRC.category1 = TARGET.category1
-         AND SRC.category2 = TARGET.category2
-    WHEN MATCHED THEN UPDATE
-      SET	total_score_column = SRC.total_score;
-
-	-- build where clause base on the parameters passed in
-  set V_WHERE_CONDITION = ' where 1 = 1 ';
-  set V_WHERE_CONDITION1 = ' where 1 = 1 ';
-
-  -- table A filter
-  IF I_PARAM0 IS NOT NULL THEN
-    set V_WHERE_CONDITION = V_WHERE_CONDITION || ' and (UPPER(PARAM0) = UPPER(''' || I_PARAM0 || ''')) ';
-  END IF;
-
-  IF I_PARAM1 IS NOT NULL THEN
-     IF I_PARAM1 = 'NA' THEN
-       set V_WHERE_CONDITION = V_WHERE_CONDITION || ' and (PARAM1 is null) ';
-     ELSE
-       set V_WHERE_CONDITION = V_WHERE_CONDITION || ' and (UPPER(PARAM1) = UPPER(''' || I_PARAM1 || ''')) ';
-     END IF;
-  END IF;
-
-  -- table B filter
-  IF I_PARAM2 IS NOT NULL THEN
-    set V_WHERE_CONDITION1 = V_WHERE_CONDITION1 || ' and (UPPER(PARAM2) = UPPER(''' || I_PARAM2 || ''')) ';
-  END IF;
-
-  IF I_PARAM3 IS NOT NULL THEN
-    set V_WHERE_CONDITION1 = V_WHERE_CONDITION1 || ' and (UPPER(PARAM3) = UPPER(''' || I_PARAM3 || ''')) ';
-  END IF;
-
-  -- which table to query
-  IF I_QUERY_TYPE = 1 THEN        -- table A only
-    set V_WHERE_CONDITION1 = ' where ID = ''SHOULD NOT FOUND'' ';
-  ELSEIF I_QUERY_TYPE = 2 THEN    -- table B only
-    set V_WHERE_CONDITION = ' where ID = ''SHOULD NOT FOUND'' ';
-  END IF;
-
-  set v_sql_str = 'with filtered as (select * from session.MY_SHARED_TEMP_TABLE' || V_WHERE_CONDITION || ' )
-                      select distinct COLUMN_DESIRED1, COLUMN_DESIRED2, COLUMN_DESIRED3 from filtered';
-
-  set v_sql_str1 = 'select COLUMN_DESIRED4, COLUMN_DESIRED5, COLUMN_DESIRED6 from session.MY_SHARED_TEMP_TABLE' || V_WHERE_CONDITION1;
-
-  BEGIN
-    DECLARE process_cursor CURSOR WITH RETURN FOR s;
-    PREPARE s from v_sql_str;
-    OPEN process_cursor;
-  END;
-
-  BEGIN
-    DECLARE process_cursor1 CURSOR WITH RETURN FOR s1;
-    PREPARE s1 from v_sql_str1;
-    OPEN process_cursor1;
-  END;
-END
+你的想法、计划在成为事实之前，不要向别人揭露。先做到，再说到。结果往往会出人意料
+社会上，大部分都是5分左右的普通人，但很多觉得自己有7分，想努力装出8分的样子，觉得自己应该过9分+的生活。正视并接受自己的平凡，脚踏实地过好普通的生活
+所有让人感觉惊愕的事物，本质上都是见得太少
+当你把交易做的越来越无聊，你就在进步
+在交易中，最重要的成功秘诀就是写交易日志
 
 
 
+UPDATE schema.my_table dest SET SUM_FIELD1 = 
+	(SELECT src.SUM_FIELD1 FROM 
+		(SELECT field2, field3, SUM(field1) AS SUM_FIELD1 FROM schema.my_table GROUP BY field2, field3) src
+			WHERE src.field2 = dest.field2 AND src.field3 = dest.field3);
+			
+-- get each ID's max day's FIELD4
+select a.ID, a.FIELD4 from SCHEMA.MY_TABLE a
+	where a.DATE_KEY = (SELECT MAX(DATE_KEY) FROM SCHEMA.MY_TABLE where ID = a.ID) and
+      a.FIELD2 = 'FIELD2' and a.FIELD3 = 'FIELD3';
 
-
+select a.ID, a.FIELD4 from SCHEMA.MY_TABLE a inner join 
+  	(SELECT MAX(DATE_KEY) as DATE_KEY, ID FROM SCHEMA.MY_TABLE group by ID) b
+  		on a.DATE_KEY = b.DATE_KEY and a.ID = b.ID
+  			where a.FIELD2 = 'FIELD2' and a.FIELD3 = 'FIELD3';
