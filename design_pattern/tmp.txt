@@ -6,63 +6,64 @@
  * http://download.csdn.net/detail/u010908140/9656314
  */
 
-/**
- * renderer for displayfield's field value with color, there is no API to change the fieldCls dynamically, use this hack
- */
-numberColor: function (value, metaData) {
-	if (isNA(value)) {
-		return '-';
-	}
-
-	var data = ((value * 100).toFixed(2) + "%");
-	if(value > 1.0){
-		return '<font color="red">' + data +'</font>';
-	} else {
-		return '<font color="green">' + data +'</font>';
-	}
-},
-
-/**
- * icon tooltip, it could beside some component
- */
-{
-	xtype: 'image',
-	src: '../lib/view/resource/something.png',
-	height: 20,
-	width: 20,
-	margin: '5 5 5 5',
-	shrinkWrap: 3,
-	listeners: {
-		afterrender: function(c) {
-			Ext.create('Ext.tip.ToolTip', {
-				target: c.getEl(),
-				html: 'something description placeholder'
-			});
-		}
-	}
-},
-
-
-
-你的想法、计划在成为事实之前，不要向别人揭露。先做到，再说到。结果往往会出人意料
-社会上，大部分都是5分左右的普通人，但很多觉得自己有7分，想努力装出8分的样子，觉得自己应该过9分+的生活。正视并接受自己的平凡，脚踏实地过好普通的生活
-所有让人感觉惊愕的事物，本质上都是见得太少
-当你把交易做的越来越无聊，你就在进步
-在交易中，最重要的成功秘诀就是写交易日志
+幽灵的礼物
+善输，小错。交易成功总是偏心于那些输得少的人，善于输的人
+在交易中，除了你的仓位之外，你一点也不能控制市场
+在遭遇坏日子之后，你必须去除失败的阴影，读一读书吧，即使十分钟也好
+规则1，只持有正确的仓位
+你必须对任何可能性进行自我保护
+多数交易员只对自认为可能性大的一面做了计划，也就是他们所考虑的盈利的一面。你必须对输得一面做好准备
+如果交易没有被证明是正确的，就要尽早平仓，等待，毫无作为，最后市场帮你清仓是不对的
+交易是失败者的游戏，直到市场证明我们的仓位正确之前，我们必须不断地减仓或清仓
+规则2，毫无例外并且正确地对你的盈利仓位加码
+3：2：1加码，翻倍加码
+当我的交易被证明是正确的时候，我常常立即加码，因为我的交易周期较长而且每一步动作都比较小
+趋势交易者会在突破时至少加码一次
+最好的当日交易方法，是一次性建立所有的仓位，然后用规则1进行平仓
+两个问题，其一，在你一开始建仓的时候，你是否建立的是你计划好的仓位？其二，你是否在动手之前已经对如何增加筹码有所计划？
+无论如何，你都必须在开始建仓的时候只建轻仓（<=半仓），这样在市场趋势按照你的预计发展的时候，你才有能力把你的仓位至少增加一倍
+不要试图控制市场，而是应该去控制仓位
+如果一个交易员总是认为自己非常出色，那他很快就会出局
+你必须一刻不离专心照料你的仓位，不存在长线交易，只有转化为长线持有的仓位
+起初他觉得市场快要见顶了，所以开始动手清仓，但当市场真的见顶的时候，他的仓位还是太重以至于无法完全清仓
+如果市场在距离顶部或底部10美分的时候，我们就应该在这个点位清仓，而不是等待市场侥幸到达顶部或底部
+你必须使用既和其他当日交易员有区别，也和喜欢柱形图的头寸交易员有区别的方式去交易，这样你才比他们更有优势
+观察大众图表，采用独家数据，要想胜券在握，只有标新立异
+没有什么比交易里刚刚出现的亢奋情绪更适合作为清仓的信号了
+当你燥热，你最好清仓；当你心烦意乱，你最好清仓；当你已经超过了合理时间还没有被证明正确的仓位，你也最好清仓
+从不同的角度看问题很重要，我在交易中懂得了与别人不同的必要性
+持有错误仓位的时间太久，是造成重挫的主要原因
+牛市里期权在大多数时候可以强化波动性；熊市中，期权容易丧失活跃性
+上扬走势中一般会有三波买力起作用，寻找第一个三四天调整期，在买力第一波调整期买入
+在成交量最高后三至四天里或是在第三波的时候套现
+市场总是在不断地背离当前的价格，这只能证明：市场不仅仅只存在这一天，而不能证明市场总是对的。时间和市场活跃性是使市场出错的两个重要因素。
+成交量极少的市场可能是错的，错误的市场会带来更多的获利机遇
+在成交量低的时候，交易员更容易被自己设置的止损点清除掉好的仓位
+选择最弱势的市场中突然出现的一个强劲上扬行情迅速卖空，因为很可能是跟涨
+规则3：放巨量后三天内全部清仓，次日清一半，后两日再清另外一半
+套现应该在市场巨量强势的时候，而规则1表明的是仓位没有得到市场确认后的止损
 
 
 
-UPDATE schema.my_table dest SET SUM_FIELD1 = 
-	(SELECT src.SUM_FIELD1 FROM 
-		(SELECT field2, field3, SUM(field1) AS SUM_FIELD1 FROM schema.my_table GROUP BY field2, field3) src
-			WHERE src.field2 = dest.field2 AND src.field3 = dest.field3);
-			
--- get each ID's max day's FIELD4
-select a.ID, a.FIELD4 from SCHEMA.MY_TABLE a
-	where a.DATE_KEY = (SELECT MAX(DATE_KEY) FROM SCHEMA.MY_TABLE where ID = a.ID) and
-      a.FIELD2 = 'FIELD2' and a.FIELD3 = 'FIELD3';
+坚持阅读，但要缩小自己的阅读面。把深度阅读的时间专注在自己划定的几个范围之中
+人初做事，如鸡伏卵，不舍而生气渐充。如燕营巢，不息而结构渐牢。如滋培之木，不见其长，有时而大。如有本之泉，不舍昼夜，盈科而后进，放乎四海
+温柔是种居高临下的东西。成熟就是越来越能接受现实，而不是越来越现实。如果越来越冷漠，不要以为成长了，其实没有。成熟应该是变温柔，对全世界都温柔。变得强大原来从来不是为了能够肆意妄为，而是为了能够一笑泯恩仇，在拥有选择权的情况下选择对所有人温柔。
+人生最浪费生命的就是在没有选择时，进入某一个团体一段时间，却非逼着自己浪费时间做些蠢事去合群
+这世上，本就没有任何一句话，可以让你醍醐灌顶。真正叫你醍醐灌顶的，只能是一段经历。而那句话，只是火药仓库内划燃的一根火柴
+你要克服的是你的虚荣心，是你的炫耀欲，你要对付的是你时刻想要出风头的小聪明
+兴趣是最好的老师，其次是耻辱
+人一切的痛苦，本质上都是对自己的无能的愤怒
+岂能尽如人意，但求无愧我心
+林中有两条路，你永远只能走一条，怀念着另一条
+种一棵树最好是在十年前，其次是现在
 
-select a.ID, a.FIELD4 from SCHEMA.MY_TABLE a inner join 
-  	(SELECT MAX(DATE_KEY) as DATE_KEY, ID FROM SCHEMA.MY_TABLE group by ID) b
-  		on a.DATE_KEY = b.DATE_KEY and a.ID = b.ID
-  			where a.FIELD2 = 'FIELD2' and a.FIELD3 = 'FIELD3';
+交易的目的是赚钱！赚的钱就是那些和我们想法相反的人的钱，我们也可能会亏给和我们正相反的人。交易员知道利用“大部分人”内在的弱点。因为交易员明白人性中的陷阱，明白如何避免陷阱，所以交易员拿走了“大众”的亏损。
+
+Excel 
+concat： =$A$1 & B1
+
+
+-- find max FIELD1's max FIELD2's of all IDs, resultset [ID, FIELD1, FIELD2]
+with myIds as (SELECT my.ID, my.FIELD1, my.FIELD2, (my.FIELD1 * 100 + my.FIELD2) max_two_fields_key FROM SCHEMA.MY_TABLE my)
+select myIds.* from myIds inner join (select ID, max(max_two_fields_key) max_two_fields_key FROM myIds group by ID) b
+	on myIds.ID = b.ID and myIds.max_two_fields_key = b.max_two_fields_key;
