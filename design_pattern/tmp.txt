@@ -6,64 +6,79 @@
  * http://download.csdn.net/detail/u010908140/9656314
  */
 
-幽灵的礼物
-善输，小错。交易成功总是偏心于那些输得少的人，善于输的人
-在交易中，除了你的仓位之外，你一点也不能控制市场
-在遭遇坏日子之后，你必须去除失败的阴影，读一读书吧，即使十分钟也好
-规则1，只持有正确的仓位
-你必须对任何可能性进行自我保护
-多数交易员只对自认为可能性大的一面做了计划，也就是他们所考虑的盈利的一面。你必须对输得一面做好准备
-如果交易没有被证明是正确的，就要尽早平仓，等待，毫无作为，最后市场帮你清仓是不对的
-交易是失败者的游戏，直到市场证明我们的仓位正确之前，我们必须不断地减仓或清仓
-规则2，毫无例外并且正确地对你的盈利仓位加码
-3：2：1加码，翻倍加码
-当我的交易被证明是正确的时候，我常常立即加码，因为我的交易周期较长而且每一步动作都比较小
-趋势交易者会在突破时至少加码一次
-最好的当日交易方法，是一次性建立所有的仓位，然后用规则1进行平仓
-两个问题，其一，在你一开始建仓的时候，你是否建立的是你计划好的仓位？其二，你是否在动手之前已经对如何增加筹码有所计划？
-无论如何，你都必须在开始建仓的时候只建轻仓（<=半仓），这样在市场趋势按照你的预计发展的时候，你才有能力把你的仓位至少增加一倍
-不要试图控制市场，而是应该去控制仓位
-如果一个交易员总是认为自己非常出色，那他很快就会出局
-你必须一刻不离专心照料你的仓位，不存在长线交易，只有转化为长线持有的仓位
-起初他觉得市场快要见顶了，所以开始动手清仓，但当市场真的见顶的时候，他的仓位还是太重以至于无法完全清仓
-如果市场在距离顶部或底部10美分的时候，我们就应该在这个点位清仓，而不是等待市场侥幸到达顶部或底部
-你必须使用既和其他当日交易员有区别，也和喜欢柱形图的头寸交易员有区别的方式去交易，这样你才比他们更有优势
-观察大众图表，采用独家数据，要想胜券在握，只有标新立异
-没有什么比交易里刚刚出现的亢奋情绪更适合作为清仓的信号了
-当你燥热，你最好清仓；当你心烦意乱，你最好清仓；当你已经超过了合理时间还没有被证明正确的仓位，你也最好清仓
-从不同的角度看问题很重要，我在交易中懂得了与别人不同的必要性
-持有错误仓位的时间太久，是造成重挫的主要原因
-牛市里期权在大多数时候可以强化波动性；熊市中，期权容易丧失活跃性
-上扬走势中一般会有三波买力起作用，寻找第一个三四天调整期，在买力第一波调整期买入
-在成交量最高后三至四天里或是在第三波的时候套现
-市场总是在不断地背离当前的价格，这只能证明：市场不仅仅只存在这一天，而不能证明市场总是对的。时间和市场活跃性是使市场出错的两个重要因素。
-成交量极少的市场可能是错的，错误的市场会带来更多的获利机遇
-在成交量低的时候，交易员更容易被自己设置的止损点清除掉好的仓位
-选择最弱势的市场中突然出现的一个强劲上扬行情迅速卖空，因为很可能是跟涨
-规则3：放巨量后三天内全部清仓，次日清一半，后两日再清另外一半
-套现应该在市场巨量强势的时候，而规则1表明的是仓位没有得到市场确认后的止损
+罪夜之奔
+冰血暴
+太空堡垒卡拉狄加
 
 
+金融市场上，假设和验证的循环反复发生。一个假设，在被逐次验证以后，将得到逐次加强，直至盛极而后萌发反方向的力量
+狗日的，水花压的好，跌下来一点反弹都没有
+市场给我最大的感受，因为快速的反馈刺激机制，它加快了我们学习的进程，像是一个加速了的人生
+不贸然加仓，保有足够的现金，后面机会多的是。钓鱼不能在鱼激烈挣扎的时候，收线
+让你遇到麻烦的不是未知，而是你确信的事并非如你所想
+低估是最好的进攻，分散是最好的防御
 
-坚持阅读，但要缩小自己的阅读面。把深度阅读的时间专注在自己划定的几个范围之中
-人初做事，如鸡伏卵，不舍而生气渐充。如燕营巢，不息而结构渐牢。如滋培之木，不见其长，有时而大。如有本之泉，不舍昼夜，盈科而后进，放乎四海
-温柔是种居高临下的东西。成熟就是越来越能接受现实，而不是越来越现实。如果越来越冷漠，不要以为成长了，其实没有。成熟应该是变温柔，对全世界都温柔。变得强大原来从来不是为了能够肆意妄为，而是为了能够一笑泯恩仇，在拥有选择权的情况下选择对所有人温柔。
-人生最浪费生命的就是在没有选择时，进入某一个团体一段时间，却非逼着自己浪费时间做些蠢事去合群
-这世上，本就没有任何一句话，可以让你醍醐灌顶。真正叫你醍醐灌顶的，只能是一段经历。而那句话，只是火药仓库内划燃的一根火柴
-你要克服的是你的虚荣心，是你的炫耀欲，你要对付的是你时刻想要出风头的小聪明
-兴趣是最好的老师，其次是耻辱
-人一切的痛苦，本质上都是对自己的无能的愤怒
-岂能尽如人意，但求无愧我心
-林中有两条路，你永远只能走一条，怀念着另一条
-种一棵树最好是在十年前，其次是现在
+QQ群246320868
+Journal of Financial and Quantitative Analysis
 
-交易的目的是赚钱！赚的钱就是那些和我们想法相反的人的钱，我们也可能会亏给和我们正相反的人。交易员知道利用“大部分人”内在的弱点。因为交易员明白人性中的陷阱，明白如何避免陷阱，所以交易员拿走了“大众”的亏损。
+内推网 拉勾网
+布尔财经
 
-Excel 
-concat： =$A$1 & B1
+pandas SciPy/NumPy sckikit-learn matplotlib statsmodels Seaborn
+
+为什么那些没经过特殊投资训练的新股民，往往会本能地倾向于选择短线交易？买入一个股票时，从0收益到10%收益的过程，要远比从盈利90%到盈利100%的这个过程更刺激更爽。新投资者总是赚10%~20%就忍不住获利了结，寻求新的目标，因为从0到10%这个过程是最爽最刺激的
+止盈不止损是新股民很明显的一个特点，而大部分股民入市第一轮牛熊，都是以小亏补仓，爆亏装死为结局的。相比从0收益到-1万的过程而言，从亏7万到亏8万的这个-1万，带给人们的刺激要小了很多，爆亏后，反而容易坦然面对市场波动，不再受市场折磨，躺地上装死
 
 
--- find max FIELD1's max FIELD2's of all IDs, resultset [ID, FIELD1, FIELD2]
-with myIds as (SELECT my.ID, my.FIELD1, my.FIELD2, (my.FIELD1 * 100 + my.FIELD2) max_two_fields_key FROM SCHEMA.MY_TABLE my)
-select myIds.* from myIds inner join (select ID, max(max_two_fields_key) max_two_fields_key FROM myIds group by ID) b
-	on myIds.ID = b.ID and myIds.max_two_fields_key = b.max_two_fields_key;
+淡泊之守，须从浓艳场中试来；
+镇定之操，还向纷纭境上勘过。
+
+学堂在线
+MOOC中国
+51cto
+传课网
+多贝网
+网易公开课
+优酷教育频道
+爱课程
+好大学在线
+万门大学
+顶你学堂
+翼狐网
+朱峰社区
+i春秋
+开课吧
+coursera
+
+http://www.phperz.com/special/83.html
+
+
+大卫·福斯特·华莱士，《弦理论》(String Theory)
+菲尔·奈特，《鞋狗》（Shoe Dog）
+阿奇·布朗，《强大领导的秘密》(The Myth of the Strong Leader)
+悉达多·穆克吉，《基因：亲密的历史》（The Gene: An Intimate History）
+格雷琴·巴克，《电网：美国和能源未来之间的磨损电线》(The Grid: The Fraying Wires Between Americans and Our Energy Future)
+《七大家族》（Seveneves），尼尔·史蒂芬森（Neal Stephenson）著。
+《魔鬼数学：数学思维的力量》（How Not to be Wrong: The Power of Mathematical Thinking），乔丹·艾伦伯格（Jordan Ellenberg）著。
+《至关重要的问题：能源、进化和复杂生命的起源》（The Vital Question: Energy, Evolution and the Origins of Complex Life），尼克·莱恩（Nick Lane）著。
+《竞争的力量：一名经济学家和一名企业家探讨如何在全球化经济环境下振兴日本》（The Power to Compete: An Economist and an Entrepreneur on Revitalizing Japan in the Global Economy），良一谷浩史（Ryoichi Mikitani）和三木谷浩史（Hiroshi Mikitani）著。
+《智人：人类简史》（Sapiens: A Brief History of Humankind），诺亚·尤瓦尔·哈拉瑞（Noah Yuval Harari）著。
+《跳着踢踏舞去工作：巴菲特如是说》（Tap Dancing to Work: Warren Buffett on Practically Everything, 1966-2012）：卡罗尔·鲁米斯（Carol Loomis）著。
+《创建当代世界：材料及去材料化》（Making the Modern World: Materials and Dematerialization）：瓦科拉夫·斯米尔(Vaclav Smil)著。
+《第六次大灭绝：不自然的历史》（The Sixth Extinction: An Unnatural History）：伊丽莎白·科尔伯特(Elizabeth Kolbert)著。
+《压力测试：反思金融危机》（Stress Test: Reflections on Financial Crises）：蒂姆·盖特纳（Tim Geithner）著。
+《人性中的善良天使：何以暴力在降低》（The Better Angels of Our Nature: Why Violence Has Declined）：史蒂芬·平克（Steven Pinker）著。
+《商业冒险：华尔街的十二个经典传奇》（Business Adventures: Twelve Classic Tales from the World of Wall Street）：约翰·布鲁克斯(John Brooks)著。
+《白宫：西奥多·罗斯福、威廉·霍华德·塔夫脱以及新闻业黄金时代》（The Bully Pulpit: Theodore Roosevelt, William Howard Taft, and the Golden Age of Journalism）：多丽丝·科恩斯·古德温(Doris Kearns Goodwin)著。
+《罗茜：一个新计划》(The Rosie Project: A Novel)：盖瑞梅·西蒙森（Graeme Simsion）著。
+《统计陷阱》（How to Lie with Statistics）：达莱尔·哈夫（Darrell Huff）著。
+《史诗级举措》（Epic Measures）：杰里米·史密斯（Jeremy Smith）著。
+《材料那些事》（Stuff Matters）：马克·麦道尼克（Mark Miodownik）著。
+《夸张和一半》（Hyperbole and a Half）：阿莉·布洛什（Allie Brosh）著。
+《如果的事》（What If）：兰达尔·门罗（Randall Munroe）著。
+《我们应该吃肉吗?》（Should We Eat Meat）：瓦科拉夫·斯米尔（Vaclav Smil）著。
+
+
+000672 month
+
+
