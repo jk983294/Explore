@@ -7,129 +7,1411 @@
  */
 
 
-python Bokeh
+# file path: /python/concurrent
 
-Carousel swipe 
+import subprocess
+from subprocess import Popen, PIPE
 
-Stanford Open Office Hours: Dave Evans and Bill Burnett
+# The subprocess module allows you to spawn new processes, connect to their input/output/error pipes, and obtain their return codes
+subprocess.call(["ls", "-l"])
+subprocess.call("exit 1", shell=True)
+subprocess.check_call(["ls", "-l"])
+subprocess.check_call("exit 1", shell=True)                         # return code was non-zero it raises a CalledProcessError
+subprocess.check_output(["echo", "Hello World!"])                   # return its output as a byte string. return code was non-zero it raises a CalledProcessError
 
-
-http://stackoverflow.com/questions/884943/how-do-i-send-an-e-mail-in-java
-simple-java-mail
-Apache Commons mail
-Spring mail
-JavaMail
-
-结果显示除哮喘以外，花粉过敏和皮肤过敏也都和幽门螺旋杆菌呈现出明显的负相关性
-
-降噪耳机	Bose QC35 + 潮汐 app
-
-grepwin：可以快速搜索某个文件夹下文件的内容
-autohotkey：可以自定义快捷键完成琐碎工作，并且支持脚本
-xplorer2 ：一个功能强大的shell
-HttpAnalyzer，WireShark这类的抓包工具也是必备
-
-生命的跃升-40亿年演化史上的十大发明
-论人类不平等的起源和基础
-法的精神
-不战而胜
-
-免费玩家是人民币玩家游戏体验的一部分
-很多网上很戾气的人，都是现实生活中的奴性人
-
-随着近几年环境问题的不断发生，人们的健康意识也在不断提高，净水器、空气净化器、有机食物、体检服务等健康产品被越来越多的人所接受，消费者愿意为健康付出的溢价其实是非常高的
-
-投资获利的第一要素是：防止自己情绪失控，等待对手情绪失控
-情绪为什么会失控呢？因为你“不知道”。不知道后面涨多少，不知道跌多少，不知道这笔投资什么时候才能结束
-情绪怎么才能不失控呢？最好是“三知道”。知道能涨多少，知道会跌多少，知道投资的期限有多长
-
-面试官最后说，你还有什么要问的吗？
-公司对于我们这样的员工是怎么个规划的，如何晋升？
-开始的时候，业务不熟有没有其他员工提供帮助？
-加班辛苦了，有没有搞点活动？
-只有一个问题,就是刚才您问我的第2个问题,可能因为经验少感觉回答的不好,能请教下这种情况比较好的处理方法吗?
-公司是否存在加班现象，如果有的话，是否频繁？
-试用期多久，试用期内薪资如何计算？
-公司主要在做什么，我进来后会做什么，需要什么技术？
-
-机构投资的创新之路
-追求风险调整后的长期、可持续的投资回报，投资收益由投资配置驱动，严格的资产再平衡策略，避免择时操作
-通常，高流动性资产的市场价格较高，严谨的投资者可以避免投资于价格过高的高流动性证券，而选择不为市场密切关注的、流动性较差且价格相对较低的资产来获取超额收益
-资产配置：股票、绝对收益投资策略（事件驱动型策略和价值驱动型策略）、私人股权（风险投资和杠杆收购）、实物资产（房地产、森林、石油、天然气）
-事件驱动型策略：合并套利和不良资产证券投资，取决于公司完成合并或重组
-价值驱动型策略： pair trading，建立能够互相对冲的多头空头来消除市场风险敞口
-真正的价值是通过购买价格低于公允价值的资产而非简单地购买低PE股获得的
-实物资产中房地产50%
-均值方差最优化投资组合
-通常实时每日再平衡策略的成本较低，因为反方向的交易通常更容易为市场接受，其他频率需要一次性买卖量太大，会增加市场影响和交易成本
-股票通常能够抵御通胀意外上升的风险，尽管短期看来这种抵御功能经常失灵
-聪明的投资者要选择那些内部持股比例高的公司
-债券的久期越长，利率变化对价格的影响就越大
-超预期的通胀会打压债券，股票将从中受益；超预期的通缩会提振债券表现，股票将因此遭殃
-当组合中外汇计价资产的仓位不超过20%-25%时，将会起到降低组合风险的作用，超出这一范围，风险将增加，就需要进行调整
-另类资产（绝对收益、实物资产、私人股权）的平均收益低于有价证券，但是它们缺乏有效定价机制，投资者只有通过高效的积极型组合管理，才可获得预期收益
-做多的成功秘诀是耐得住寂寞，等待水到渠成；做空则像在跑步机上一样很难停下来，必须不断寻找新的目标，卖空的定价机制本身和周转率高的特点使做空不得不分散化和连轴转
-房地产投资收益介于风险系数高的股票与风险系数低的债券之间，因为房地产投资既含有固定收益(租金)又含有股票类似的剩余价值的投资特征
-能源价格在绝大多数时间与传统证券价格走势呈负相关，提供了极佳的分散性，能源储备项目优于大宗商品期货合约
-森林投资在高通胀和市场动荡加剧的情况下表现更加突出，林木的可持续生长特点可以提供稳定的现金流
-只有前1/4甚至1/10的能够产生超额收益，如果没有高超的挑选基金技巧或者极佳的运气，投资者对私人股权这种投资形式最好还是敬而远之，收购基金规模越大，收益率越低
-优秀的私人股权基金管理团队会利用较长的投资期限，以从根本上改善企业经营状况为切入点，实施增加企业价值的策略。对企业只提供资金支持的基金经理的投资业绩一定不能令投资者满意
-风险投资行业存在逆向选择情况，最优秀的风险投资基金通常不愿意接受新的投资者和资金，对新投资者敞开胸怀的往往是那些没什么吸引力的投资基金
-风险投资的投资者只有取得前1/4甚至1/10的回报率，才可以取得超越市场大盘的风险调整后的收益
-另类资产类别投资成功最重要的因素就是选择正确的合伙人，一定要尽职调查，重点是调查负责组合的专人的品格和能力
-积极投资管理策略比较适用于规模较小、流动性较差的市场，这就要求基金经理严格控制管理资产的规模
-投行开展私人资产投资基金业务本身与客户利益之间存在着不可调和的内在冲突
-选择独立的投资管理公司，利益冲突会相对较小
-私人股权投资者应该选择小型、有创业精神的基金，这些基金无法将管理费作为收入的重要来源，只有为投资者赚取更多利润，从中提成才符合其利益目标
-不要聘用近期业绩表现最好的基金经理；不要解聘近期业绩达到底部的基金经理
-不论基金由谁管理，最终一定是那些长期投资者才能为大众造福，而他们也是最容易遭受批评的一群人，他们的本质决定了，在一般人眼中，他们一定行为古怪、不守规矩、还有一些冒险的。如果他们获得成功，无非是因为“撞”对了；如果短期内他们失败了，也不会博得任何同情。这就是世俗的哲理：宁可循规蹈矩地失败，也不勇于创新地成功
-“奖励成功，惩罚失败”的思维和办事作风会将投资组合推向追涨杀跌的策略，从而失去获得逆向投资的收益机会
-理性的投资者应该回避FoF，理由是透明度不高，投资决策判断中涉及层面过多，收费标准很高，缺乏与一流投资经理合作的能力
-咨询公司给客户带来的业绩往往表现平平，因为咨询公司为了自身利润最大化，常用手段是向尽可能多的客户提供几乎相同的建议，其次它们一般给出相对安全的建议，推荐的投资管理公司也是成熟、收费高的
-政策决策侧重长期目标，战略决策代表中期目标，使长期政策决策适应当前的市场机会以及机构的实际情况；战术决策是政策和战略的短期应用
-资产配置目标应当每年评估一次且仅此一次
-逆向投资需要相对较小的团体进行决策
-公司债券具有信用风险和可赎回特点，它无法在投资组合中发挥固定收益资产类别本该发挥的分散化功能
-由于和管理层处于对立方，债券持有人的利益容易受到损害
-垃圾债券持有人面临的风险巨大，获得的增量回报却微乎其微
-资产支持证券中高度运用金融工程方法，华尔街创造的产品结构越复杂，投资者就越要远离它们
-经风险调整后，国债的回报最为出色
-
-
-不落俗套的成功
-投资成功要有信念，而这种信念源自对这个投资组合的构建原理有基本了解
-收益的来源： 资产配置，择时交易和证券选择，收益大约90%来源于资产配置
-构建资产配置三个准则： 股票型，多样化和对税负敏感
-只有在异常的情况下持有股票和债券才算得上高程度的多元化，而利率变化对股债的影响同方向
-投资者们只有根据长期目标定期对投资组合进行再平衡，才能实现与政策资产配置相一致的收益
-国内股票					30%
-国外发达市场股票		15%
-国外新兴市场股票		5%
-房地产						20%
-国库券						15%
-通胀保值国债				15%
-
-
-时间的玫瑰
-要选最好的企业投资，选择企业的标准：长期稳定的经营历史；高度的竞争壁垒，甚至是垄断企业，最好是非政府管制型垄断；管理者理性，诚信，以股东利益为重；财务稳健；负债不高而净资产收益率高，自由现金流充裕
-投资最难的是在最艰难的时候在正确的方向上坚持
-有的人从来没有坚定过，因为他从未真正思考过
-对于组合理论的理解，大概7个股票是最好的结果，超出了可能很难达到最大收益，降低了可能风险就稍微大一点。好股就么多，一个经济体内，企业的构成像金字塔，最好的企业就是塔尖那么几个，越往下越差。你的资金越集中在金字塔的顶部，收益越高
-好的公司股东大会都很民主、很开放，不好的相对来说比较独断
-人们往往低估了一些简单却优秀的想法的重要性
-投资回报相当于“忍耐费”
-最杰出的基金经理大约1/3时间不能跑赢市场，所有的基金经理80%跑输市场
-99%的投资者不能抗拒波段操作，历史长河和实际操作中几乎没有人能持续成功
-通过收购推动的增长是充满危险的，并购专家们鼓吹的协同效率是不能轻信的，我们通常将这种外延式增长视为低质量的成长
-熊市到来的时候，大家不看成长而看价值，牛市来的时候大家不看价值而看成长
-开始加息的时候，股市一定不是顶，为什么加息，是因为通胀，所有刚开始一定不是顶
-世界上最著名的高楼建成之日往往是市场衰退之时
+# shell pipe
+p1 = Popen(["/bin/ls","-l", "/tmp"], stdout=PIPE)
+p2 = Popen(["grep", "tmp"], stdin=p1.stdout, stdout=PIPE)
+p1.stdout.close()                                                   # Allow p1 to receive a SIGPIPE if p2 exits.
+stdout, stderr = p2.communicate()                                   # communicate return (stdoutdata, stderrdata) tuple
+print stdout
 
 
 
-贫穷的本质
-当穷人可以多买一点儿食物时，他们并不注重用所有投入换取更多能量，相反，他们会选择买一些口味更好、价钱更高的食物
-穷人在选择食品时，主要考虑的并不是价格是否便宜，而不是有无营养价值，而是食物的口味怎么样
-穷人的生活中，还有比食物更重要的东西，大量发展中国家的穷人会花很多钱来置办婚礼、嫁妆、洗礼等，这很可能是怕丢面子的结果
-穷人的问题并不在食物的数量，而在于食物的质量，特别是微量元素的缺失
-穷人常常把钱花在昂贵的治疗上，而不是廉价的预防上
+
+# file path: /python/concurrent
+import threading
+import time
+
+# thread (low-level) and threading (higher-level, OOP) modules
+# Python threads mostly used with Blocking operations(sockets in blocking mode) or I/O intensive applications
+# Global Interpreter Lock (GIL):
+# 1. Only one thread can execute low-level instruction in the VM at one time, race condition still a problem since only low-level instruction doesn't have race condition
+# 2. Threads don't scale to multiple cores / CPUs
+
+class myThread (threading.Thread):
+    def __init__(self, threadID, name, counter):
+        threading.Thread.__init__(self)
+        self.threadID = threadID
+        self.name = name
+        self.counter = counter
+    def run(self):
+        print "Starting " + self.name
+        # Get lock to synchronize threads
+        threadLock.acquire()
+        print_time(self.name, self.counter, 3)
+        # Free lock to release next thread
+        threadLock.release()
+
+def print_time(threadName, delay, counter):
+    while counter:
+        time.sleep(delay)
+        print "%s: %s" % (threadName, time.ctime(time.time()))
+        counter -= 1
+
+threadLock = threading.Lock()
+threads = []
+
+thread1 = myThread(1, "Thread-1", 1)
+thread2 = myThread(2, "Thread-2", 2)
+
+thread1.start()
+thread2.start()
+
+threads.append(thread1)
+threads.append(thread2)
+
+
+for t in threads:                                                               # Wait for all threads to complete
+    t.join()
+print "Exiting Main Thread"
+
+# file path: /python/core
+# StopIteration                 when the next() of an iterator point to None
+# SystemExit                    sys.exit()
+# StandardError                 Base class for all built-in exceptions except StopIteration and SystemExit.
+# ArithmeticError               Base class for all errors that occur for numeric calculation.
+# OverflowError                 calculation exceeds maximum limit for a numeric type.
+# FloatingPointError            floating point calculation fails.
+# ZeroDivisonError              division or modulo by zero
+# AssertionError                failure of the Assert statement.
+# AttributeError                failure of attribute reference or assignment.
+# EOFError                      no input from either the raw_input() or input() function and the end of file is reached.
+# ImportError                   import statement fails.
+# KeyboardInterrupt             when the user interrupts program execution, usually by pressing Ctrl+c.
+# LookupError                   Base class for all lookup errors.
+# IndexError                    when an index is not found in a sequence.
+# KeyError                      when the specified key is not found in the dictionary.
+# NameError                     identifier is not found in the local or global namespace.
+# UnboundLocalError             trying to access a local variable in a function or method but no value has been assigned to it.
+# EnvironmentError              Base class for all exceptions that occur outside the Python environment.
+# IOError                       IO operation fails
+# SyntaxError                   an error in Python syntax.
+# IndentationError              indentation is not specified properly.
+# SystemError                   the interpreter finds an internal problem
+# SystemExit                    interpreter is quit by using the sys.exit() function
+# ValueError                    data type has the valid type of arguments, but the arguments have invalid values specified.
+# RuntimeError                  a generated error does not fall into any category.
+# NotImplementedError           an abstract method that needs to be implemented in an inherited class is not actually implemented.
+
+
+# assert
+def KelvinToFahrenheit(Temperature):
+    assert (Temperature >= 0),"Colder than absolute zero!"
+    return ((Temperature-273)*1.8)+32
+
+
+# try catch
+try:
+    fh = open("testfile", "w")
+    fh.write("This is my test file for exception handling!!")
+except IOError as err:
+    print "Error: can\'t find file or read data", err
+    raise                                                                       # re-raise the exception
+except (ValueError, TypeError):
+    print "Handling multiple exceptions within the same except block"
+else:
+    print "Written content in the file successfully"
+    fh.close()
+finally:
+   print "must execute"
+
+
+# catch all exceptions
+try:
+    x = opem("file.txt", "r")
+except:
+    print "Unable to open file.txt"
+
+
+# custom exceptions
+class UsageError(Exception):
+    pass
+
+raise UsageError("User error, invalid input string specified")
+
+
+# file path: /python/core
+#!/usr/bin/python
+
+# if condition
+if var == 200:
+   print "1 - Got a true expression value"
+elif var == 150:
+   print "2 - Got a true expression value"
+else:
+   print "3 - Got a false expression value"
+
+# while loop
+count = 0
+while count < 5:
+   print count, " is  less than 5"
+   count = count + 1
+else:
+   print count, " is not less than 5"
+
+
+# for loop
+fruits = ['banana', 'apple',  'mango']
+for fruit in fruits:
+   print 'Current fruit :', fruit
+
+for index in range(len(fruits)):
+   print 'Current fruit :', fruits[index]
+
+# walking through multi-dimensional lists
+for x, y in [[1,2], [3,4], [5,6]]:
+    print x, y
+
+# pass statement, when a statement is required syntactically but you do not want any command or code to execute
+if a > 5:
+    pass
+print "this line is always executed"
+class EmptyClass:
+    pass
+
+
+# file path: /python/core
+# all parameters in the Python language are passed by reference
+
+def printinfo( name, age = 10 ):
+    "This prints a passed info into this function"
+    print "Name: ", name
+    print "Age ", age
+    return
+
+printinfo( age=50, name="miki" )
+printinfo( name="miki" )
+
+
+# variable-length arguments
+# vartuple holds the values of all nonkeyword variable arguments
+# kwargs holds the values of all keyword variable arguments
+def printinfo( arg1, *vartuple, **kwargs ):
+    print "Output is: "
+    print "single argument: ", arg1
+    for var in vartuple:
+        print var
+    for key, value in kwargs.iteritems():
+        print key, value
+    return
+
+printinfo( 10 )
+printinfo( 70, 60, 50 )
+printinfo( 70, 60, 50, a = 1, b = 2 )
+my_arguments = (70, 60, 50)
+printinfo(*my_arguments)                                            # positional arguments
+my_arguments_dict = { "a" : 1, "b" : 2}
+printinfo(*my_arguments, **my_arguments_dict)
+
+
+# lambda
+sum = lambda arg1, arg2: arg1 + arg2
+print "Value of total : ", sum( 10, 20 )
+
+# Functions as variables
+def divide(a, b):
+    return a / b
+def call(func, *args, **kwargs):
+    return func(*args, **kwargs)
+call(divide, 6, 3)                                                  # 2
+
+# file path: /python/core
+from operator import attrgetter
+from random import random
+
+sorted([3, 2, 5 ,4, 7, 1])                                          # [1, 2, 3, 4, 5, 7]
+sorted(('Zane', 'Bob', 'Janet'))                                    # ['Bob', 'Janet', 'Zane']
+sorted({1:'a', 2:'b', 3:'c'})                                       # [1, 2, 3]
+
+# reverse sort
+sorted([3, 2, 5 ,4, 7, 1], reverse = True)                          # [7, 5, 4, 3, 2, 1]
+
+# sort object
+class Person(object):
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+    def __repr__(self):
+        return "<name: %s, age: %s>" % (self.name, self.age)
+
+def byName_key(person):
+    return person.name
+
+jack = Person('Jack', 19)
+adam = Person('Adam', 43)
+becky = Person('Becky', 11)
+people = [jack, adam, becky]
+
+sorted(people)                                                      # [<name: Adam, age: 43>, <name: Jack, age: 19>, <name: Becky, age: 11>]
+sorted(people, key = byName_key)                                    # [<name: Adam, age: 43>, <name: Becky, age: 11>, <name: Jack, age: 19>]
+
+# using attrgetter
+getName = attrgetter('name')
+getName(jack)                                                       # 'Jack'
+sorted(people, key = attrgetter('name'))                            # [<name: Adam, age: 43>, <name: Becky, age: 11>, <name: Jack, age: 19>]
+
+
+# shuffle
+def randomOrder_key(element):
+    return random()
+sorted(people, key = randomOrder_key)
+
+
+# file path: /python/core
+#!/bin/python
+# coding: utf-8
+
+# encode
+x=u'\xe4\xf6\xfc'
+# print x                                               # failed: UnicodeEncodeError: 'ascii' codec can't encode characters
+print x.encode("utf-8")
+
+# decode
+x='\xc3\xa4\xc3\xb6\xc3\xbc'
+x.decode("utf8")
+
+
+# file path: /python/core
+import math
+import random
+
+# Immutable : int, float, long, complex, string, bool, tuple
+# Mutable : list, dictionary, set
+
+counter = 100                                                               # An integer assignment
+miles   = 1000.0                                                            # A floating point
+name    = "John"                                                            # A string
+
+a = b = c = 1
+d, e, f = 1, 2, "john"
+list1 = [1, 2, 3, 4, 5 ]
+
+
+# data type conversion
+print int('42')                                                             # Converts x to an integer. base specifies the base if x is a string.
+print long('42')                                                            # Converts x to a long integer. base specifies the base if x is a string.
+print float('42.3')                                                         # Converts x to a floating-point number.
+print complex(1, 2)                                                         # Creates a complex number.
+print str(42)                                                               # Converts object x to a string representation.
+print repr((4, 2, ('spam', 'eggs')))                                        # Converts object x to an expression string.
+print eval('40 + 2')                                                        # Evaluates a string and returns an object.
+print tuple([1, 2, 3])                                                      # Converts s to a tuple.
+print list((1, 2, 3))                                                       # Converts s to a list.
+print set([1, 2, 3, 3])                                                     # Converts s to a set.
+print dict([('limited', 1), ('all', 16), ('concept', 1)])                   # Creates a dictionary. d must be a sequence of (key,value) tuples.
+print frozenset([1, 2, 3, 3])                                               # Converts s to a frozen set.
+print chr(42)                                                               # Converts an integer to a character.
+print unichr(42)                                                            # Converts an integer to a Unicode character.
+print ord('a')                                                              # Converts a single character to its integer value.
+print hex(32)                                                               # Converts an integer to a hexadecimal string.
+print oct(32)                                                               # Converts an integer to an octal string.
+
+
+# operator
+print 2 ** 4                                                                # power
+print 9 // 2                                                                # floor division
+print (a and b)
+print (a or b)
+print not (a or b)
+print a in list1
+print a not in list1
+print a is b                                                                # Identity operators compare the memory locations of two objects
+print a is not b
+
+
+# math
+print abs(-1)                                                               # The absolute value of x: the (positive) distance between x and zero.
+print math.ceil(1.1)                                                        # The ceiling of x: the smallest integer not less than x
+print math.floor(1.1)                                                       # The floor of x: the largest integer not greater than x
+print cmp(1, 2)                                                             # -1 if x < y, 0 if x == y, or 1 if x > y
+print math.exp(1)                                                           # The exponential of x: ex
+print math.fabs(-1.3)                                                       # The absolute value of x.
+print math.log(2.73)                                                        # The natural logarithm of x, for x> 0
+print math.log10(100)                                                       # The base-10 logarithm of x for x> 0 .
+print max(1, 2, 3, 5, 6)                                                    # The largest of its arguments: the value closest to positive infinity
+print min(1, 2, 3, 5, 6)                                                    # The smallest of its arguments: the value closest to negative infinity
+print math.modf(4.2)                                                        # The fractional and integer parts of x in a two-item tuple. Both parts have the same sign as x. The integer part is returned as a float.
+print pow(2, 4)                                                             # The value of x**y.
+print round(0.4645, 2)                                                      # x rounded to n digits from the decimal point. Python rounds away from zero as a tie-breaker: round(0.5) is 1.0 and round(-0.5) is -1.0.
+print math.sqrt(100)                                                        # The square root of x for x > 0
+
+# random number
+random.seed(5)                                                              # Sets the integer starting value used in generating random numbers. Call this function before calling any other random module function. Returns None.
+print random.choice([1, 2, 4])                                              # A random item from a list, tuple, or string.
+print random.randrange (1, 10, 2)                                           # A randomly selected element from range(start, stop, step), step is 2 means only odd number to be returned
+print random.random()                                                       # A random float r, such that 0 is less than or equal to r and r is less than 1
+print random.shuffle(list1)                                                 # Randomizes the items of a list in place. Returns None.
+print random.uniform(1.0, 5.0)                                              # A random float r, such that x is less than or equal to r and r is less than y
+
+# file path: /python/core/advanced
+# generator is a special function which uses yield statement
+# yield statement can only be used in a function/method
+# generators is memory efficient, only the current loop variable will be created
+
+
+def fibonacci():
+    a = 0
+    b = 1
+    yield a
+    yield b
+    while True:
+        a, b = b, a + b
+        yield b
+
+for i in fibonacci():
+    if i>100:
+        break
+    print i
+
+
+# more feature
+def my_gen():
+    i = 0
+    while True:
+        try:
+            received = yield i
+        except GeneratorExit:
+            print "Closing"
+            return
+        print "Generator received: %r" % received
+        i += 1
+
+my = my_gen() # initialize
+print "Caller received: %r" % my.next()                         # start the generator, get the next value
+print "Caller received: %r" % my.send("Hello world")            # sends the value back to the generator
+my.close()                                                      # raises GeneratorExit exception in the generator
+
+# file path: /python/core/advanced
+import itertools
+
+# Iterator is an object which has next() method.
+# iterator of an object is returned by its __iter__() method.
+# Iterators can be converted to list by list() constructor
+# Built-in iterators: list, dictionary, string, xrange(start, end, step), file()
+
+
+class Fibonacci(object):
+    def __init__(self):
+        self.a = 0
+        self.b = 1
+        self.state = 0
+    def __iter__ (self):
+        return self
+    def next(self):
+        if self.state < 2:
+            self.state += 1
+            return self.state-1
+        else:
+            self.a, self.b = self.b, self.a + self.b
+            return self.b
+
+for i in Fibonacci():
+    if i > 100:
+        break
+    print i
+
+
+def display_iterator_content(o, stop_value=None):
+    for i in o:
+        if stop_value is not None and i > stop_value:
+            break
+        print i,
+    print
+
+# itertools module
+display_iterator_content(itertools.chain('ABC', 'DEF'))                                     # A B C D E F
+display_iterator_content(itertools.chain.from_iterable(['ABC', 'DEF']))                     # A B C D E F
+display_iterator_content(itertools.count(10), 15)                                           # 10 11 12 13 14 15
+display_iterator_content(itertools.count(2.5, 0.5), 5)                                      # 2.5 3.0 3.5 4.0 4.5 5.0
+display_iterator_content(itertools.cycle('ABCD'), 'C')                                      # A B C D A B C D ...
+display_iterator_content(itertools.repeat(10, 3))                                           # 10 10 10
+list(itertools.imap(pow, xrange(10), itertools.repeat(2)))                                  # common use for repeat is to supply a stream of constant values to imap or zip, [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
+display_iterator_content(itertools.compress('ABCDEF', [1,0,1,0,1,1]))                       # A C E F
+display_iterator_content(itertools.dropwhile(lambda x: x<5, [1,4,6,4,1]))                   # 6 4 1
+display_iterator_content(itertools.takewhile(lambda x: x<5, [1,4,6,4,1]))                   # 1 4
+display_iterator_content(itertools.ifilter(lambda x: x%2, range(10)))                       # 1 3 5 7 9
+display_iterator_content(itertools.ifilterfalse(lambda x: x%2, range(10)))                  # 0 2 4 6 8
+display_iterator_content(itertools.imap(pow, (2,2,2), (2,3,4)))                             # 4 8 16
+display_iterator_content(itertools.starmap(pow, [(2,2), (2,3), (2,4)]))                     # 4 8 16
+display_iterator_content(itertools.islice('ABCDEFG', 2))                                    # A B
+display_iterator_content(itertools.islice('ABCDEFG', 2, 4))                                 # C D
+display_iterator_content(itertools.islice('ABCDEFG', 2, None))                              # C D E F G
+display_iterator_content(itertools.islice('ABCDEFG', 0, None, 2))                           # A C E G
+display_iterator_content(itertools.izip('ABCD', 'xy'))                                      # ('A', 'x') ('B', 'y')
+display_iterator_content(itertools.izip_longest('ABCD', 'xy', fillvalue='-'))               # ('A', 'x') ('B', 'y') ('C', '-') ('D', '-')
+display_iterator_content(itertools.product('ABCD', 'xy'))                                   # Ax Ay Bx By Cx Cy Dx Dy
+display_iterator_content(itertools.product('ABCD', repeat=2))                               # AB AC AD BA BC BD CA CB CD DA DB DC
+display_iterator_content(itertools.permutations('ABC', 2))                                  # ('A', 'B') ('A', 'C') ('B', 'A') ('B', 'C') ('C', 'A') ('C', 'B')
+display_iterator_content(itertools.permutations(range(3))) permutations()                   # 012 021 102 120 201 210
+display_iterator_content(itertools.combinations('ABC', 2))                                  # ('A', 'B') ('A', 'C') ('B', 'C')
+display_iterator_content(itertools.combinations_with_replacement('ABC', 2))                 # ('A', 'A') ('A', 'B') ('A', 'C') ('B', 'B') ('B', 'C') ('C', 'C')
+
+
+# test if one object is an iterator
+a=[1,2]
+li = a.__iter__()
+li.next()                                           # 1
+li.next()                                           # 2
+li.next()                                           # StopIteration Exception
+
+# file path: /python/core/advanced
+import sys
+import urllib2
+from contextlib import closing
+
+class Silence(object):
+    def __enter__(self):                            # called when with statement is executed, "as x" will be the value what __enter__ returns
+        pass
+    def __exit__(self, type, value, traceback):     # Called when with block ends with or without exception, Receives the exception's type, value and traceback, If returns True, exception will be suppressed
+        if type:
+            sys.stdout.write(str(value)+"\n")
+        return True
+
+with Silence():
+    6/0
+
+# closing calls the close() method on the object specified when exiting
+with closing(urllib2.urlopen('http://www.python.org')) as page:
+    for line in page:
+        print line
+
+# file path: /python/core/advanced/decorator
+
+# decorator is a function which receives the function received in the first parameter, and returns a new function which would replace the old one
+
+def tracer_decorator(func):
+    def tracer(*args, **kwargs):
+        if TRACE:
+            print "%s is called with args=%s, kwargs=%s" % (func.__name__, repr(args), repr(kwargs))
+        ret_val = func(*args, **kwargs)
+        if TRACE:
+            print "%s is returning %s" % (func.__name__, repr(ret_val))
+        return ret_val
+    return tracer
+
+# usage like annotation
+@tracer_decorator
+def my_func(a, b):
+    return a+b
+
+
+# entitlement check decorator
+def need_userid(userid):
+    def decorator(func):
+        def check_userid(*args, **kwargs):
+            if os.geteuid() == userid:
+                return func(*args, **kwargs)
+            else:
+                raise OSError, "Invalid userid: %d" % os.geteuid()
+        return check_userid
+    return decorator
+
+# decorator object
+class need_userid(object):
+    def __init__(self, userid):
+        self.userid = userid
+
+    def __call__(self, func):
+        def check_userid(*args, **kwargs):
+            if os.geteuid() == self.userid:
+                return func(*args, **kwargs)
+            else:
+                raise OSError, "Invalid userid: %d" % os.geteuid()
+        return check_userid
+
+
+# decorator object usage, nesting decorators
+@need_userid(5678)
+@tracer_decorator
+def my_func(a,b):
+    return a+b
+
+my_func(6,7)            # equals to my_func = need_userid(107686)(tracer_decorator(my_func)) | my_func(6,7)
+
+
+# An essential tool for wrapping an existing functions, copies the wrapped function's name, docstrings
+def tracer_decorator(func):
+    @functools.wraps(func)
+    def tracer(*args, **kwargs):
+        print "%s is called" % func.__name__
+        ret_val = func(*args, **kwargs)
+        print "%s is returning" % func.__name__
+        return ret_val
+    return tracer
+
+# decorator package, eliminates the need of nesting functions
+@decorator
+def trace(f, *args, **kw):
+    print "calling %s with args %s, %s" % (f.func_name, args, kw)
+    return f(*args, **kw)
+
+# file path: /python/core/advanced/decorator
+import time
+import random
+from retrying import retry
+from timeout import timeout
+
+# TODO need to find accepts returns timeout decorator package
+
+@accepts(int, int)
+@returns(int)
+def my_add(a, b):
+    return a + b
+
+@timeout(1, 'Function slow; aborted')
+def slow_function():
+    time.sleep(5)
+
+@retry(stop_max_attempt_number=3, stop_max_delay=10000, wait_random_min=1000, wait_random_max=2000)
+def do_something_unreliable():
+    if random.randint(0, 10) > 1:
+        raise IOError("Broken sauce, everything is hosed!!!111one")
+    else:
+        return "Awesome sauce!"
+
+# file path: /python/io
+import glob
+
+# finds all the pathnames matching a specified pattern according to the rules used by the Unix shell
+glob.glob("/tm*/h*")
+
+# file path: /python/io
+import os
+
+# std IO
+str = raw_input("Enter your input: ")
+print "Received input is : ", str
+
+# input is python expression
+str = input("Enter your input: ")                                   # [x*5 for x in range(2,10,2)]
+print "Received input is : ", str                                   # [10, 20, 30, 40]
+
+
+
+# os
+os.rename( "test1.txt", "test2.txt" )
+os.remove("text2.txt")
+os.rmdir( "/tmp/test"  )
+os.mkdir("newdir")
+os.getcwd()                                                         # get the current directory
+os.chdir("newdir")                                                  # change the current directory
+
+
+# file open
+fo = open("foo.txt", "wb")
+print "Name of the file: ", fo.name
+print "Closed or not : ", fo.closed
+print "Opening mode : ", fo.mode
+print "Softspace flag : ", fo.softspace
+
+
+# file path: /python/io
+# read file line by line
+fo = open("foo.txt", "r+")
+print file.readline()
+fo.close()
+
+# read file of all lines
+with open('data.txt', 'r') as f:
+    data = f.readlines()
+    for line in data:
+        words = line.split()
+        print words
+
+# file path: /python/io
+from shutil import *
+from glob import glob
+
+# a number of high-level operations on files and collections of files
+
+copytree('example', '/tmp/example')
+rmtree('/tmp/example')
+move('example.txt', 'example.out')                              # move a file or directory from one place to another
+copyfile('shutil_copyfile.py', 'shutil_copyfile.py.copy')
+copy('shutil_copy.py', 'folder')                                # copy to folder/shutil_copy.py
+copy2('shutil_copy2.py', 'folder')                              # the access and modification times in the meta-data copied to the new file
+copymode('shutil_copymode.py', 'file_to_change.txt')            # copy the permissions from one file to another
+copystat('shutil_copystat.py', 'file_to_change.txt')            # copy other meta-data about the file (permissions, last access time, and last modified time)
+
+
+# file path: /python/io
+import StringIO
+
+# StringIO — Read and write strings as files
+output = StringIO.StringIO()
+output.write('First line.\n')
+output.write('Second line.\n')
+contents = output.getvalue()                                        # 'First line.\nSecond line.\n'
+output.close()
+
+
+input = StringIO.StringIO('1\n53\n42')
+input.readline()
+input.readline()
+input.readline()
+output.close()
+
+
+# file path: /python/io
+import sys
+
+print sys.version_info                      # sys.version_info(major=2, minor=7, micro=3, releaselevel='final', serial=0)
+print sys.platform                          # linux2
+print sys.path                              # ['', '/user/bin/python/2.7.3/lib/python2.7']
+print sys.prefix                            # /user/bin/python/2.7.3/common
+print sys.exit()                            # exiting from the script
+
+
+# file path: /python/io
+# write file
+fo = open("foo.txt", "w")
+fo.write( "Python is a great language.\n");
+fo.write( "Yeah its great!!\n");
+fo.close()
+
+# write with
+with open("hello.txt", "w") as f:
+    f.write("Hello World")
+
+# write with
+with open("hello.txt", "w") as f:
+    f.writelines(["Hello", "World"])
+
+
+# file path: /python/misc
+# indent is 4 spaces
+
+# whitespace in Expressions and Statements
+# spam(ham[1], {eggs: 2})
+
+# Naming Convention
+# CamelCase for classes
+# underscore_separated method names, function names, variables
+
+# use same typed variables in containers
+# DO NOT: a=["a", "b", 42, [8,4,5], (1,2,3), {"id": 77}]
+
+# Type conversion, Instead of type checking, convert it, It will raise TypeError / ValueError if it's not possible
+def arithmetic_multiply(op1, op2):
+    return int(op1) * int(op2)
+
+# file path: /python/misc
+import timeit
+
+class A(object):
+    def my_method(self):
+        return "something"
+
+a=A()
+print a.my_method()
+# how many lookup happen here:
+# 1. globals()                      # {'A': <class '__main__.A'>, 'a': <__main__.A object at 0x9239a0c>, '__builtins__': <module '__builtin__' (built-in)>, '__package__': None, 'myvar': 77, '__name__': '__main__', '__doc__': None}
+# 2. locals()                       # {'A': <class '__main__.A'>, 'a': <__main__.A object at 0x9239a0c>, '__builtins__': <module '__builtin__' (built-in)>, '__package__': None, 'myvar': 77, '__name__': '__main__', '__doc__': None}
+# 3. obj.__dict__
+
+
+# Call the method of the built-in type
+
+# Performance analysis
+timer = timeit.Timer("'x' in 'Hello world'")
+timer.timeit(1000000)                               # run code "'x' in 'Hello world'" 1000000 times, measure its time cost
+
+# measure time with setup
+code="""
+for c in my_string:
+    if c == my_char:
+        break
+"""
+
+setup="""
+my_string="Hello world"
+my_char="x"
+"""
+
+timer = timeit.Timer(code, setup)
+print timer.timeit(1000000)
+
+
+# Profiling
+$ python -m cProfile my_script.py
+
+# file path: /python/module/BuiltIn
+from optparse import OptionParser
+import argparse
+
+parser = argparse.ArgumentParser(description='Process some integers.')
+parser.add_argument('--a', type=int, dest="aValue", default=False, help="Specify the something...")
+parser.add_argument('--b', action='store_const', const=42)
+parser.add_argument('--c', action='store_true')
+parser.add_argument('--d', action='append')
+parser.add_argument('--e', type=int, dest="eValue", default=False)
+parser.add_argument('--str', dest='types', action='append_const', const=str)
+parser.add_argument('--verbose', '-v', action='count')
+parser.add_argument('--version', action='version', version='%(prog)s 2.0')
+
+results = parser.parse_args('--a 1 --b --c --d 5 --d 6 --str -vvv'.split())         # Namespace(aValue=1, b=42, c=True, d=['5', '6'], eValue=False, types=[<type 'str'>], verbose=3)
+print results.aValue                                                                # 1
+print results.eValue                                                                # False
+
+
+
+
+
+
+parser = OptionParser()
+parser.add_option("-f", "--file", dest="filename", help="write report to FILE")
+parser.add_option("-q", "--quiet", action="store_false", dest="verbose", default=True,
+                  help="don't print status messages to stdout")
+(options, args) = parser.parse_args()
+print "Filename: %s" % options.filename
+
+# ./optparse_example.py -f x.txt
+# Filename: x.txt
+
+
+# file path: /python/module/BuiltIn
+import json
+
+data=json.load(open("/tmp/mydata.json"))
+print data["firstName"]
+data["firstName"] = u"James"
+json.dumps(data)
+
+
+# file path: /python/module/BuiltIn
+import re
+
+# match / search returns None if the regexp doesn't match
+myregexp = re.compile(r"(\w+)\s*=\s*(.+)")
+myregexp.match("temp_dir = /tmp")
+myregexp.search("blabla temp_dir = /tmp")
+
+# match email address
+re.match("[a-z]+://[a-zA-Z0-9][a-zA-Z0-9\.-]+/.*", "http://www.google.com/")
+re.match("[a-z]+://[a-zA-Z0-9][a-zA-Z0-9\.-]+/.*", "www.google.com")
+
+# groups
+re.match("([a-z]+)://([a-zA-Z0-9][a-zA-Z0-9\.-]+)/(.*)", "http://www.google.com/").groups()
+re.match("([a-z]+)://([a-zA-Z0-9][a-zA-Z0-9\.-]+)/(.*)", "http://www.google.com/blalba/qwqq").groups()
+
+# keyed groups
+myregexp = re.compile(r"(?P<key>\w+)\s*=\s*(?P<value>.+)")
+myregexp.match("temp_dir = /tmp").groupdict()                           # {'key': 'temp_dir', 'value': '/tmp'}
+
+# replace / substitute
+re.sub(",\s*", ",", "this, line ,  contains,   more, items ")           # 'this,line,contains,more,items'
+
+# split
+re.split(",\s*", "this, line ,  contains,   more, items ")              # ['this', 'line', 'contains', 'more', 'items']
+
+# findall
+re.findall("\d{4}-\d\d-\d\d", "dates: 2008-02-05 and 2009-10-12")       # ['2008-02-05', '2009-10-12']
+
+# file path: /python/module/BuiltIn
+import cPickle
+import datetime
+
+cPickle.dumps([1, 2, 3, "A", "B", "C"])
+
+newdate = now + datetime.timedelta(days=6)
+cPickle.dumps(newdate)                                      # "cdatetime\ndate\np1\n(S'\\x07\\xe1\\x01\\x0f'\ntRp2\n."
+
+cPickle.dump(newdate, open("/tmp/mydata.txt", "w"))
+cPickle.load(open("/tmp/mydata.txt"))
+
+# file path: /python/module/BuiltIn
+import time
+import calendar
+import datetime
+from datetime import date
+
+ticks = time.time()
+print "Number of ticks since 12:00am, January 1, 1970:", ticks
+
+localtime = time.localtime(ticks)
+print "Local current time :", localtime
+
+# format time
+print time.time()                                                           # 1481865671.26
+print time.asctime( localtime )                                             # Thu Dec 15 22:28:58 2016
+print time.ctime()                                                          # Fri Dec 16 00:17:46 2016
+print time.gmtime()                                                         # time.struct_time(tm_year=2016, tm_mon=12, tm_mday=16, tm_hour=5, tm_min=17, tm_sec=46, tm_wday=4, tm_yday=351, tm_isdst=0)
+print time.localtime()                                                      # time.struct_time(tm_year=2016, tm_mon=12, tm_mday=16, tm_hour=0, tm_min=17, tm_sec=46, tm_wday=4, tm_yday=351, tm_isdst=0)
+print time.mktime( (2009, 2, 17, 17, 3, 38, 1, 48, 0) )                     # 1234908218.0
+print time.strftime("%b %d %Y %H:%M:%S", time.localtime())                  # Dec 16 2016 00:17:46
+print time.strftime("%b %d %Y %H:%M:%S", time.gmtime())                     # Dec 16 2016 05:17:50
+print time.strptime("Dec 16 2016 00:17:46", "%b %d %Y %H:%M:%S")            # time.struct_time(tm_year=2016, tm_mon=12, tm_mday=16, tm_hour=0, tm_min=17, tm_sec=46, tm_wday=4, tm_yday=351, tm_isdst=-1)
+
+# measure process time
+t0 = time.clock()
+time.sleep( 2 )
+t1 = time.clock()
+print t1 - t0, "seconds process time"
+
+# measure wall time
+t0 = time.time()
+time.sleep( 2 )
+t1 = time.time()
+print t1 - t0, "seconds wall time"
+
+# datetime
+now = date.today()
+print now                                                                   # 2017-01-09
+newdate = now + datetime.timedelta(days=6)                                  # 2017-01-15
+print now.month                                                             # 1
+birthday = date(1978, 12, 26)
+age = now - birthday
+print age.days                                                              # 13894
+
+
+# file path: /python/module/BuiltIn
+import unittest
+
+# setUp method will be called before a test is called
+# tearDown method will be called after a test is called
+# unittest.main() will find all test cases in the script and executes them, execution order is by alphabet, ascending
+
+# four type of assert:
+# 1. TestCase.assert_(expr[, msg])
+# 2. TestCase.assertEqual(first, second[, msg])
+# 3. TestCase.assertNotEqual(first, second[, msg])
+# 4. TestCase.assertRaises(exception, callable, ...)
+
+# enhancement tool:
+# nosetests will run test*.py scripts found in the current directory
+# coverage measures which lines have been executed
+
+class MyTestCase(unittest.TestCase):
+    def setUp(self):
+        self.seq = range(10)
+
+    def test_range(self):
+        for i in [0,1,2,3,4,5,6,7,8,9]:
+            self.assert_(i in self.seq, "Missing number: %d" % i)
+            self.assertEqual(self.seq.index(i), i)
+
+    def test_range_reverse(self):
+        self.seq.reverse()
+        for i in [0,1,2,3,4,5,6,7,8,9]:
+            self.assert_(i in self.seq, "Missing number: %d" % i)
+            self.assertEqual(self.seq.index(i), 9-i)
+
+if __name__ == '__main__':
+    unittest.main()
+
+# file path: /python/module/BuiltIn/web
+import smtplib
+
+# send email
+server = smtplib.SMTP('localhost')
+server.sendmail(from_addr='somebody1', to_addr='somebody2', msg="""To: somebody2@gmail.com
+    From: somebody1@gmail.com
+    Greetings from Python... :)
+    """)
+server.quit()
+
+# file path: /python/module/BuiltIn/web
+import urllib2
+
+result = urllib2.urlopen("http://www.baidu.com/")
+for line in result:
+    print line
+
+# file path: /python/oo
+import copy
+
+# copy class
+class A:
+    pass
+
+a=A()
+a.x=12
+b=copy.copy(a)
+b.x                                                     # 12
+a.x=24
+b.x                                                     # 12
+
+
+# copy list
+new_list = old_list[:]                                  # shallow copy
+new_list = copy.deepcopy(old_list)                      # deep copy
+
+# copy tuple
+new_tuple = old_tuple[:]                                # shallow copy
+new_tuple = copy.deepcopy(old_tuple)                    # deep copy
+
+
+# file path: /python/oo
+# case-insensitive dictionary, adding new method to a dict
+class CIDict(dict):
+    def __setitem__ (self, key, value):
+        if type(key) == str:
+            key = key.lower()
+        dict.__setitem__(self, key, value)
+    def __getitem__ (self, key):
+        if type(key) == str:
+            key = key.lower()
+        return dict.__getitem__(self, key)
+
+c = CIDict()
+c["Apple"]=88
+c["ORangE"]=99
+c                                                                           # {'orange': 99, 'apple': 88}
+
+
+# Emulating a function
+class MyFunc(object):
+    def __call__(self, a, b):
+        return a/b
+
+divide = MyFunc()
+divide(6, 2)
+
+# Overriding operators
+class Severity(object):
+    def __init__ (self, level, text):
+        self.level = int(level)
+        self.text = text
+    def __str__ (self):
+        return self.text
+    def __repr__ (self):
+        return "<Severity level=%d text=%s>" % (self.level, self.text)
+    def __cmp__ (self, other):
+        try:
+            return cmp(self.level, other.level)
+        except AttributeError:
+            return
+
+s1=Severity(5, "debug")
+s2=Severity(6, "emerg")
+s1 < s2                                                                     # True
+
+
+# Properties are look like as simple attributes from the outside, but actually a method is called when the attribute's value is changed or read
+# we define setter / getter functions for properties red & hex
+class Color(object):
+    def __init__ (self, red, green, blue):
+        self.color = [red, green, blue]
+    def as_hex(self):
+        return "#%02X%02X%02X" % tuple(self.color)
+    def get_red(self):
+        return self.color[0]
+    def set_red(self, value):
+        self.color[0] = value
+    red = property(get_red, set_red)
+    hex = property(as_hex)
+
+mycolor=Color(10, 20, 30)
+mycolor.hex
+mycolor.red
+
+# file path: /python/oo
+class Parent:
+    parentAttr = 100
+    def __init__(self):
+        print "Calling parent constructor"
+    def parentMethod(self):
+        print 'Calling parent method'
+    def setAttr(self, attr):
+        Parent.parentAttr = attr
+    def getAttr(self):
+        print "Parent attribute :", Parent.parentAttr
+    def myMethod(self):
+        print 'Calling parent method'
+
+class Child(Parent):
+    def __init__(self):
+        Parent.__init__(self)
+        print "Calling child constructor"
+    def childMethod(self):
+        print 'Calling child method'
+    def myMethod(self):                                     # override parent method
+        print 'Calling child method'
+
+p = Parent()
+c = Child()                                                 # instance of child
+c.childMethod()                                             # child calls its method
+c.parentMethod()                                            # calls parent's method
+c.setAttr(200)                                              # again call parent's method
+c.getAttr()                                                 # again call parent's method
+
+print issubclass(Child, Parent)
+print isinstance(c, Child)
+
+
+# file path: /python/oo
+class Employee:
+    'Common base class for all employees'                               # access via Employee.__doc__
+    empCount = 0                                                        # class level variable
+    def __init__(self, name, salary=0):
+        self.name = name                                                # class instance variable
+        self.salary = salary
+        self.__secretCount = 0                                          # not visible outside the class definition
+        Employee.empCount += 1
+    def __del__(self):                                                  # destructor
+        class_name = self.__class__.__name__
+        print class_name, "destroyed"
+    def display_employee(self):
+        print "Name : ", self.name,  ", Salary: ", self.salary
+    def count(self):
+        Employee.__secretCount += 1
+        print Employee.__secretCount
+    @staticmethod
+    def display_count():
+        print "Total Employee %d" % Employee.empCount
+    @classmethod
+    def display_count(klass):
+        print "Total Employee %d" % klass.empCount
+
+
+
+emp1 = Employee("Zara", 2000)
+emp1.display_employee()
+print "Total Employee %d" % Employee.empCount
+print emp1._Employee__secretCount                                       # access such attributes as object._className__attrName
+
+
+# Built-In Class Attributes
+print Employee.__doc__                                                  # Common base class for all employees
+print Employee.__name__                                                 # Employee
+print Employee.__module__                                               # __main__
+print Employee.__bases__                                                # ()
+print Employee.__dict__                                                 # {'__module__': '__main__', 'display_count': <function display_count at 0x8eb19cc>, 'empCount': 1, 'display_employee': <function display_employee at 0x8eb1a04>, '__doc__': 'Common base class for all employees', '__init__': <function __init__ at 0x8eb1994>}
+
+
+# file path: /python/oo
+# used to get the object's attributes and methods
+dir(emp1)                                                               # ['_Employee__secretCount', '__del__', '__doc__', '__init__', '__module__', 'count', 'display_count', 'display_employee', 'empCount', 'name', 'salary']
+
+# attribute of class
+hasattr(emp1, 'age')                                                    # Returns true if 'age' attribute exists
+getattr(emp1, 'age')                                                    # Returns value of 'age' attribute
+setattr(emp1, 'age', 8)                                                 # Set attribute 'age' at 8
+delattr(empl, 'age')                                                    # Delete attribute 'age'
+
+class CommandRunner(object):
+    def list_commands(self):
+        ret = []
+        for attrname in dir(self):
+            if attrname.startswith("cmd_"):
+                ret.append(attrname[4:])
+        return ret
+    def run_command(self, cmd):
+        method = getattr(self, "cmd_"+cmd, None)
+        if callable(method):
+            method()
+        else:
+            print "No such command: %s" % cmd
+
+class MyApp(CommandRunner):
+    def cmd_install(self):
+        print "Install command"
+    def cmd_uninstall(self):
+        print "Uninstall command"
+
+app = MyApp()
+print app.list_commands()
+app.run_command("install")
+app.run_command("xinstall")
+
+
+# file path: /python/structure
+#!/usr/bin/python
+
+list = [ 'abcd', 786 , 2.23, 'john', 70.2 ]
+tinylist = [123, 'john']
+
+print list                                                          # Prints complete list
+print list[0]                                                       # Prints first element of the list
+print list[1:3]                                                     # Prints elements starting from 2nd till 3rd
+print list[2:]                                                      # Prints elements starting from 3rd element
+print tinylist * 2                                                  # Prints list two times
+print list + tinylist                                               # Prints concatenated lists
+
+
+[1, 2, 3] + [4, 5, 6]                                               # [1, 2, 3, 4, 5, 6]
+['Hi!'] * 4                                                         # ['Hi!', 'Hi!', 'Hi!', 'Hi!']
+3 in [1, 2, 3]                                                      # True
+
+# built-in
+len([1, 2, 3])                                                      # 3
+cmp([123, 'xyz'], [456, 'abc'])                                     # -1
+max([456, 700, 200])                                                # 700
+min([456, 700, 200])                                                # 200
+list((123, 'xyz', 'zara', 'abc'))                                   # [123, 'xyz', 'zara', 'abc']
+[123, 'xyz'].append( 2009 )                                         # [123, 'xyz', 2009]
+[123, 'xyz'].count( 123 )                                           # 1
+[123, 'xyz'].extend( [2009, 'manni'] )                              # [123, 'xyz', 2009, 'manni']
+[123, 'xyz'].index( 'xyz' )                                         # 1
+[123, 'xyz'].insert( 1, 2009 )                                      # [123, 2009, 'xyz']
+[123, 'xyz'].pop()                                                  # [123] and return 'xyz'
+[123, 'xyz'].remove( 123 )                                          # ['xyz']
+[123, 'xyz'].reverse()                                              # ['xyz', 123]
+[123, 'xyz'].sort()                                                 # ['xyz', 123]
+
+# Iteration
+for x in [1, 2, 3]:
+    print x
+for i, val in enumerate([1, 2, 3]):
+    print i, val
+
+# file path: /python/structure
+# using list as queue
+queue = ['Eric', 'John', 'Michael']
+queue.append('Terry')                       # Terry arrives
+queue.append('Graham')                      # Graham arrives
+queue.pop(0)                                # 'Eric', ['John', 'Michael', 'Terry', 'Graham']
+queue.pop(0)                                # 'John', ['Michael', 'Terry', 'Graham']
+
+# file path: /python/structure
+# slicing, tuple, list, and string objects can be sliced
+# [n] means the n indexed element
+# [:n] means the first n elements
+# [n:] means the last elements from index n (inclusive)
+# [n:m] means a range from index n (inclusive) to m (exclusive) element
+# [:] means a copy of the object
+# m and n can be negative: counted back from the end (-1 means the last element)
+
+
+
+a=["A", "B", "C", "D", "E", "F"]
+a[-1]                                                       # 'F'
+a[1:4]                                                      # ['B', 'C', 'D']
+a[1:-1]                                                     # ['B', 'C', 'D', 'E']
+a[:-3]                                                      # ['A', 'B', 'C']
+text = "Hello Hi World"
+text[:5]+text[8:]                                           # 'Hello World'
+
+
+# functions
+map(round, [5.5, 6.2, 7.9, 11.123])                         # [6.0, 6.0, 8.0, 11.0]
+map(str, [6, 7, 8])                                         # ['6', '7', '8']
+filter(None, [1, 2, 2, 3, 0, 0, 1, 2])                      # [1, 2, 2, 3, 1, 2]
+filter(lambda x: x % 2 == 0, [1, 2, 2, 3, 0, 0, 1, 2])      # [2, 2, 0, 0, 2]
+
+
+# comprehension
+names = ["george", "kevin", "bob"]
+result = [name.capitalize() for name in names]              # ['George', 'Kevin', 'Bob']
+data = [1,2,3,5,6,7,44,55,66]
+filtered = [x*2 for x in data if x>6]                       # [14, 88, 110, 132]
+[y+44 for y in [x*2 for x in data if x>6] if y<100]         # [58, 132]
+
+
+# file path: /python/structure
+a=set((1,2,3,4,5))                                  # set([1, 2, 3, 4, 5])
+a.add(1)                                            # set([1, 2, 3, 4, 5])
+b=set((3,4,5,6,7))                                  # set([3, 4, 5, 6, 7])
+1 in a                                              # True
+a.intersection(b)                                   # set([3, 4, 5])
+a - b                                               # set([1, 2])
+list(a - b)                                         # [1, 2]
+(a - b).issubset(a)                                 # True
+
+
+# file path: /python/structure
+# using list as stack
+stack = [3, 4, 5]
+stack.append(6)
+stack.append(7)
+stack.pop()                                                         # 7, [3, 4, 5, 6]
+stack.pop()                                                         # 6, [3, 4, 5]
+
+# file path: /python/structure
+#!/usr/bin/python
+
+# string
+str1 = 'Hello World!'
+print str1                                                      # Prints complete string
+print str1[0]                                                   # Prints first character of the string
+print str1[2:5]                                                 # Prints characters starting from 3rd to 5th
+print str1[2:]                                                  # Prints string starting from 3rd character
+print str1 * 2                                                  # Prints string two times
+print str1 + "TEST"                                             # Prints concatenated string
+print 'H' in str1
+
+# raw string
+print 'C:\\nowhere'
+print r'C:\\nowhere'
+
+# Unicode string
+print u'Hello, world!'
+
+# formatting
+print "%s  %d" % ('Zara', 21)
+fields = {"firstname": "John", "surname": "Smith"}
+"Your are %(firstname)s %(surname)s" % fields
+
+# built-in
+print len('hello, world!')                                      # 13
+print max('hello, world!')                                      # 'w'
+print min('hello, world!')                                      # ' '
+print 'hello, world!'.count('ll')                               # 1
+
+print 'hello, world!'.find('ll')                                # 2
+print 'hello, world!'.index('ll')                               # 2 raises an exception if no such index exists
+print 'hello, world!'.rfind('o')                                # 8
+print 'hello, world!'.rindex('o')                               # 8 raises an exception if no such index exists
+
+print 'hello, world!'.center(20, '-')                           # '---hello, world!----'
+print 'hello, world!'.zfill(20)                                 # '0000000hello, world!'
+print 'hello, \tworld!'.expandtabs(4)                           # 'hello,  world!'
+print 'hello, WORLD!'.swapcase()                                # 'HELLO, world!'
+print ' hello, world! '.rjust(20, '-')                          # '----- hello, world!'
+print ' hello, world! '.ljust(20, '-')                          # ' hello, world! -----'
+print '88example88'.strip('8')                                  # 'example'
+print '88example88'.rstrip('8')                                 # '88example'
+print '88example88'.lstrip('8')                                 # 'example88'
+
+print '-'.join(("a", "b", "c"))                                 # 'a-b-c'
+print 'hello, world!'.replace("hello", "HELLO")                 # 'HELLO, world!'
+print 'hello, \nworld!'.split()                                 # ['hello,', 'world!']
+print 'hello, \nworld!'.split(" ")                              # ['hello,', '\nworld!']
+print 'hello, \nworld!'.splitlines()                            # ['hello, ', 'world!']
+
+print 'hello, world!'.decode(encoding='UTF-8',errors='strict')  # decodes the string using the codec registered for encoding
+print 'hello, world!'.encode(encoding='UTF-8',errors='strict')  # an encoded version of the string
+
+print 'ABC'.lower()
+print 'hello, world!'.islower()
+print 'abc'.upper()
+print 'ABC'.isupper()
+
+print 'hello, world!'.isalnum()                                 # False
+print 'helloworld'.isalpha()                                    # True
+print '42'.isdigit()                                            # True
+print u'42'.isdecimal()                                         # True
+print u'42.0'.isnumeric()                                       # False
+print '   '.isspace()                                           # True
+print 'This Is Title'.istitle()                                 # True
+print 'hello, world!'.endswith('!')                             # True
+print 'hello, world!'.startswith("hello")                       # True
+
+print 'hello, world!'.capitalize()                              # 'Hello, world!'
+print 'hello, world!'.title()                                   # 'Hello, World!'
+
+
+# file path: /python/structure
+#!/usr/bin/python
+
+tuple = ( 'abcd', 786 , 2.23, 'john', 70.2  )
+tinytuple = (123, 'john')
+
+print tuple                                                                     # Prints complete tuple
+print tuple[0]                                                                  # Prints first element of the tuple
+print tuple[1:3]                                                                # Prints elements starting from 2nd till 3rd
+print tuple[2:]                                                                 # Prints elements starting from 3rd element
+print tinytuple * 2                                                             # Prints tuple two times
+print tuple + tinytuple                                                         # Prints concatenated tuple
+
+print len(tuple)                                                                # 5
+786 in tuple                                                                    # True
+print cmp((123, 'xyz'), (456, 'abc'))                                           # -1
+max((456, 700, 200))                                                            # 700
+min((456, 700, 200))                                                            # 200
+aList = (123, 'xyz', 'zara', 'abc');
+tuple((456, 700, 200))
+for x in (1, 2, 3):
+    print x
+
+# file path: /python/structure/dict
+from collections import Counter
+
+c = Counter("An apple a day keeps the doctor")
+c.update(" away")
+
+print c["w"]                                                # 1
+print c["a"]                                                # 5
+print c.most_common(3)                                      # [(' ', 7), ('a', 5), ('e', 4)]
+c.most_common()                                             # [(' ', 7), ('a', 5), ('e', 4), ('p', 3), ('d', 2), ('o', 2), ('y', 2), ('t', 2), ('A', 1), ('c', 1), ('h', 1), ('k', 1), ('l', 1), ('n', 1), ('s', 1), ('r', 1), ('w', 1)]
+
+
+# other type
+Counter(['a', 'b', 'c', 'a', 'b', 'b'])                     # Counter({'b': 3, 'a': 2, 'c': 1})
+Counter({'a':2, 'b':3, 'c':1})                              # Counter({'b': 3, 'a': 2, 'c': 1})
+Counter(a=2, b=3, c=1)                                      # Counter({'b': 3, 'a': 2, 'c': 1})
+
+
+# example of word
+cnt = Counter()
+for word in ['red', 'blue', 'red', 'green', 'blue', 'blue']:
+    cnt[word] += 1
+cnt                                                         # Counter({'blue': 3, 'red': 2, 'green': 1})
+
+# file path: /python/structure/dict
+from collections import defaultdict
+
+counter = defaultdict(int)
+
+for letter in "An apple a day keeps the doctor away":
+    counter[letter] += 1
+
+print counter
+# defaultdict(<type 'int'>, {'A': 1, ' ': 7, 'c': 1, 'e': 4, 'd': 2, 'h': 1, 'k': 1, 'l': 1, 'o': 2, 'n': 1, 'p': 3, 's': 1, 'r': 1, 'a': 5, 'w': 1, 'y': 2, 't': 2})
+
+# file path: /python/structure/dict
+#!/usr/bin/python
+from itertools import izip
+
+dict = {}
+dict['one'] = 'This is one'
+dict[2]     = 'This is two'
+tinydict = {'name': 'john','code':6734, 'dept': 'sales'}
+print dict['one']                                                           # Prints value for 'one' key
+print dict[2]                                                               # Prints value for 2 key
+print tinydict                                                              # Prints complete dictionary
+
+
+print cmp({'Name': 'Zara', 'Age': 7}, {'Name': 'Mahnaz', 'Age': 27})        # -1
+print len ({'Name': 'Zara', 'Age': 7})                                      # 2
+print str ({'Name': 'Zara', 'Age': 7})                                      # '{'Age': 7, 'Name': 'Zara'}'
+print type ({'Name': 'Zara', 'Age': 7})                                     # <type 'dict'>
+
+
+dict.update(tinydict)
+dict.setdefault('Age', None)                                                # if has key 'Age', set it to None
+print dict.items()                                                          # [(2, 'This is two'), ('one', 'This is one')]
+dict.has_key('No Exist')                                                    # False
+dict.get('No Exist', 'Never')                                               # 'Never'
+dict = dict.fromkeys(('name', 'age', 'sex'), 10)                            # {'age': 10, 'name': 10, 'sex': 10}
+dict2 = dict.copy()                                                         # shallow copy
+print tinydict.keys()                                                       # ['dept', 'code', 'name']
+print tinydict.values()                                                     # ['sales', 6734, 'john']
+del dict['one']                                                             # remove entry with key 'one'
+dict.clear()                                                                # remove all entries in dict
+
+# Convert a list to a dictionary in Python
+a = ['hello','world','1','2']
+i = iter(a)
+b = dict(izip(i, i))                                                        # {'1': '2', 'hello': 'world'}
+
+# iterate
+prices={"Orange": 110, "Apple": 240}
+for key, value in prices.iteritems():
+    print key, value
+
+
+# file path: /python/structure/dict
+from collections import OrderedDict
+
+mydict = OrderedDict()
+mydict["first"] = 33
+mydict["second"] = 87
+mydict["third"] = 99
+mydict["fourth"] = 1010
+
+for key, value in mydict.iteritems():
+    print key, value
+
+key, value = mydict.popitem()               # last item ('fourth', 1010), OrderedDict([('first', 33), ('second', 87), ('third', 99)])
