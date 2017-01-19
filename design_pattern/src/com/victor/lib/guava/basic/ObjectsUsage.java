@@ -1,13 +1,14 @@
 package com.victor.lib.guava.basic;
 
 import com.google.common.base.Objects;
+import com.google.common.collect.ComparisonChain;
 
 /**
  * demo for object hash code equals
  */
 public class ObjectsUsage {
 
-    static class Student {
+    static class Student implements Comparable<Student> {
         private String firstName;
         private String lastName;
         private int rollNo;
@@ -26,11 +27,7 @@ public class ObjectsUsage {
                 return false;
             }
             Student student = (Student)object;
-            // no need to handle null here
-            // Objects.equal("test", "test") == true
-            // Objects.equal("test", null) == false
-            // Objects.equal(null, "test") == false
-            // Objects.equal(null, null) == true
+
             return Objects.equal(firstName, student.firstName) // first name can be null
                     && Objects.equal(lastName, student.lastName) // last name can be null
                     && Objects.equal(rollNo, student.rollNo)
@@ -65,6 +62,16 @@ public class ObjectsUsage {
         }
         public void setClassName(String className) {
             this.className = className;
+        }
+
+        @Override
+        public int compareTo(Student o) {
+            return ComparisonChain.start()
+                    .compare(o.firstName, firstName)
+                    .compare(o.lastName, lastName)
+                    .compare(o.rollNo, rollNo)
+                    .compare(o.className, className)
+                    .result();
         }
     }
 

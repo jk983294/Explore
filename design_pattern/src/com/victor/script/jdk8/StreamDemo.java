@@ -1,7 +1,10 @@
 package com.victor.script.jdk8;
 
+import com.victor.utilities.visual.VisualAssist;
+
 import java.util.*;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 /**
  * stream demo
@@ -39,6 +42,12 @@ public class StreamDemo {
                 .sorted()
                 .filter((s) -> s.startsWith("a"))
                 .forEach(System.out::println);
+    }
+
+    public static void collect(){
+        List<String> list = stringCollection.stream().filter(s -> s.startsWith("a"))
+                .collect(Collectors.toList());
+        VisualAssist.print(list);
     }
 
     public static void map(){
@@ -148,6 +157,7 @@ public class StreamDemo {
         reduce();
         match();
         count();
+        collect();
 
         parallelStreams();
         mapEnhancement();
