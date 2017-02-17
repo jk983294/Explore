@@ -6,456 +6,603 @@
  * http://download.csdn.net/detail/u010908140/9656314
  */
 
-# file path: /python/module/numpy/basic.py
-from numpy import *
-
-# main object is the homogeneous multidimensional array
-# element (usually number) is indexed by a tuple of positive integers
-# the number of axes is rank
-
-a = arange(15).reshape(3, 5)                                        # [[ 0,  1,  2,  3,  4], [ 5,  6,  7,  8,  9], [10, 11, 12, 13, 14]]
-a.shape                                                             # (3, 5)
-a.ndim                                                              # 2
-a.dtype.name                                                        # int32
-a.itemsize                                                          # 4, the size in bytes of each element of the array, sizeof(int32)
-a.size                                                              # 15
-type(a)                                                             # numpy.ndarray
-
-# print array
-print a
-print arange(10000).reshape(100,100)                                # automatically skips the central part of the array if too large
-
-# file path: /python/module/numpy/builtin.py
-from numpy import *
-from numpy.random import *
-from numpy.linalg import inv
-
-# Arithmetic operators on arrays apply element-wise. A new array is created and filled with the result.
-a = array( [20,30,40,50] )                          # [20, 30, 40, 50]
-b = arange( 4 )                                     # [0, 1, 2, 3]
-c = a-b                                             # [20, 29, 38, 47]
-b**2                                                # [0, 1, 4, 9]
-
-
-# matrix operation
-A = array( [[1,1], [0,1]] )
-B = array( [[2,0], [3,4]] )
-A*B                                                 # element-wise product, [[2, 0], [0, 4]]
-dot(A,B)                                            # matrix product, [[5, 4], [3, 4]]
-inv(A)                                              # inverse matrix, [[ 1., -1.], [ 0.,  1.]]
-B.transpose()                                       # [[2, 3], [0, 4]]
-B.diagonal()                                        # [2, 4]
-B.trace()                                           # 6, sigma (B.diagonal())
-
-# in-place operator, modify an existing array rather than create a new one
-a = ones((1,2), dtype=int)                          # [[1, 1]]
-b = random((1,2))                                   # [[ 0.4238594 ,  0.57967898]]
-a *= 3                                              # [[3, 3]]
-b += a                                              # [[ 3.4238594 ,  3.57967898]]
-
-# by default, these operations apply to the array as though it were a list of numbers, regardless of its shape
-# by specifying the axis parameter you can apply an operation along the specified axis
-a = array( [[1,2], [3,4]] )
-b = arange(3)                                       # [ 0, 1, 2 ]
-c = array([2., -1., 4.])
-d = array([[1,2,3],[4,5,6],[7,8,9]])
-w = array([0.1, 0.2, 0.5])
-T = array([1.3, 4.5, 2.8, 3.9])
-P = array([2.7, 8.7, 4.7, 8.2])
-rho = array([8.5, 5.2, 6.9, 6.5])
-booleans = array([True, False, True])
-a.sum()                                             # 10
-a.min()                                             # 1
-a.max()                                             # 4
-a.mean()                                            # 2.5
-a.std()                                             # 1.1180339887498949, normalized by N (not N-1)
-a.var()                                             # 1.25, normalised with N (not N-1)
-a.prod()                                            # 24
-a.sum(axis=0)                                       # [4, 6]
-a.min(axis=0)                                       # [1, 2]
-a.max(axis=0)                                       # [3, 4]
-a.mean(axis=0)                                      # [ 2.,  3.]
-a.std(axis=0)                                       # [ 1.,  1.]
-a.var(axis=0)                                       # [ 1.,  1.]
-a.prod(axis=0)                                      # [3, 8]
-
-# universal functions, these functions operate element-wise on an array, producing an array as output
-exp(b)                                              # [ 1.        ,  2.71828183,  7.3890561 ]
-sqrt(b)                                             # [ 0.        ,  1.        ,  1.41421356]
-add(b, c)                                           # [ 2.,  0.,  6.]
-inner(b, c)                                         # 7.0, sigma ( b[i] * c[i] )
-outer(b, c)                                         # [[ 0., -0.,  0.], [ 2., -1.,  4.], [ 4., -2.,  8.]]
-cumprod(c)                                          # cumulative product, [ 2., -2., -8.]
-cumsum(c)                                           # cumulative sum, [ 2.,  1.,  5.]
-diff(c)                                             # 1st-order differences, [-3.,  5.]
-diff(c,n=2)                                         # 2st-order differences, diff(diff(c)), [ 8.]
-cross(b,c)                                          # vector cross-product, [ 6.,  4., -2.]
-apply_along_axis(lambda x: (x[0]+x[-1])/2,0,d)      # apply to each column (axis=0) of d, [4, 5, 6]
-apply_along_axis(lambda x: (x[0]+x[-1])/2,1,d)      # apply to each row (axis=1) of d, [2, 5, 8]
-
-maximum(b,c)                                        # element-by-element comparison, [ 2.,  1.,  4.]
-minimum(b,c)                                        # element-by-element comparison, [ 0., -1.,  2.]
-median(array([1,2,3,4,9]))                          # 3.0
-median(array([1,2,3,4,9,0]))                        # 2.5
-average(c)                                          # 1.6666666666666667
-average(c,weights=w)                                # weighted average, 2.5
-bincount(b)                                         # [1, 1, 1], 0 occur 1 times, 1 occur 1 times, 2 occur 1 times
-bincount(b, weights=w)                              # weighted occurrence, [ 0.1,  0.2,  0.5]
-ceil(w)                                             # nearest integers >= w, [ 1.,  1.,  1.]
-floor(w)                                            # nearest integers <= w, [ 0.,  0.,  0.]
-w.round()                                           # [ 0.,  0.,  0.]
-round_(w)
-around(w)
-w.round(decimals=1)                                 # [ 0.1,  0.2,  0.5]
-c.clip(min=1.0,max=3.0)                             # [ 2.,  1.,  3.]
-clip(c,1.0,3.0)                                     # [ 2.,  1.,  3.]
-
-corrcoef([T,P])                                     # correlation matrix [[ 1. ,  0.98062258], [ 0.98062258,  1. ]]
-cov(T)                                              # 1.9758333333333333, variance, normalized by N-1
-cov(T, bias=1)                                      # 1.481875, variance, normalized by N
-cov(T,P)                                            # covariance, [[ 1.97583333,  3.95416667], [ 3.95416667,  8.22916667]]
-
-booleans.all()                                      # False
-all(booleans)                                       # False
-all(b > 0)                                          # False
-alltrue(booleans)                                   # False
-sometrue(booleans)                                  # True
-alltrue(b > 0)                                      # False
-booleans.any()                                      # True
-any(booleans)                                       # True
-(b >= 1).any()                                      # True
-
-# index based operation
-indices = b.nonzero()                               # find the indices of the nonzero elements, [1, 2]
-b[indices]                                          # get those nonzero elements, [1, 2]
-
-
-
-
-# file path: /python/module/numpy/copy.py
-from numpy import *
-
-# simple assignments make no copy of array objects or of their data.
-a = arange(12)
-b = a                                           # no new object is created
-b is a                                          # a and b are two names for the same ndarray object
-
-# view or Shallow Copy
-# view method creates a new array object that looks at the same data.
-# slicing an array returns a view of it
-c = a.view()
-c is a                                          # False
-c.base is a                                     # True, c is a view of the data owned by a
-c.flags.owndata                                 # False
-c.shape = 2,6                                   # a's shape doesn't change
-c[0,4] = 1234                                   # a's data changes
-
-# Deep Copy
-d = a.copy()                                    # a new array object with new data is created
-d is a                                          # False
-d.base is a                                     # False, d doesn't share anything with a
-d[0] = 9999                                     # a's data won't change
-
-# file path: /python/module/numpy/creation.py
-from numpy import *
-from numpy.random import *
-
-# merge
-vstack([[1, 2],[3, 4],[5, 6]])                                      # [[1, 2], [3, 4], [5, 6]]
-hstack([[1, 2],[3, 4],[5, 6]])                                      # [1, 2, 3, 4, 5, 6]
-concatenate(([[1,2],[3,4]],[[5,6],[7,8]]))                          # [[1, 2], [3, 4], [5, 6], [7, 8]]
-concatenate(([[1,2],[3,4]],[[5,6],[7,8]]),axis=1)                   # [[1, 2, 5, 6], [3, 4, 7, 8]]
-# column_stack stacks 1D arrays as columns into a 2D array. It is equivalent to vstack only for 1D arrays
-column_stack([[1, 2],[3, 4],[5, 6]])                                # [[1, 3, 5], [2, 4, 6]]
-row_stack([[1, 2],[3, 4],[5, 6]])                                   # [[1, 2], [3, 4], [5, 6]]
-# r_[] and c_[] are useful for creating arrays by stacking numbers along one axis. they allow the use of range literals (":")
-r_[1:5]                                                             # same as arange(1,5), [1, 2, 3, 4]
-r_[1:10:4]                                                          # same as arange(1,10,4), [1, 5, 9]
-r_[1:10:4j]                                                         # same as linspace(1,10,4), [ 1., 4., 7., 10.]
-r_[1:5,7,1:10:4]                                                    # [1, 2, 3, 4, 7, 1, 5, 9]
-r_['r', 1:3]                                                        # return a matrix. [[1, 2]]
-r_['c',1:3]                                                         # return a matrix. [[1], [2]]
-r_[[[1,2],[4,5]],[[1,2],[4,5]]]                                     # concatenation along row, [1, 2], [4, 5], [1, 2], [4, 5]]
-r_['-1',[[1,2],[4,5]],[[1,2],[4,5]]]                                # concatenation along column, [[1, 2, 1, 2], [4, 5, 4, 5]]
-c_[1:5]                                                             # [1, 2, 3, 4]
-c_[1:5,2:6]                                                         # [[1, 2], [2, 3], [3, 4], [4, 5]]
-
-# split
-a = array([[3, 4, 5], [6, 7, 8]])
-hsplit(a,3)                                                         # [[3], [6]], [[4], [7]], [[5], [8]]
-hsplit(a,[1,2])                                                     # split along with column 1 and 2, [[3], [6]], [[4], [7]], [[5], [8]]
-b = array([[3, 4], [5, 6], [7, 8]])
-vsplit(b,3)                                                         # [[3, 4]], [[5, 6]], [[7, 8]]
-vsplit(b,[1,2])                                                     # split along with row 1 and 2, [[3, 4]], [[5, 6]], [[7, 8]]
-array_split(a,2,axis=0)                                             # split a in 2 parts. row-wise
-array_split(a,3,axis=1)                                             # split a in 4 parts, column-wise
-array_split(a,[1,2],axis=1)                                         # make a split before the 1st and the 2nd column
-
-# Array Creation
-b = array([1.2, 3.5, 5.1])
-b = array([[3, 4, 5], [6, 7, 8]])
-b = array( [ (1.5,2,3), (4,5,6) ] )
-c = array( [ [1,2], [3,4] ], dtype=complex )                        # [[ 1.+0.j,  2.+0.j], [ 3.+0.j,  4.+0.j]]
-
-zeros( (1,2) )                                                      # zeros creates an array full of zeros
-zeros_like(b)                                                       # with zeros initialised array with the same shape and datatype as b
-ones( (1,2,3), dtype=int16 )                                        # ones creates an array full of ones
-ones_like(b)                                                        # ones initialised array with the same shape and datatype as b
-empty( (1,2) )                                                      # empty creates an array whose initial content is random
-empty_like(b)                                                       # uninitialized array with the same shape and datatype as b
-eye(1,2,0,dtype=float)                                              # [[ 1.,  0.]]
-eye(1,2,1,dtype=float)                                              # [[ 0.,  1.]]
-identity(2,float)                                                   # [[ 1.,  0.], [ 0.,  1.]]
-
-arange(6)                                                           # [0, 1, 2, 3, 4, 5]
-arange(6).reshape(1,2,3)                                            # [[[0, 1, 2], [3, 4, 5]]]
-arange( 10, 30, 5 )                                                 # start, end, step, [10, 15, 20, 25]
-arange( 0, 2, 0.3 )                                                 # [ 0. ,  0.3,  0.6,  0.9,  1.2,  1.5,  1.8]
-
-linspace( 0, 2, 5 )                                                 # start, end, count, [ 0. ,  0.5,  1. ,  1.5,  2. ]
-x = linspace( 0, 2*pi, 100 )                                        # useful to evaluate function at lots of points
-f = sin(x)
-
-fromfunction(lambda i, j: i**2 + j**2, (2,2))                       # evaluate functiom, [[ 0.,  1.], [ 1.,  2.]]
-
-y = array([2.,4.,6.,8.])
-y.tofile("myfile.dat")                                              # binary format
-fromfile('myfile.dat', dtype=float)                                 # array([ 2., 4., 6., 8.])
-
-y.tofile("myfile.txt", sep='\n', format = "%e")                     # ascii format, one column, exponential notation
-fromfile('myfile.txt', dtype=float, sep='\n')
-
-rand(2,1)                                                           # uniform distribution, [[ 0.83604898], [ 0.79689486]]
-randn(2,1)                                                          # standard normal distribution, [[ 0.29441506], [-0.49656679]]
-random_integers(-5,5,(2,2))                                         # [[ 2, -5], [ 2,  4]]
-random_sample((2, 2))                                               # range [0.0, 1.0)
-
-
-# file path: /python/module/numpy/function.py
-from numpy import *
-
-def my_func(x):
-    if x >= 0: return x**2
-    else: return -x
-
-my_func(2.)                                         # 4.0
-vec_func = vectorize(my_func, otypes=[float])       # declare the return type as float
-vec_func(array([-2,2]))                             # [ 2.,  4.]
-
-# file path: /python/module/numpy/iteration.py
-from numpy import *
-
-a = arange(10)**3                   # [  0,   1,   8,  27,  64, 125, 216, 343, 512, 729]
-b = fromfunction(lambda x, y : 10 * x + y,(5,4),dtype=int)
-
-# iterating 1-d array
-for i in a:
-    print i**(1/3.),
-
-# xrange is faster than range, xrange is a sequence object that evaluates lazily
-for i in xrange(0, 20):
-    print i,
-
-for i in range(0, 20):
-    print i,
-
-# iterating over multidimensional arrays
-for row in b:
-    print row
-
-# iterating over multidimensional arrays and perform an operation on each element
-for element in b.flat:
-    print element,
-
-# index & slice
-a[2]                                # 8
-a[[1, 2, 3]]                        # [ 1,  8, 27]
-idx = array( [ [1, 2], [2, 3] ] )   # a bidimensional array of indices
-a[idx]                              # the same shape as idx, [[ 1,  8], [ 8, 27]]
-a[2:5]                              # [ 8, 27, 64]
-a[:6:2] = -1000                     # [-1000,     1, -1000,    27, -1000,   125,   216,   343,   512,   729], equivalent to a[0:6:2] = -1000; from start to position 6, exclusive, set every 2nd element to -1000
-b[2,3]
-b[0:5, 1]                           # second column of b
-b[ : ,1]                            # second column of b
-b[1:3, : ]                          # second and third row of b
-b[-1]                               # the last row. Equivalent to b[-1,:]
-i = array( [ [0,1],  [1,2] ] )      # indices for the first dim of a
-j = array( [ [2,1], [3,3] ] )       # indices for the second dim of a
-b[i,j]
-
-# ... represent as many colons as needed to produce a complete indexing tuple
-# if x is a rank 5 array (i.e., it has 5 axes), then
-# x[1,2,...] = x[1,2,:,:,:]
-# x[...,3] = x[:,:,:,:,3]
-# x[4,...,5,:] = x[4,:,:,5,:]
-
-
-# reverse
-a[ : :-1]                           # [  729,   512,   343,   216,   125, -1000,    27, -1000,     1, -1000]
-
-
-
-# file path: /python/module/numpy/LinearAlgebra.py
-from numpy import *
-from numpy.linalg import *
-
-a = array([[1.0, 2.0], [3.0, 4.0]])
-j = array([[0.0, -1.0], [1.0, 0.0]])
-y = array([[5.], [7.]])
-a.transpose()                               # [[ 1.,  3.],  [ 2.,  4.]]
-inv(a)                                      # [[-2. ,  1. ], [ 1.5, -0.5]]
-u = eye(2)                                  # unit 2x2 matrix; [[ 1.,  0.], [ 0.,  1.]]
-dot (j, j)                                  # matrix product, [[-1.,  0.], [ 0., -1.]]
-trace(u)                                    # trace, 2.0
-solve(a, y)                                 # [[-3.], [ 4.]]
-eig(j)                                      # eigenvalues
-
-# matrix class
-M = mat(arange(12).reshape([3, 4]).copy())
-M[:,1]                                      # [[1], [5], [9]])
-A = matrix('1.0 2.0; 3.0 4.0')              # [[ 1.  2.] [ 3.  4.]]
-type(A)                                     # file where class is defined, 'numpy.matrixlib.defmatrix.matrix'
-A.T                                         # transpose, [[ 1.  3.] [ 2.  4.]]
-X = matrix('5.0 7.0')
-Y = X.T                                     # [[5.] [7.]]
-print A*Y                                   # matrix multiplication, [[19.] [43.]]
-print A.I                                   # inverse, [[-2.   1. ] [ 1.5 -0.5]]
-solve(A, Y)                                 # solving linear equation, matrix([[-3.], [ 4.]])
-
-# file path: /python/module/numpy/plot.py
-
-import numpy
-import pylab
-# Build a vector of 10000 normal deviates with variance 0.5^2 and mean 2
-mu, sigma = 2, 0.5
-v = numpy.random.normal(mu,sigma,10000)
-# Plot a normalized histogram with 50 bins
-pylab.hist(v, bins=50, normed=1)       # matplotlib version (plot)
-pylab.show()
-# Compute the histogram with numpy and then plot it
-(n, bins) = numpy.histogram(v, bins=50, normed=True)  # NumPy version (no plot)
-pylab.plot(.5*(bins[1:]+bins[:-1]), n)
-pylab.show()
-
-# file path: /python/module/numpy/shape.py
-
-from numpy import *
-from numpy.random import *
-
-a = floor(10*random((3,4)))             # [[ 2.,  8.,  4.,  2.], [ 6.,  5.,  6.,  3.], [ 1.,  8.,  6.,  6.]]
-a.shape                                 # (3, 4)
-a.ravel()                               # flatten the array
-a.shape = (6, 2)                        # [[ 2.,  8.], [ 4.,  2.], [ 6.,  5.], [ 6.,  3.], [ 1.,  8.], [ 6.,  6.]]
-
-# reshape return a new matrix, while resize change itself
-a.resize((2,6))                         # [[ 7.,  5.,  9.,  3.,  7.,  2.], [ 7.,  8.,  6.,  8.,  3.,  2.]]
-# if a dimension is given as -1 in a reshaping operation, the other dimensions are automatically calculated
-a.reshape(3,-1)                         # [[ 7.,  5.,  9.,  3.], [ 7.,  2.,  7.,  8.], [ 6.,  8.,  3.,  2.]]
-# -1 means "whatever is needed"
-a.shape = 2,-1,3                        # [[[ 7.,  3.,  5.], [ 9.,  5.,  3.]], [[ 9.,  7.,  6.], [ 3.,  5.,  5.]]]
-
-# file path: /python/module/numpy/sort_and_search.py
-from numpy import *
-
-# 1-d array sort
-a = array([2,0,8,4,1])
-ind = a.argsort(kind='merge')                   # options are 'quicksort', 'mergesort' and 'heapsort'
-ind = a.argsort()                               # indices of sorted array using quicksort, [1, 4, 0, 3, 2]
-ind = argsort(a)                                # there is a functional form
-a[ind]                                          # sort result: [0, 1, 2, 4, 8]
-
-# multi-dimension array sort
-a = array([[8,4,1],[2,0,9]])
-ind = a.argsort(axis=0)                         # sorts on columns. [[1, 1, 0], [0, 0, 1]]
-a[ind,[[0,1,2],[0,1,2]]]                        # sort result: [[2, 0, 1], [8, 4, 9]]
-ind = a.argsort(axis=1)                         # sort along rows. [[2, 1, 0], [1, 0, 2]]
-
-# lexsort, sort by height, then width
-serialnr = array([1023, 5202, 6230, 1671, 1682, 5241])
-height = array([40., 42., 60., 60., 98., 40.])
-width = array([50., 20., 70., 60., 15., 30.])
-indices = lexsort(keys = (width, height))       # [5, 0, 1, 3, 2, 4]
-for n in indices:
-    print serialnr[n], height[n], width[n]
-
-# alternatively: all data in one big matrix, sort on last row, then on 2nd last row, etc.
-a = vstack([serialnr,width,height])
-indices = lexsort(a)
-a.take(indices, axis=-1)
-
-# find max min
-b = arange(3)                                       # [ 0, 1, 2 ]
-d = array([[1,2,3],[4,5,6],[7,8,9]])
-b.argmax()                                          # 1
-idx = d.argmax(axis=0)                              # for each column: the row index of the maximum value, [2, 2, 2]
-d[idx, xrange(d.shape[1])]                          # get max value of each column
-idx = d.argmax(axis=1)                              # for each row: the row index of the maximum value, [2, 2, 2]
-d[xrange(d.shape[0]), idx]                          # get max value of each row
-b.argmin()                                          # 0
-idx = d.argmin(axis=0)                              # for each column: the row index of the minimum value, [0, 0, 0]
-d[idx, xrange(d.shape[1])]                          # get min value of each column
-idx = d.argmin(axis=1)                              # for each row: the row index of the minimum value, [0, 0, 0]
-d[xrange(d.shape[0]), idx]                          # get min value of each row
-
-# where
-a = array([3,5,7,9])
-b = array([10,20,30,40])
-c = array([2,4,6,8])
-d = array([[3,5,7,9],[2,4,6,8]])
-where(a <= 6, b, c)                             # [10, 20,  6,  8]
-where(a <= 6, b, -1)                            # [10, 20, -1, -1]
-indices = where(a <= 6)                         # [0, 1]
-b[indices]                                      # [10, 20]
-b[a <= 6]                                       # [10, 20], an alternative syntax
-where(d <= 6)                                   # [0, 0, 1, 1, 1], [0, 1, 0, 1, 2], (row indices, column indices)
-
-
-Stanford Open Office Hours: Dave Evans and Bill Burnett
-
-出门常带三分早
-
-KingPlayer
-
-TED 16岁会20门语言
-摩登家庭/Gossip Girl的语料
-http://www.rosettastone.com/?prid=sharedtalk_com
-听力材料推荐使用ESLPOD，ESLPOD语速适中
-阅读材料推荐简单易懂，词汇量要求低的原版书，如果是畅销书更好，比如Charlotte's web,The Houseon Mango Street, The Seven Habits of Highly Efficient People
-ESL资源下载链接: 百度云 请输入提取密码 密码: ftjy
-Desperate Housewives剧本及笔记: 百度云 请输入提取密码 密码: 5wbk
-美剧以及电影剧本下载：The Internet Movie Script Database (IMSDb)
-把《跟赖世雄学英语》从音标到中级买回来，为了突破发音，从音标一个一个开始重新学，同时用mp3放美国ESL-pod的教程，听音频，放一句，跟读模仿，一篇文章，跟读几个小时，直到模仿的非常标准为止，再按照艾宾浩斯遗忘曲线的表格复习
+# file path: /functions.h
+#ifndef FUNCTIONS_H
+#define FUNCTIONS_H
 
+void print_hello();
+int factorial(int n);
 
+#endif
+
+# file path: /factorial.cpp
+#include "functions.h"
+
+int factorial(int n){
+
+   if(n!=1){
+      return(n * factorial(n-1));
+   }
+   else return 1;
+}
+
+
+# file path: /hello.cpp
+#include <iostream>
+
+using namespace std;
+
+#include "functions.h"
+
+void print_hello(){
+   cout << "Hello World!";
+}
+
+
+# file path: /main.cpp
+#include <iostream>
+
+using namespace std;
+
+#include "functions.h"
+
+int main(){
+   print_hello();
+   cout << endl;
+   cout << "The factorial of 5 is " << factorial(5) << endl;
+   return 0;
+}
+
+
+# file path: /cmd.txt
+trivial way to compile:
+g++  main.cpp hello.cpp factorial.cpp -o hello
+
+Macros
+$@		he name of the file to be made.
+$? 	 the names of the changed dependents.
+$< 	the name of the related file that caused the action.
+$* 	the prefix shared by target and dependent files
+AS	Program for compiling assembly files; default is `as'.
+CC	Program for compiling C programs; default is `cc'.
+CXX	Program for compiling C++ programs; default is `g++'.
+CPP	Program for running the C preprocessor, with results to standard output; default is `$(CC) -E'.
+LINT	Program to use to run lint on source code; default is `lint'.
+RM	Command to remove a file; default is `rm -f'.
+CFLAGS	Extra flags to give to the C compiler.
+CXXFLAGS	Extra flags to give to the C compiler.
+CPPFLAGS	Extra flags to give to the C preprocessor and programs, which use it (such as C and Fortran compilers).
+LDFLAGS	Extra flags to give to compilers when they are supposed to invoke the linker, `ld'.
+LINTFLAGS	Extra flags to give to lint.
+
+make all − It compiles everything so that you can do local testing before installing applications.
+make install − It installs applications at right places. But watch out that things are installed in the right place for your system.
+make clean − It clean applications up, gets rid of the executables, any temporary files, object files, etc.
+
+Makefile Implicit Rules
+# make x out of x.c -- run cc on x.c and call the output x
+.cpp:
+	$(CC) $(CFLAGS) $@.cpp $(LDFLAGS) -o $@
+# construction of .o (object) files out of .cpp (source files)
+.cpp.o:
+	$(CC) $(CFLAGS) -c $*.cpp
+
+# Suffix Rules
+# make a .o file from a .c file
+.c.o:
+	$(CC) $(CFLAGS) -c $<
+
+# recompile avoid
+# make checks its object file and compares the time stamps.
+# If source file is newer than the object file, then it generates new object file assuming that the source file has been changed.
+make -t												# mark all the object files as up to date
+make -o header_file							# marks a specified file as "old"
+
+
+make -f your-makefile-name
+
+
+# file path: /append_syntax.mk
+OBJECTS = main.o hello.o
+OBJECTS += factorial.o
+hello: $(OBJECTS)
+	cc $(OBJECTS) -o hello
+hellp.o: functions.h
+main.o: functions.h
+factorial.o: functions.h
+
+install:
+	@echo You must be root to install
+
+clean :
+	rm main.o factorial.o hello.o hello
+
+
+# file path: /continuation_line.mk
+# If you indicate just the .h files in the dependency line, make will know that the corresponding .c file is already required
+OBJECTS = main.o \
+	hello.o \
+	factorial.o
+
+hello: $(OBJECTS)
+	cc $(OBJECTS) -o hello
+hellp.o: functions.h
+main.o: functions.h
+factorial.o: functions.h
+
+install:
+	@echo You must be root to install
+
+clean :
+	rm main.o factorial.o hello.o hello
+
+
+
+# file path: /directive.mk
+# Conditionals Directives
+libs_for_gcc = -lgnu
+normal_libs =
+
+foo: $(objects)
+ifeq ($(CC),gcc)
+	$(CC) -o foo $(objects) $(libs_for_gcc)
+else
+	$(CC) -o foo $(objects) $(normal_libs)
+endif
+
+#  Include Directive
+# suspend reading the current makefile and read one or more other makefiles before continuing
+include a.mk b.mk c.mk
+
+# The override Directive
+# set the variable in the makefile even though it was set with a command argument
+override variable = value
+override variable := value
+
+
+# file path: /shorten.mk
+SHELL = /bin/sh
+
+OBJECTS =  main.o factorial.o hello.o
+CFLAG = -Wall -g
+CC = gcc
+INCLUDE =
+LIBS = -lm
+
+# If you indicate just the .h files in the dependency line, make will know that the corresponding .c file is already required
+hello: $(OBJECTS)
+	cc $(OBJECTS) -o hello
+hellp.o: functions.h
+main.o: functions.h
+factorial.o: functions.h
+
+install:
+	@echo You must be root to install
+
+clean :
+	rm main.o factorial.o hello.o hello
+
+
+
+# file path: /verbose.mk
+INCLUDES = -I "/home/tutorialspoint/header"
+CC = gcc
+LIBS =  -lm
+CFLAGS = -g -Wall
+
+# dependent on main.o, factorial.o, and hello.o files.
+# Hence, whenever there is a change in any of these object files, make will take action.
+hello: main.o factorial.o hello.o
+	$(CC) main.o factorial.o hello.o -o hello
+
+main.o: main.cpp functions.h
+	$(CC) $(CFLAGS) -c main.cpp
+
+factorial.o: factorial.cpp functions.h
+	$(CC) $(CFLAGS) -c factorial.cpp
+
+hello.o: hello.cpp functions.h
+	$(CC) $(CFLAGS) -c hello.cpp
+
+install:
+	@echo You must be root to install
+
+clean :
+	rm main.o factorial.o hello.o hello
+
+
+# file path: /makefile
+SHELL = /bin/sh
+
+OBJECTS =  main.o factorial.o hello.o
+CFLAG = -Wall -g
+CC = gcc
+INCLUDE =
+LIBS = -lm
+
+# If you indicate just the .h files in the dependency line, make will know that the corresponding .c file is already required
+hello:${OBJ}
+	${CC} ${CFLAGS} ${INCLUDES} -o $@ ${OBJS} ${LIBS}
+
+clean:
+	-rm -f *.o core *.core
+
+.cpp.o:
+	${CC} ${CFLAGS} ${INCLUDES} -c $<
+
+install:
+	@echo You must be root to install
+
+
+
+# file path: /random
 Quizlet
 Youtube: My English Doctor, Rachel's English
 
-http://code.tradeclassroom.com/
+https://kernelnewbies.org/
 
-对于大部分交易者而言，看错行情具有一定的持续性，一旦错起来就是一错再错，会老是踏不准市场节奏，反复挨市场的左右耳光。
-既然大部分人都忍不住早早补仓，我就坚决不做，也只有越是所有人做不到的事情，我才越有兴趣去做
+Advanced C and C++ Compiling
 
-做惯了投机的人，往往变得头脑睿智肢体懒惰。头脑如此睿智，以至于对周围人的想法一目洞穿。肢体如此懒惰，以至于不愿意为工作付出更多时间、精力和心血
+C & C++
+Thrift:用来进行可扩展且跨语言的服务的开发(类似的还有个Avro，Google protobuf)。
+libevent:是一个事件触发的网络库，适用于windows、linux、bsd等多种平台，内部使用select、epoll、kqueue等系统调用管理事件机制。（对了还有个libev呢）
+Boost:不多说了，准C++标准库
+Valgrind\Ptmalloc\Purify: 调试工具
+NetworkServer架构：acceptor->dispatcher->worker
+breakpad:崩溃转储和分析模块，很多crashreport会用到
+UI界面相关：MFC、BCG和QT这类的就不说了，高端一点的还有Html和DirectUI技术：libcef（基于chrome内核的，想想使用html5开发页面，还真有点小激动呢）、HtmlLayout、Duilib、Bolt，非C++的，还有node-webkit也不错，集成了node和webkit内核。
 
-聪明的人总以为可以凌驾于别人之上，也很难发自内心的尊重欣赏谁，但真正的聪明应该是时时刻刻自省，同时小心翼翼的保护每一个身边人的感受
 
-赵炯. Linux内核完全注释 内核版本0.11
-http://antriver.com/linux/src/linux-3.15.7.html
-OpenGrok/ Source Insight
-Boost，Qt，Silicon，tufao，TreeFrog，WTL，STL，libev，Cocos2d-x，Dlib，Ultimate++，Asio，TinyXML，libxml++，CEGUI、FLTK、wxWidgets、Ogre 3D、Cairo、Skia、OpenCV、CxImage、Json++、Json11、CppUnit、OpenSSL、Crypto++、C++React、OpenCL、OpenAL、Vorbis、Memcached、libcurl、SQLite
+因为说谎的孩子，总是眼睛刻意睁得很大，一眨也不眨地盯着你看，生怕自己低头被你看出他在说谎
+交易之道: 吃了苍蝇也不能吐，被人抽十几个嘴巴子也不能哼唧，必须隐忍到对方出现破绽才能还手的感觉
+不要每天做不同系统的亏货，要亏也要一直只做一个系统的亏货。前者亏货永远都是亏货，后者亏货反而容易变成赚货
+路径一旦是确定的，就必然会引发竞争，竞争的结果，就是大家变成普通人，正是因为路径是不确定的，才可能让一部分人通过承担风险，通过提前进入，通过前期的投入建立壁垒，来建立后期极大的收入杠杆。一旦路径被确定下来，那些早期进入者获得的财富，恰恰就是未进入人的机会成本
+交易做久了，你自己在不在节奏里是心知肚明的，没节奏就停下来，大部分人就是因为跟不上节奏又停不下来交易死的，这种死法一般死的透透的
+最高明的交易方法就是去别的地方赚钱，然后牛市来了的时候干一票就跑，等待下一个牛市
+人生每个阶段都会出现当下你最好的朋友和你一起成长，没有必要把前方的路给堵死了。人来人往，其实他们大部分都是你生命中的过客，偶尔停留
+
+UNIX编程艺术
+200到400之间逻辑行（400-800的物理行）的代码是最佳点，可能的缺陷密度达到最小
+正交性：无论你控制的是什么系统，改变每个属性的方法有且只有一个
+SPOT（single point of truth）原则:真理的单点性
+前端程序宜用自顶向下，底层程序、系统程序宜采用自底向上，以函数或库来收集底层的域原语，这样，当高层设计变化时，底层原语仍然可以重用
+实际代码往往是自顶向下和自底向上的综合产物
+完美之道，不在无可增加，而在无可删减
+OO在GUI、仿真和图形取得的成功，主要原因之一可能是因为在这些领域里很难弄错类型的本体问题。OO显示出某种使程序员陷入过度分层陷阱的倾向
+数据文件元格式
+DSV（delimiter separated values）\转义符，\\表示\，设计的比CSV好，CSV中如果有逗号用双引号，有双引号又有其他规则，容易出bug
+record-jar格式，metadata之后由%%\n分割每条record，record由key value pair组成
+让UI沉默只做对了一半，真正的聪明是找到一个办法，可以访问细节，又不让它们太显眼
+SNG用于二进制PNG文件与纯文本双向无损转换
+pipe，所有子程序并行，等待前一个子程序的输入，产生输出到下一个子程序
+Bernstein chaining，每个继发阶段的程序取代了前一阶段的程序，而不是与之并行
+pidfile技巧，/var/run下，需要信号的程序把自己的pid写下，其他程序读该文件获得目标pid。pidfile也可用作为隐含的文件锁使用，还可以用来检测是否已经有本程序实例在运行
+SIGHUP用于系统deamon重新初始化信号，SIGTERM温和关闭信号，做GC后退出，SIGKILL立即杀死进程，而且本身不能被阻塞或另外处理
+AF_INET famaily。地址被解释为主机地址和服务编号对。AF_UNIX(AF_LOCAL) family支持同一台机器上两个进程之间的通信方式（名字被解析为特殊文件的位置，与双向命名管道类似）
+使用共享内存和信号量功能可以避免通过网络栈复制数据的开销
+IPC由于文本RPC(SOAP)优于二进制RPC(Corba)
+把线程、远程调用接口和重量级面向对象设计结合使用特别危险
+真实世界里的编程其实就是管理复杂度的问题。能够管理复杂度的工具都是好东西
+m4宏处理程序，用于文本转换
+awk程序运行时一行一行过滤输入文件，每一行都顺序经过模式/行为对检查，如果模式与行匹配，则执行相关的行为。awk正在逐渐被Perl取代
+bc(basic calculator)代数标记法计算器，dc(desk calculator)逆波兰标记法计算器，支持任意精度计算
+宏与带副作用的表达式之间的交互作用可能导致不幸的结果，而且难以诊断     #define max(x, y)   x > y ? x : y
+配置信息：1. /etc控制文件 2. 系统控制的环境变量 3. 用户主目录中点文件(.**rc) 4. 用户设置的环境变量 5. 启动程序的命令行参数； 后面的覆盖前面的，越后面的配置越local
+-D define -i initialize/interactive -I include
+接口模式： 1. 配置者/执行者 2. spooler/daemon 3. 驱动/引擎 4. client/server 5. CLI服务器
+premature optimization is the root of all evil
+最强大的优化技术就是不做优化
+最有效的代码优化就是保持代码短小简单。通常，指令加载要比执行花费的时间更多
+尽量避免协议的往返。每个要求握手的协议事务都可能从任何连接延迟发展到潜在的严重降速
+减少延时策略： 1. 对可以共享开启开销的事务进行批处理 2. 允许事务重叠 3. 缓存
+选择需要管理的上下文环境，并且按照边界所允许的最小化方式构建程序。只有实证了其他方法行不通时才写庞大程序
+C语言最佳之处是资源效率和接近机器语言。最糟糕的地方是其编程简直就是资源管理的炼狱
+C++最佳之处是编译效率以及面向对象和泛型编程的结合。最糟之处是它非常怪异复杂，往往鼓励过分复杂的设计
+shell最佳之处在于书写小型脚本非常自然快捷
+Perl最强功能是内置的对文本、面向行的数据格式进行模式导向的处理功能。最佳之处是作为强力工具以供大量涉及正则表达式匹配的小型胶合脚本使用。最糟之处在于当程序很大时Perl会变得丑陋刻板，几乎无法维护
+Python最佳之处在于它鼓励清晰易读的代码，易学易用，又能够扩展到大型项目。最糟之处在于效率低下、速度缓慢
+递归make有害论。 Recursive make considered harmful
+make all/ test/ clean/dist/distclean/realclean/install/uninstall
+GDB支持C/C++调试
+gprof可以处理C/C++的性能profiler
+代码重用，man -k something
+README  INSTALL/AUTHORS/NEWS/HISTORY/CHANGES/COPYING/LICENSE/FAQ
 
 
-unit test
-https://segmentfault.com/q/1010000002412786/a-1020000002414299
-https://github.com/philsquared/Catch
+OS
+context switch cost: 1) number of cycles for load & store instructions 2) cold cache, cache missing
+process creation:
+1) fork, copy the parent PCB into new child PCB, child continues execution at the instruction after fork
+2) exec, replace child image, load new program and start from first instruction
+init is the parent of all processes in UNIX-based OS, Zygote is the parent of all APP processes in Android OS
+IPC
+1) communication channel like shared buffer,  benefit is OS manages, exactly the same API, downside is overhead, copy data between user mode and kernel mode
+2) shared memory, OS establishes a shared channel and maps it into each process address space, benefit is fast since no kernel data copy overhead (but the shared memory setup is expensive, only when lots of messages, the amortised cost is cheap), downside is coder need to handle the complexity for no common API
+thread out performance process: 1) thread share the same address space, it means the cost for allocate address space is only once 2) data passing among thread (usually shared variables) is cheaper than process (IPC)
+单核使用thread有优势吗？有用，比如thread1读取disk，thread2可以做计算
+Join semantic: child_status = join(child_thread), called by parent, wait for child thread to finish, then retrieve the result of child status
+condition variable: 1) wait(mutex, cond), mutex is automatically released and go to wait queue, then re-acquire mutex for critical section 2) signal(cond), wake up one thread on waiting list 3) broadcast(cond), wake up all waiting threads
+spurious wake-ups: unnecessary wake up
+dead lock avoid: 1) get all locks at one shot 2) get locks in the same order (say A first then B) 3)
+reader/writer
+// --- read code
+rw_mtx.lock();    // will block if there is a write in progress
+read_count += 1;  // announce intention to read
+rw_mtx.unlock();
+cell_value = data_base[cell_number];
+rw_mtx.lock();
+read_count -= 1;  // announce intention to read
+if (read_count == 0) rw_write_q.notify_one();
+rw_mtx.unlock();
 
-http://www.csindex.com.cn/sseportal/csiportal/hy_syl/syl.jsp 中国指数有限公司
+// --- write code
+std::unique_lock<std::mutex> rw_lock(rw_mtx);
+write_count += 1;
+rw_write_q.wait(rw_lock, []{return read_count == 0;});
+data_base[cell_number] = cell_value;
+write_count -= 1;
+if (write_count > 0) rw_write_q.notify_one();
 
-正确的呼吸方式是腹式呼吸，当你吸气时，肚子向外突出；呼气时则相反，肚子回收。加强腹式呼吸，可以促进腹腔运动，改善消化道的血液循环，促进消化道的消化吸收功能，促进肠蠕动，防止便秘，加速毒素的排出
 
-人生就像摆钟一样，在痛苦与无聊之间摇摆：当欲望得不到满足时就痛苦，当欲望得到满足时就无聊
 
-一个人的教养如何体现？不轻易被激怒, 在容易产生矛盾与冲突的环境中，最难掩饰的就是被激怒的阈值, 他们对社会和人生百态的包容度更高
+
+https://github.com/ipreacher/tricks/tree/master/Stock_WeChat
+https://github.com/littlecodersh/ItChat
+
+https://classroom.udacity.com/courses/ud923/lessons/3056258560/concepts/
+
+眼看他起高楼，眼看他宴宾客，眼看他楼塌了
+交易员不一定是最聪明的人。但是一定是最懂生活，最懂入世的人。只有懂了世界，懂了人，放得下执念，看得大势，耐得起寂寞，可以抛弃世界认同感。和淡然对待世人的目光。其实交易就是让人变得越来越圣贤。不是不会错，而是在错的时候积极认错。在对的时候积极传播
+男人的极大幸运在于，他，不论在成年还是在小时候，必须踏上一条极为艰苦的道路，不过这是一条最可靠的道路；女人的不幸则在于被几乎不可抗拒的诱惑包围着；她不被要求奋发向上，只被鼓励滑下去到达极乐。当她发觉自己被海市蜃楼愚弄时，已经为时太晚，她的力量在失败的冒险中已被耗尽
+
+各种商品各种地区的现货价格
+http://www.smm.cn/
+http://www.sci99.com/
+
+期权论坛
+http://www.optbbs.com/?fromuid=510
+
+
+Best practices for Subversion and Visual Studio projects
+You can add the following files to Visual Studio source control:
+
+Solution files (*.sln).
+Project files, for example, *.csproj, *.vbproj files.
+Application configuration files, based on XML, used to control run-time behavior of a Visual Studio project.
+Files that you cannot add to source control include the following:
+
+Solution user option files (*.suo).
+Project user option files, for example, *.csproj.user, *.vbproj.user files.
+Web information files, for example, *.csproj.webinfo, *.vbproj.webinfo, that control the virtual root location of a Web project.
+Build output files, for example, *.dll and *.exe files.
+
+
+
+
+
+
+1.1国家数据
+
+链接:http://data.stats.gov.cn/index.htm (国家数据)
+
+数据来源于中国国家统计局，包合了我国经济民生等多个方面的数据，并且在月度、季度、年度都有覆盖，较为全面和权威，对于社会科学的研究不要太有帮助。最关键的是，网站简洁美观，还有专门的可视化读物。
+
+1.2 CEIC
+
+链接:http://www.ceicdata.com/zh-hans (Global Economic Data, Indicators, Charts & Forecasts)
+
+最完整的一套超过128个国家的经济数据，能够精确查找GD只CPI，进口，出口，外资直接投资，零售，销售，以及国际利率等深度数据。其中的“中国经济数据库”收编了300000多条时间序列数据，数据内容涵盖宏观经济数据、行业经济数据和地区经济数据。
+
+1.3 Wind资讯
+
+链接:http://www.wind.com.cn/ (Wind资讯--中国领先的金融数据和分析工具服务商)
+
+万得被誉为中国的Bloomberg，在金融业有着全面的数据覆盖，金融数据的类目更新非常快，据说很受国内的商业分析者和投资人的亲睐。
+
+1.4搜数网
+
+链接:http://www.soshoo.com/ (新版搜数网 - 中国资讯行)
+
+已加载到搜数网站的统计资料达到7874本，涵盖1761009张统计表格和364580479个统计数据，汇集了中国资讯行自92年以来收集的所有统计和调查数据，并提供多样化的搜索功能。
+
+1.5中国统计信息网
+
+链接:http://www.tjcn.org/ (中国统计信息网)
+
+国家统计局的官方网站，汇集了海量的全国各级政府各年度的国民经济和社会发展统计信息，建立了以统计公报为主，年鉴、阶段发展数据、统计分析、经济新闻、主要统计指标排行等。
+
+1.6亚马逊aws
+
+链接:http://aws.amazon.com/cn/datasets/?nc1 (AWS Public Datasets）
+
+来自亚马逊的跨科学云数据平台，包含化学、生物、经济等多个领域的数据集。
+
+1.7 figshare
+
+链接:https://figshare.com/ (credit for all your research)
+
+研究成果共享平台，在这里你会发现来自世界的大牛们的研究成果分享，同时get其中的研究数据，内容很有启发性。
+
+1.8 github
+
+链接:https://github.com/caesar0301 (caesar0301/awesome-public-datasets)
+
+如果觉得前面的数据源还不够，github上的大神已经为大家整理好了一个非常全面的数据获取渠道，包含各个细分领域的数据库资源，自然科学和社会科学的覆盖都很全面，简直是做研究和数据分析的利器。
+
+1.9世界城市CAD
+
+链接:https://cadmapper.com/ (CAD Mapper - CAD files of any area in the world)
+
+分享世界各大城市的CAD文件，有些城市的老一些，凑合用用还是可以的。
+
+1.10企信网
+
+链接:http://www.qixin.com/ (企业注册信息查询|企业工商信息查询|企业信用信息查询平台-启信宝)
+
+启信宝是苏州贝尔塔数据技术有限公司旗下的一款企业征信产品，旨在为用户提供快速查询企业工商信息、法院判决信息、关联企业信息、司法拍卖信息、失信信息、被执行人信息、知识产权信息、公司新闻、招聘信息等服务。通过多模式查询，多选项筛选，让查询结果更准确，查询内容更详尽!是泛金融，泛投资，泛法律和泛商务(如销售、采购)相关人士的首选工具!
+
+1.11环境云
+
+链接:http://www.envicloud.cn/ (环境云-环境大数据免费开放平台)
+
+环境云一环境大数据服务平台，是南京云创大数据科技股份有限公司最新研发出的一款全面、稳定、便捷、免费的环境数据开放服务平台。
+
+环境云环境大数据服务平台通过获取权威数据源(中国气象网、中央气象台、国家环保部数据中心、美国全球地震信息中心等等)所发布的各类环境数据，以及云创自主布建的各类全国性环境监控传感器网络。
+
+1.12 PM2.5
+
+链接:http://pm25.in/ (http://pm25.in/)
+
+http://PM25.in是为大家提供空气质量监测数据的网站，数据采自于国家环境保护部。
+
+1.13世界银行公开数据
+
+链接:http://data.worldbank.org.cn/ (Data | The World Bank)
+
+世界银行公开数据，免费并公开获取世界各国的发展数据。
+
+1.14中国统计年鉴
+
+链接:http://www.stats.gov.cn/tjsj/ndsj/ (中华人民共和国国家统计局>>中国统计年鉴)
+
+中国统计年检，国家统计局出品。
+
+1.15体育大数据
+
+链接:http://www.sportsdt.com/ (体育大数据 - 首页)
+
+2.1优易数据
+
+链接:http://www.youedata.com/ (优易数据_大数据交易创新平台_数据定制_数据交易_数据API)
+
+2.2数据堂
+
+链接:http://www.datatang.com/ (数据堂_大数据交易平台)
+
+专注于互联网综合数据交易，提供数据交易、处理和数据AP明良务，包合语音识别、医疗健康、交通地理、电子商务、社交网络、图像识别等方面的数据。
+
+2.3数据淘
+
+链接:http://datataotao.com/ (数据淘)
+
+数据淘是一个数据垂直搜索工具，同时也是数据供需双方免费沟通交流的平台。
+
+2.4数据宝
+
+链接:http://www.chinadatapay.com/ (中国数据宝-大数据交易平台)
+
+首个省部共建的大数据资产运营管理平台。
+
+3 .1百度指数
+
+http://index.baidu.com/ (百度指数)
+
+大家都很熟悉的指数查询平台，可以根据指数的变化查看某个主题在各个时间段受关注的清况，进行趋势分析、预测有很好的指导作用。除了关注趋势之外，还有需求分析、人群画像等精准分析的工具，对于市场调研来说具有很好的参考意义。同样的另外两个搜索引擎搜狗、360也有类似的产品，都可以作为参考。
+
+3 .2阿里指数
+
+https://alizs.taobao.com/ (阿里指数 - 社会化大数据分析平台)
+
+国内权威的商品交易分析工具，可以按地域、按行业查看商品搜索和交易数据，基于淘宝、夭猫和1688平台的交易数据基本能够看出国内商品交易的概况，对于趋势分析、行业观察意义不小。
+
+3.3艾瑞咨询
+
+链接:http://www.iresearch.com.cn/ (艾瑞咨询-生活梦想 科技承载)
+
+艾瑞作为老牌的互联网研究机构，在数据的沉淀和数据分析上都有得天独厚的优势，在互联网的趋势和行业发展数据分析上面比较权威，艾瑞的互联网分析报告可以说是互联网研究的必读刊物。
+
+3.4友盟指数
+
+http://www.umeng.com/ (【友盟+】全球领先的第三方全域大数据服务提供商)
+
+友盟在移动互联网应用数据统计和分析具有较为全面的统计和分析，对于研究移动端产品、做市场调研、用户行为分析很有帮助。除了友盟指数，友盟的互联网报告同样是了解互联网趋势的优秀读物。
+
+3.5爱奇艺指数
+
+链接:http://index.iqiyi.com/ (爱奇艺指数_首页)
+
+爱奇艺指数是专门针对视频的播放行为、趋势的分析平台，对于互联网视频的播放有着全面的统计和分析，涉及到播放趋势、播放设备、用户画像、地域分布、等多个方面。由于爱奇艺庞大的用户基数，该指数基本可以说明实际情况。
+
+3.6猫眼专业版
+
+http://piaofang.maoyan.com/ (猫眼专业版)
+
+电影票房统计分析平台，猫眼专业版有实时的票房统计，影片的排盘情况、上座率和影院数据，对于当前电影的分析是必不可少的。
+
+3.7龙信创新指数
+
+链接:http://www.longcredit.com/UpIoadFiles/FTP_Upload/langrunlongxin/index.html
+
+(http://www.longcredit.com/UpIoadFiles/FTP_Upload/langrunlongxin/index.html)
+
+为助力“全民创新”、“全民创业”，北京大学国家发展研究院与龙信数据合作，综合利用企业大数据库、专利数据库、商标数据，创建了目前由诞生创业者数量、获得风险投资、专利获得、商标注册、新增企业注册数、获得外来投资等6个维度构成的综合反映地区创新成果的创新指数。第一份研究报告暨2013年全国各省市区、城市百强和县域百强等三个层面的地区创新指数排名，已于2015年6月25日正式发布。
+
+3.8中国城市拥堵排行榜
+
+http://report.amap.com/index.do (高德交通--中国主要城市交通分析报告)
+
+报告是基于高德积累的海量交通出行数据，通过大数据挖掘计算所得，通用算法与理论保证了其合理性与科学性。报告采用“拥堵延时指数”作为城市拥堵程度的评价指标，即城市居民平均一次出行实际旅行时间与自由流状态下旅行时间的比值该指数从交通出行者的角度出发，以简单易懂的方式表达交通拥堵给出行者带来的时间成本。此报告客观地从多维度反映城市的交通拥堵状况，力争做到精准、精细、精确，为公众交通出行、机构研究、政府决策提供有价值的理论参考依据。
+
+4.1 BCL北京城市实验室
+
+http://www.beijingcitylab.com/ (Home)
+
+4.2 CityFormLab
+
+链接:http://cityform.mit.edu/projects (Projects — City Form Lab)
+
+4.3城市数据实验室
+
+链接:http://lic.urbandatalab.com/ (Technology Innovation Center of THUPDI)
+
+4.4北大轨迹数据可视化
+
+http://vis.pku.edu.cn/trajectoryvis/ (http://vis.pku.edu.cn/trajectoryvis/)
+
+5.1火车头
+
+http://www.locoy.com/ (火车采集器官网-网页抓取工具_火车头采集器_免费网站采集软件)
+
+一款专业的互联网数据抓取、处理、分析，挖掘软件，可以灵活迅速地抓取网页上散乱分布的数据信息，并通过一系列的分析处理，准确挖掘出所需数据，最常用的就是采集某些网站的文字、图片、数据等在线资源。接口比较齐全，支持的扩展比较好用。
+
+5.2八爪鱼
+
+http://www.bazhuayu.com/ (八爪鱼采集器 - 最好用的网页数据采集器)
+
+简单实用的采集器，功能齐全，操作简单，不用写规则。特有的云采集，关机也可以在云服务器上运行采集任务。
+
+5.3集搜客
+
+http://www.gooseeker.com/ (免费网页抓取软件-网络爬虫工具-GooSeeker网络爬虫)
+
+一款简单易用的网页信息抓取软件，能够抓取网页文字、图表、超链接等多种网页元素，提供好用的网页抓取软件、数据挖掘攻略、行业资讯和前沿科技等。
+
+6.1 Haoservice
+
+http://www.haoservice.com/ (API数据接口_开发者数据定制_免费数据调用_好服务数据)
+
+为企业提供准确、全面、快捷的一站式数据服务平台，是北京畅游互联旗下数据平台。
+
+6.2图像识别开放平台
+
+链接:https://www.tuputech.com/api (试用与文档｜图普科技（tuputech.com）)
+
+6.3天狗云
+
+链接:http://www.tngou.net/doc#healthy (天狗云文档中心-API接口_健康、医疗、生活、农业开放平台)
+
+6.4极速数据
+
+http://www.jisuapi.com/ (http://www.jisuapi.com/)
+
+6.5百度API商店
+
+链接:http://apistore.baidu.com/ (API Store_为开发者提供最全面的API服务)
+
+6.6聚合数据
+
+链接:https://www.juhe.cn/ (API数据接口_开发者数据定制_免费数据调用-聚合数据)
+
 
 贫穷的本质
 当穷人可以多买一点儿食物时，他们并不注重用所有投入换取更多能量，相反，他们会选择买一些口味更好、价钱更高的食物
