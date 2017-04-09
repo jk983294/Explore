@@ -1,0 +1,17 @@
+explicit file descriptor which allows us to manipulate multiple files at a time.
+
+Mode        Description
+"r"         Read-only mode and is the default mode where an existing file is opened.
+"w"         Write enabled mode that overwrites the existing file or creates a new file.
+"a"         Append mode that opens an existing file or creates a new file for appending.
+"r+"        Read and write mode for an existing file.
+"w+"        All existing data is removed if file exists or new file is created with read write permissions.
+"a+"        Append mode with read mode enabled that opens an existing file or creates a new file.
+
+
+
+Mode        Description
+"*n"        Reads from the current file position and returns a number if exists at the file position or returns nil.
+"*a"        Returns all the contents of file from the current file position.
+"*l"        Reads the line from the current file position, and moves file position to next line.
+number      Reads number of bytes specified in the function.
