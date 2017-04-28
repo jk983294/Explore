@@ -1,3 +1,8 @@
 # active perl / strawberry perl
 # perl script.pl
 # perl -e 'print "Hello World\n"'
+
+# install Switch packages
+$ cpan
+$ cpan[1]> install Switch
+$ cpan[1]> exit
