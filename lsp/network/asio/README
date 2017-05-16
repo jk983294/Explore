@@ -1,0 +1,3 @@
+BOOST_ASIO_DISABLE_THREADS if set; it disables threading support in Boost
+
+sudo apt-get install libboost-all-dev

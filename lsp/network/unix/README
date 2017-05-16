@@ -1,0 +1,5 @@
+# Sockets in the Unix domain are virtually identical to named pipes (FIFOs).
+
+## both client and server have to be running the same file system.
+
+## Once a socket has been created, it remain until it is explicitly deleted, and its name will appear with the ls command, always with a size of zero.
