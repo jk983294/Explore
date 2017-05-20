@@ -12,3 +12,7 @@ $c *= $a;
 $c /= $a;
 $c %= $a;
 $c**= $a;
+
+my $str = "kun";
+$str .= "\n";    # equals to $str = $str . "\n";
+print $str

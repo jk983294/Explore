@@ -4,10 +4,9 @@ use warnings;
 
 sub display_all_the_files_glob {
     my $dir = "/tmp/*";    # Display all the files in /tmp directory.
-    $dir = "/tmp/*.c";     # Display all the C source files in /tmp directory.
-    $dir = "/tmp/.*";      # Display all the hidden files.
-    $dir =
-      "/tmp/* /home/*"; # Display all the files from /tmp and /home directories.
+    $dir = "/tmp/*.c";          # Display all the C source files in /tmp directory.
+    $dir = "/tmp/.*";           # Display all the hidden files.
+    $dir = "/tmp/* /home/*";    # Display all the files from /tmp and /home directories.
     my @files = glob($dir);
 
     foreach (@files) {

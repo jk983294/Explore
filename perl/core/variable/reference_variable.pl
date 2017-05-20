@@ -13,14 +13,12 @@ sub hello {
 }
 
 sub creation {
-    my $arrayref =
-      [ 1, 2, [ 'a', 'b', 'c' ] ];    # a reference to an anonymous array
-    my $hashref = {                   # a reference to an anonymous hash
+    my $arrayref = [1, 2, ['a', 'b', 'c']];    # a reference to an anonymous array
+    my $hashref = {                            # a reference to an anonymous hash
         'Adam'  => 'Eve',
         'Clyde' => 'Bonnie',
     };
-    my $coderef =
-      sub { print "Boink!\n" };       # a reference to an anonymous subroutine
+    my $coderef = sub { print "Boink!\n" };    # a reference to an anonymous subroutine
 
     my $bar  = 41;
     my @ages = ( 25, 30, 40 );

@@ -12,7 +12,7 @@ sub main {
 
     # Selecting Elements from Lists
     my $var  = ( 5, 4, 3, 2, 1 )[4];
-    my @list = ( 5, 4, 3, 2, 1 )[ 1 .. 3 ];
+    my @list = ( 5, 4, 3, 2, 1 )[1 .. 3];
 }
 
 main();

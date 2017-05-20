@@ -18,7 +18,7 @@ $a = 0;
 OUTER: while ( $a < 4 ) {
     $b = 0;
     print "value of a: $a\n";
-  INNER: while ( $b < 4 ) {
+INNER: while ( $b < 4 ) {
         if ( $a == 2 ) {
             last OUTER;    # terminate outer loop
         }

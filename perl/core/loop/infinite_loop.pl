@@ -2,6 +2,6 @@
 use strict;
 use warnings;
 
-for ( ; ; ) {
+for ( ;; ) {
     printf "This loop will run forever.\n";
 }

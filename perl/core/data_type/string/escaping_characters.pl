@@ -2,6 +2,11 @@
 use strict;
 use warnings;
 
+# \l        lower next character
+# \L        lower characters until \E
+# \u        upper next character
+# \U        upper characters until \E
+# \Q        quote non word with backsalash
 sub main {
     my $result = "\nThis is \"number\"";
     print "$result\n";

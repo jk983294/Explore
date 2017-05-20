@@ -32,12 +32,10 @@ End of Page @<
 
 sub main {
     select(STDOUT);
-    $~ = EMPLOYEE
-      ; # associate EMPLOYEE with STDOUT, using the special variable $~ or $FORMAT_NAME
-    $^ = EMPLOYEE_HEADER
-      ;    # define a header and assign it to $^ or $FORMAT_TOP_NAME variable
-           # define a pagination, $% or $FORMAT_PAGE_NUMBER vairable
-           # set the number of lines per page, $= ( or $FORMAT_LINES_PER_PAGE )
+    $~ = EMPLOYEE;           # associate EMPLOYEE with STDOUT, using the special variable $~ or $FORMAT_NAME
+    $^ = EMPLOYEE_HEADER;    # define a header and assign it to $^ or $FORMAT_TOP_NAME variable
+                             # define a pagination, $% or $FORMAT_PAGE_NUMBER vairable
+                             # set the number of lines per page, $= ( or $FORMAT_LINES_PER_PAGE )
 
     my @n = ( "Ali",   "Raza",  "Jaffer" );
     my @a = ( 20,      30,      40 );
@@ -47,7 +45,7 @@ sub main {
     foreach (@n) {
         $name   = $_;
         $age    = $a[$i];
-        $salary = $s[ $i++ ];
+        $salary = $s[$i++];
         write;
     }
 }

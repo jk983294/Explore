@@ -10,7 +10,6 @@ while ( $a < 10 ) {
         redo;
     }
     print "Value of a = $a\n";
-}
-continue {
+} continue {
     $a = $a + 1;
 }

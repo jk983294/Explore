@@ -6,15 +6,13 @@ use warnings;
 my $a = 0;
 while ( $a < 3 ) {
     print "Value of a = $a\n";
-}
-continue {
+} continue {
     $a = $a + 1;
 }
 
 my @list = ( 1, 2, 3, 4, 5 );
 foreach $a (@list) {
     print "Value of a = $a\n";
-}
-continue {
+} continue {
     last if $a == 4;
 }

@@ -20,8 +20,8 @@ sub add_remove {
 
 sub slice {
     my @days      = qw/Mon Tue Wed Thu Fri Sat Sun/;
-    my @weekdays  = @days[ 3, 4, 5 ];
-    my @weekdays1 = @days[ 3 .. 5 ];
+    my @weekdays  = @days[3, 4, 5];
+    my @weekdays1 = @days[3 .. 5];
     print "@weekdays -- @weekdays\n";
 }
 
@@ -37,8 +37,7 @@ sub replace {
 sub main {
     my @var_abc = ( 'a' .. 'z' );    # .. range operator
 
-    print "Size: ", scalar @var_abc,
-      "\n";    # physical size of the array, not the number of valid elements
+    print "Size: ", scalar @var_abc, "\n";    # physical size of the array, not the number of valid elements
     print "Max Index: ", $#var_abc, "\n";
 
     add_remove();

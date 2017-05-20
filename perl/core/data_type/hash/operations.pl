@@ -8,9 +8,7 @@ sub check_exists {
     print "contains: " . exists( $data{'Lisa'} ) . "\n";     # contains: 1
     print "contains: " . exists( $data{'Lisa1'} ) . "\n";    # contains:
     print "contains: " . $data{'Lisa'} . "\n";               # contains: 30
-    print "contains: "
-      . $data{'Lisa1'}
-      . "\n";    # contains: ; $data{'Lisa1'} = undefined
+    print "contains: " . $data{'Lisa1'} . "\n";              # contains: ; $data{'Lisa1'} = undefined
 }
 
 sub get_size {

@@ -16,8 +16,7 @@ sub localtime_function {
     my @months = qw( Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec );
     my @days   = qw(Sun Mon Tue Wed Thu Fri Sat Sun);
 
-    my ( $sec, $min, $hour, $mday, $mon, $year, $wday, $yday, $isdst ) =
-      localtime();
+    my ( $sec, $min, $hour, $mday, $mon, $year, $wday, $yday, $isdst ) = localtime();
     print "$mday $months[$mon] $days[$wday]\n";
 
     my $datestring = localtime();
@@ -47,8 +46,7 @@ sub strftime_function {
 }
 
 sub time_format {
-    my ( $sec, $min, $hour, $mday, $mon, $year, $wday, $yday, $isdst ) =
-      localtime();
+    my ( $sec, $min, $hour, $mday, $mon, $year, $wday, $yday, $isdst ) = localtime();
     printf("Time Format - HH:MM:SS\n");
     printf( "%02d:%02d:%02d", $hour, $min, $sec );
 }

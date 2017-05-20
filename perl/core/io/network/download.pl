@@ -13,8 +13,7 @@ sub main {
 
     if ( $code == 200 ) {
         print "success\n";
-    }
-    else {
+    } else {
         print "failed\n";
     }
 

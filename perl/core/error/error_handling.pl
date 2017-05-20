@@ -6,10 +6,8 @@ my $file = "/tmp/file1.txt";
 
 sub if_pattern {
     if ( open( DATA, $file ) ) {
-    }
-    else {
-        die "Error: Couldn't open the file - $!"
-          ;    # $! returns the actual error message
+    } else {
+        die "Error: Couldn't open the file - $!";    # $! returns the actual error message
     }
 
     # Alternatively
