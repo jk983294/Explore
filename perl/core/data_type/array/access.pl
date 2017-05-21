@@ -10,6 +10,10 @@ sub main {
     print "\$var_abc[0] = $var_abc[0]\n";
     print "\$var_abc[-1] = $var_abc[-1]\n";
 
+    if ( !defined( $ages[100] ) ) {
+        print "array index out of boundary\n";
+    }
+
     # Selecting Elements from Lists
     my $var  = ( 5, 4, 3, 2, 1 )[4];
     my @list = ( 5, 4, 3, 2, 1 )[1 .. 3];

@@ -14,9 +14,9 @@ sub main {
 
     my %data2 = ( 'John Paul' => 45, 'Lisa' => 30, 'Kumar' => 40 );
 
-    my %data3 = ( -JohnPaul => 45, -Lisa => 30, -Kumar => 40 );
+    my %data3 = ( JohnPaul => 45, Lisa => 30, Kumar => 40 );    # left side can omit ''
 
-    my $hashref = {    # a reference to an anonymous hash
+    my $hashref = {                                             # a reference to an anonymous hash
         'Adam'  => 'Eve',
         'Clyde' => 'Bonnie',
     };
@@ -24,7 +24,7 @@ sub main {
     print "\$data{'John Paul'} = $data{'John Paul'}\n";
     print "\$data1{'Lisa'} = $data1{'Lisa'}\n";
     print "\$data2{'Kumar'} = $data2{'Kumar'}\n";
-    print "\$data3{-JohnPaul} = " . $data3{-JohnPaul} . "\n";
+    print "\$data3{JohnPaul} = " . $data3{JohnPaul} . "\n";
 }
 
 main();

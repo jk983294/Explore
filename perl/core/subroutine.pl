@@ -30,7 +30,36 @@ sub PrintHash {
     }
 }
 
+sub say_hello {
+    print "hello\n";
+}
+
+sub max {
+    my $max_so_far = shift @_;
+    foreach (@_) {
+        if ( $_ > $max_so_far ) {
+            $max_so_far = $_;
+        }
+    }
+    $max_so_far;
+}
+
+sub index_of {
+    my ( $what, @data ) = @_;
+    foreach ( 0 .. $#data ) {
+        if ( $what eq $data[$_] ) {
+            return $_;
+        }
+    }
+    return -1;
+}
+
 sub main {
+    &say_hello;
+
+    print max( 1, 2, 3 ), "\n";
+    print index_of( 'b', ( 'a' .. 'z' ) ), "\n";
+
     my $num = average( 10, 20, 30 );
     print "Average for the given numbers : $num\n";
 

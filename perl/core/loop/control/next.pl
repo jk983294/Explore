@@ -2,6 +2,7 @@
 use strict;
 use warnings;
 
+# works like continue in C/C++
 my $a = 10;
 while ( $a < 20 ) {
     if ( $a == 15 ) {    # skip the iteration of 15

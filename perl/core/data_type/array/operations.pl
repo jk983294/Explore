@@ -2,20 +2,24 @@
 use strict;
 use warnings;
 
+# use pop/push as stack
 sub add_remove {
-    my @coins = ( "Quarter", "Dime", "Nickel" );
+    my @letters = ( "b", "c" );
 
-    # add one element at the end of the array
-    push( @coins, "Penny" );    # @coins  = Quarter Dime Nickel Penny
+    # add elements at the end of the array
+    push( @letters, "d" );           # @letters  = b c d
+    push( @letters, 'e' .. 'g' );    # @letters  = b c d e f g
 
-    # add one element at the beginning of the array
-    unshift( @coins, "Dollar" );    # @coins  = Dollar Quarter Dime Nickel Penny
+    # add elements at the beginning of the array
+    unshift( @letters, "a" );        # @letters  = a b c d e f g
 
     # remove one element from the last of the array.
-    pop(@coins);                    # @coins  = Dollar Quarter Dime Nickel
+    my $data = pop(@letters);        # @letters  = a b c d e f, $data = g
 
     # remove one element from the beginning of the array.
-    shift(@coins);                  # @coins  = Quarter Dime Nickel
+    $data = shift(@letters);         # @letters  = b c d e f, $data = a
+
+    print "@letters\n";
 }
 
 sub slice {
@@ -25,24 +29,48 @@ sub slice {
     print "@weekdays -- @weekdays\n";
 }
 
-sub replace {
-    my @nums = ( 1 .. 20 );
-    print "Before - @nums\n";
+# splice @ARRAY, OFFSET [ , LENGTH [ , LIST ] ]
+sub splice_usage {
+    my @nums = ( 0 .. 10 );
 
-    # splice @ARRAY, OFFSET [ , LENGTH [ , LIST ] ]
-    splice( @nums, 5, 5, 21 .. 25 );
-    print "After - @nums\n";
+    # pop several elements
+    my @deleted = splice( @nums, 8 );    # 8 9 10
+    print "@deleted\n";
+    @deleted = splice( @nums, 0, 2 );    # 0 1
+    print "@deleted\n";
+
+    # replace serveral elements
+    splice( @nums, 1, 3, ( 11, 12, 13 ) );    # 2 11 12 13 6 7
+    print "@nums\n";
+
+    # insert without replace
+    splice( @nums, 1, 0, ( 14, 15 ) );        # 2 14 15 11 12 13 6 7
+    print "@nums\n";
+
+}
+
+sub get_length {
+    my @nums    = ( 0 .. 20 );
+    my @indexes = ( 0 .. $#nums );
+    my $len     = $#indexes + 1;
+    print "length is $len\n";
+    print "Size: ", scalar @nums, "\n";       # physical size of the array, not the number of valid elements
+    print "Max Index: ", $#nums, "\n";
+}
+
+sub reverse_usage {
+    my @nums     = ( 0 .. 20 );
+    my @reversed = reverse(@nums);
+    print "reversed: @reversed\n";
+    @nums = reverse(@nums);                   # reverse then save to original container
 }
 
 sub main {
-    my @var_abc = ( 'a' .. 'z' );    # .. range operator
-
-    print "Size: ", scalar @var_abc, "\n";    # physical size of the array, not the number of valid elements
-    print "Max Index: ", $#var_abc, "\n";
-
     add_remove();
     slice();
-    replace();
+    splice_usage();
+    get_length();
+    reverse_usage();
 }
 
 main();

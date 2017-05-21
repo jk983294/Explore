@@ -4,6 +4,7 @@ use strict;
 use warnings;
 
 # last statement is encountered inside a loop, the loop is immediately terminated
+# last works like break in C/C++
 $a = 10;
 while ( $a < 20 ) {
     if ( $a == 15 ) {

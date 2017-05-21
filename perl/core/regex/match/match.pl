@@ -7,6 +7,10 @@ if ( $bar =~ /foo/ ) {
     print "matching\n";
 }
 
+if ( $bar =~ m/foo/ ) {
+    print "matching\n";
+}
+
 if ( $bar =~ m[foo] ) {
     print "matching\n";
 }
