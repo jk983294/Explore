@@ -2,6 +2,7 @@
 use strict;
 use warnings;
 
+# bitwise usually used for file ACL bit
 my $a = 60;
 my $b = 13;
 my $c = $a & $b;    # 12

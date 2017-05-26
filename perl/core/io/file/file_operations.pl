@@ -2,12 +2,16 @@
 use strict;
 use warnings;
 
+sub creat_file {
+    `echo "hello world" > /tmp/file1.txt`;
+}
+
 sub delete_file {
-    unlink("/tmp/file1.txt");
+    unlink("/tmp/file2.txt");
 }
 
 sub rename_file {
-    rename( "/tmp/file1.txt", "/tmp/file2.txt" );
+    rename( "/tmp/file1.txt" => "/tmp/file2.txt" );
 }
 
 # -A        Script start time minus file last access time, in days.
@@ -41,19 +45,33 @@ sub file_information {
     my $file = "/tmp/file1.txt";
     my ( @description, $size );
     if ( -e $file ) {
-        push @description, 'binary'                   if ( -B _ );
-        push @description, 'a socket'                 if ( -S _ );
-        push @description, 'a text file'              if ( -T _ );
-        push @description, 'a block special file'     if ( -b _ );
-        push @description, 'a character special file' if ( -c _ );
-        push @description, 'a directory'              if ( -d _ );
-        push @description, 'executable'               if ( -x _ );
-        push @description, ( ( $size = -s _ ) ) ? "$size bytes" : 'empty';
+        push @description, 'binary'                   if ( -B $file );
+        push @description, 'a socket'                 if ( -S $file );
+        push @description, 'a text file'              if ( -T $file );
+        push @description, 'a block special file'     if ( -b $file );
+        push @description, 'a character special file' if ( -c $file );
+        push @description, 'a directory'              if ( -d $file );
+        push @description, 'executable'               if ( -x $file );
+        push @description, 'modify time over 1 week'  if ( -M $file > 7 );
+        push @description, ( ( $size = -s $file ) ) ? "$size bytes" : 'empty';
         print "$file is ", join( ', ', @description ), "\n";
+    }
+
+    if ( -r $file and -w _ ) {    # _ is virtual file handle, it is last file check stat object
+        print "readable and writable\n";
+    }
+
+    if ( -T $file and -s _ < 512 ) {
+        print "text file is less than 512 bytes\n";
+    }
+
+    if ( -r -w $file ) {          # stack check, from right to left check
+        print "readable and writable\n";
     }
 }
 
 sub main {
+    creat_file();
     file_information();
     rename_file();
     delete_file();

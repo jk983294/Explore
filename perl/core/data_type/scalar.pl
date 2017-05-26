@@ -20,6 +20,11 @@ sub main {
     print "Name = $name\n";
     print "big_number = $big_number\n";
     print "binary = $var_binary\n";
+
+    print( int('42'), "\n" );
+    print( abs(-42),  "\n" );
+    print( sqrt(100), "\n" );
+    print( log(100),  "\n" );
 }
 
 main();

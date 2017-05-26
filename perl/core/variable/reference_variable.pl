@@ -33,9 +33,18 @@ sub creation {
     # dereferencing
     print "Value is : ", $$scalarref, "\n";    # 41
     print "Value is : ", @$arrayref,  "\n";    # 25 30 40
-    print "Value is : ", %$hashref,   "\n";    # Lisa 30 John Paul 45 Kumar 40
-    &$coderef($bar);                           # hello 41
-    print "Value is : ", *$globref, "\n";      # *main::foo
+
+    print "Value is : ", $$arrayref[0], "\n";  # 25
+    print "Value is : ", ${$arrayref}[0], "\n";    # 25
+    print "Value is : ", $arrayref->[0], "\n";     # 25
+
+    print "Value is : ", %$hashref, "\n";          # Lisa 30 John Paul 45 Kumar 40
+    print "Value is : ", $$hashref{Lisa}, "\n";    # 30
+    print "Value is : ", ${$hashref}{Lisa}, "\n";  # 30
+    print "Value is : ", $hashref->{Lisa}, "\n";   # 30
+
+    &$coderef($bar);                               # hello 41
+    print "Value is : ", *$globref, "\n";          # *main::foo
 
     # ref type
     print "Reference type : ", ref($scalarref), "\n";    # SCALAR
@@ -51,9 +60,15 @@ sub circular_references {
     print "Value of foo is : ", $$foo, "\n";
 }
 
+sub array_ref {
+    my $arrayref = [[1, 2, 3], [4, 5, 6], [7, 8, 9]];
+    print "at [2][1]: $arrayref->[2][1]\n";
+}
+
 sub main {
     creation();
     circular_references();
+    array_ref();
 }
 
 main();

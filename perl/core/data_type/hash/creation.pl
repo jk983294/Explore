@@ -21,10 +21,16 @@ sub main {
         'Clyde' => 'Bonnie',
     };
 
+    my @players   = qw(a b c);
+    my @scores    = ( 1, 2, 3 );
+    my %scoreHash = ();
+    @scoreHash{@players} = @scores;
+
     print "\$data{'John Paul'} = $data{'John Paul'}\n";
     print "\$data1{'Lisa'} = $data1{'Lisa'}\n";
     print "\$data2{'Kumar'} = $data2{'Kumar'}\n";
     print "\$data3{JohnPaul} = " . $data3{JohnPaul} . "\n";
+    print "@scoreHash{@players}\n";
 }
 
 main();

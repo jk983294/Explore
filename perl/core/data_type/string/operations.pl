@@ -19,6 +19,12 @@ sub main {
     # conversion
     print "2" * "3";         # 6
     print "Z" . 5 * 7;       # Z35
+
+    print( length($str),  "\n" );    # 10
+    print( uc($str),      "\n" );    # HELLOWORLD
+    print( lc($str),      "\n" );    # helloworld
+    print( ucfirst($str), "\n" );    # Helloworld
+    print( lcfirst($str), "\n" );    # helloworld
 }
 
 main();

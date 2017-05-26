@@ -5,7 +5,10 @@ use warnings;
 # An array variable will precede by sign @ and it will store ordered lists of scalars.
 
 sub main {
-    my @ages  = ( 25,          30,     40 );
+    my @ages = ( 25, 30, 40 );
+    @ages[3, 4] = ( 50, 60 );
+    print "@ages\n";    # 25 30 40 50 60
+
     my @names = ( "John Paul", "Lisa", "Kumar" );
     my @array = ( 1,           2,      'Hello' );
 

@@ -16,11 +16,15 @@ sub localtime_function {
     my @months = qw( Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec );
     my @days   = qw(Sun Mon Tue Wed Thu Fri Sat Sun);
 
+    # $mon [0-11] $year = actual year - 1900, $wday [0-6], $yday [0, 365]
     my ( $sec, $min, $hour, $mday, $mon, $year, $wday, $yday, $isdst ) = localtime();
     print "$mday $months[$mon] $days[$wday]\n";
 
     my $datestring = localtime();
     print "Local date and time $datestring\n";
+
+    my $lt1 = localtime( time() );    # feed with seconds since epoch
+    print "$lt1\n";
 }
 
 sub gmtime_function {
