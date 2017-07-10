@@ -4,9 +4,10 @@
 #include <iostream>
 #include <thread>
 
-// strand guarantees that, for those handlers that are dispatched through it,
-// an executing handler will be allowed to complete before the next one is started
-// so timer1 and time2 won't get executed at the same time
+/**
+ * strand提供串行执行, 能够保证线程安全, 同时被post或dispatch的方法, 不会被并发的执行
+ * so timer1 and time2 won't get executed at the same time
+ */
 
 class printer {
 public:
