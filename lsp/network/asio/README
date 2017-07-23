@@ -1,3 +1,62 @@
+### What Is A Handler
+
+A handler is nothing more than a callback
+
+Handlers can come in many shapes and sizes,
+ranging from basic functions like the ones above to more complex constructs
+such as functors generated from boost::bind() and lambdas.
+Regardless of the complexity, the handler still remains nothing more than a callback.
+
+### What Is Work
+
+Work is some processing that Boost.Asio has been requested to do on behalf of the application code.
+
+Boost.Asio guarantees that handlers will only run within a thread
+that is currently calling run(), run_one(), poll(), or poll_one().
+These are the threads that will do work and call handlers.
+
+### What Are Asynchronous Operations
+
+An asynchronous operation creates work and
+Boost.Asio will invoke a handler to inform the application when the work has completed.
+Asynchronous operations are created by calling a function that has a name with the prefix async_.
+
+Asynchronous operations and can be decomposed into three unique steps:
+
+1. Initiating, or informing, the associated io_service that works needs to be done.
+The async_receive operation informs the io_service that it will need to asynchronously read data from the socket,
+then async_receive returns immediately.
+
+2. Doing the actual work. In this case, when socket receives data, bytes will be read and copied into buffer.
+The actual work will be done in either: 1) The initiating function, if Boost.Asio can determine that it will not block. 2) When the application explicitly run the io_service
+
+3. Invoking the handle_async_receive ReadHandler.
+Once again, handlers are only invoked within threads running the io_service.
+Thus, regardless of when the work is done,
+it is guaranteed that handle_async_receive() will only be invoked within io_service.run().
+
+### What Does io_service.run() Do
+
+When a thread calls io_service.run(), work and handlers will be invoked from within this thread.
+
+when the read finished, it added another handler to the io_service.
+This subtle detail is an important feature of asynchronous programming.
+It allows for handlers to be chained together.
+
+### notes
+
+when the io_service has ran out of work, the application must reset() the io_service before running it again.
+
+### MACRO
+
 BOOST_ASIO_DISABLE_THREADS if set; it disables threading support in Boost
 
+### install
+
 sudo apt-get install libboost-all-dev
+
+#### reference
+
+https://stackoverflow.com/questions/15568100/confused-when-boostasioio-service-run-method-blocks-unblocks
+
+https://www.gamedev.net/blogs/entry/2249317-a-guide-to-getting-started-with-boostasio/
