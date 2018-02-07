@@ -69,6 +69,8 @@ if several dynamic libs have duplicate symbol, then pick one lib's symbol to lin
 
 actually when dynamic loading, symbol won't get duplicated because dlopen() will translate symbol to unique symbol name.
 
+weak symbols in object file, this means that when the linker produces the final executable program, it can throw away all but one of these duplicate definitions
+
 #### priority to link:
 
 1) client code symbol
