@@ -15,11 +15,10 @@ void error(const char *msg) {
 }
 
 int main(int argc, char *argv[]) {
-    int n;
-    socklen_t fromlen;
+    long n;
     struct sockaddr_in server;
-    struct sockaddr_in from;
-    char buf[1024];
+    struct sockaddr_in client;
+    char buf[1024 + 1];
 
     if (argc < 2) {
         fprintf(stderr, "ERROR, no port provided\n");
@@ -28,21 +27,30 @@ int main(int argc, char *argv[]) {
 
     int sock = socket(AF_INET, SOCK_DGRAM, 0);
     if (sock < 0) error("Opening socket");
-    int length = sizeof(server);
-    bzero(&server, length);
+
+    int portNo = atoi(argv[1]);
+    if (!portNo) {
+        servent *s = getservbyname(argv[1], "tcp");
+        if (!s) {
+            error("getservbyname() failed");
+        }
+        portNo = ntohs(static_cast<uint16_t>(s->s_port));
+    }
+
+    memset(&server, 0, sizeof(server));
     server.sin_family = AF_INET;
     server.sin_addr.s_addr = INADDR_ANY;
-    server.sin_port = htons(atoi(argv[1]));
+    server.sin_port = htons(static_cast<uint16_t>(portNo));
 
-    if (bind(sock, (struct sockaddr *)&server, length) < 0) error("binding");  // probably already in use
+    if (bind(sock, (struct sockaddr *)&server, sizeof(server)) < 0) error("binding");  // probably already in use
 
-    fromlen = sizeof(struct sockaddr_in);
+    socklen_t clientLen = sizeof(struct sockaddr_in);
     while (1) {
-        n = recvfrom(sock, buf, 1024, 0, (struct sockaddr *)&from, &fromlen);
+        n = recvfrom(sock, buf, 1024, 0, (struct sockaddr *)&client, &clientLen);
         if (n < 0) error("recvfrom");
-        write(1, "Received a datagram: ", 21);
-        write(1, buf, n);
-        n = sendto(sock, "Got your message\n", 17, 0, (struct sockaddr *)&from, fromlen);
+        buf[n] = '\0';
+        printf("Received a datagram: %s", buf);
+        n = sendto(sock, "Got your message\n", 17, 0, (struct sockaddr *)&client, clientLen);
         if (n < 0) error("sendto");
     }
     return 0;

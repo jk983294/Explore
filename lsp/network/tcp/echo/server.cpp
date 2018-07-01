@@ -1,3 +1,4 @@
+#include <netdb.h>
 #include <netinet/in.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -15,41 +16,50 @@ void error(const char *msg) {
 
 int main(int argc, char *argv[]) {
     char buffer[256];
-    struct sockaddr_in serv_addr, cli_addr;
+    struct sockaddr_in serverAddr, clientAddr;
     if (argc < 2) {
         fprintf(stderr, "ERROR, no port provided\n");
         exit(1);
     }
-    int sockfd = socket(AF_INET, SOCK_STREAM, 0);
-    if (sockfd < 0) error("ERROR opening socket");
+    int sockFd = socket(AF_INET, SOCK_STREAM, 0);
+    if (sockFd < 0) error("ERROR opening socket");
 
-    bzero((char *)&serv_addr, sizeof(serv_addr));
-    int portno = atoi(argv[1]);
-    serv_addr.sin_family = AF_INET;
-    serv_addr.sin_addr.s_addr = INADDR_ANY;  // INADDR_ANY gets the IP address of the machine
-    serv_addr.sin_port = htons(portno);      // convert a port number in host byte order to network byte order
+    int portNo = atoi(argv[1]);
+    if (!portNo) {
+        servent *s = getservbyname(argv[1], "tcp");
+        if (!s) {
+            error("getservbyname() failed");
+        }
+        portNo = ntohs(static_cast<uint16_t>(s->s_port));
+    }
 
-    if (bind(sockfd, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) < 0) {
+    memset(&serverAddr, 0, sizeof(serverAddr));
+    serverAddr.sin_family = AF_INET;
+    serverAddr.sin_addr.s_addr = INADDR_ANY;  // INADDR_ANY gets the IP address of the machine
+    serverAddr.sin_port =
+        htons(static_cast<uint16_t>(portNo));  // convert a port number in host byte order to network byte order
+
+    if (bind(sockFd, (struct sockaddr *)&serverAddr, sizeof(serverAddr)) < 0) {
         error("ERROR on binding");  // probably socket address already in use
     }
 
-    listen(sockfd, 5);
-    socklen_t clilen = sizeof(cli_addr);
+    listen(sockFd, 5);
+    socklen_t clientLen = sizeof(clientAddr);
 
-    int newsockfd = accept(sockfd,                        // binded socket
-                           (struct sockaddr *)&cli_addr,  // this will get client info
-                           &clilen);
-    if (newsockfd < 0) error("ERROR on accept");
+    int newSockFd = accept(sockFd,                          // binded socket
+                           (struct sockaddr *)&clientAddr,  // this will get client info
+                           &clientLen);
+    if (newSockFd < 0) error("ERROR on accept");
 
-    bzero(buffer, 256);
-    int n = read(newsockfd, buffer, 255);
+    memset(buffer, 0, 256);
+    long n = read(newSockFd, buffer, 255);
     if (n < 0) error("ERROR reading from socket");
     printf("Here is the message: %s\n", buffer);
 
-    n = write(newsockfd, "I got your message", 18);
+    n = write(newSockFd, "I got your message", 18);
     if (n < 0) error("ERROR writing to socket");
 
-    close(newsockfd);
-    close(sockfd);
+    close(newSockFd);
+    close(sockFd);
     return 0;
 }

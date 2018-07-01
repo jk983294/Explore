@@ -15,40 +15,46 @@ void error(const char *msg) {
 }
 
 int main(int argc, char *argv[]) {
-    struct sockaddr_in serv_addr;
-    struct hostent *server;
+    struct sockaddr_in serverAddr;
     char buffer[256];
     if (argc < 3) {
         fprintf(stderr, "usage %s hostname port\n", argv[0]);
         exit(0);
     }
-    int portno = atoi(argv[2]);
-    int sockfd = socket(AF_INET, SOCK_STREAM, 0);
-    if (sockfd < 0) error("ERROR opening socket");
-    server = gethostbyname(argv[1]);  // DNS resolve to server info
-    if (server == NULL) {
-        fprintf(stderr, "ERROR, no such host\n");
-        exit(0);
+    int portNo = atoi(argv[2]);
+    if (!portNo) {
+        servent *s = getservbyname(argv[2], "tcp");
+        if (!s) {
+            error("getservbyname() failed");
+        }
+        portNo = ntohs(static_cast<uint16_t>(s->s_port));
     }
-    bzero((char *)&serv_addr, sizeof(serv_addr));
-    serv_addr.sin_family = AF_INET;
-    bcopy((char *)server->h_addr,  // server ip address
-          (char *)&serv_addr.sin_addr.s_addr, server->h_length);
-    serv_addr.sin_port = htons(portno);
 
-    if (connect(sockfd, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) < 0) error("ERROR connecting");
+    int sockFd = socket(AF_INET, SOCK_STREAM, 0);
+    if (sockFd < 0) error("ERROR opening socket");
+    struct hostent *server = gethostbyname(argv[1]);  // DNS resolve to server info
+    if (!server) {
+        error("gethostbyname failed, no such host");
+    }
+
+    memset(&serverAddr, 0, sizeof(serverAddr));
+    serverAddr.sin_family = AF_INET;
+    memcpy(&serverAddr.sin_addr.s_addr, server->h_addr_list[0], server->h_length);
+    serverAddr.sin_port = htons(static_cast<uint16_t>(portNo));
+
+    if (connect(sockFd, (struct sockaddr *)&serverAddr, sizeof(serverAddr)) < 0) error("ERROR connecting");
 
     printf("Please enter the message: ");
-    bzero(buffer, 256);
+    memset(buffer, 0, 256);
     fgets(buffer, 255, stdin);
-    int n = write(sockfd, buffer, strlen(buffer));
+    long n = write(sockFd, buffer, strlen(buffer));
     if (n < 0) error("ERROR writing to socket");
 
-    bzero(buffer, 256);
-    n = read(sockfd, buffer, 255);
+    memset(buffer, 0, 256);
+    n = read(sockFd, buffer, 255);
     if (n < 0) error("ERROR reading from socket");
     printf("%s\n", buffer);
 
-    close(sockfd);
+    close(sockFd);
     return 0;
 }
