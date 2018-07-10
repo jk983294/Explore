@@ -1,0 +1,2 @@
+PYTHON_ADD_MODULE(ctor ctor.cpp)
+FILE(COPY ctor.py DESTINATION .)

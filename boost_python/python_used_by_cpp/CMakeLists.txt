@@ -1,0 +1,4 @@
+ADD_EXECUTABLE(example example.cpp )
+TARGET_LINK_LIBRARIES(example ${Boost_LIBRARIES} ${PYTHON_LIBRARIES})
+FILE(COPY example.py DESTINATION .)
+
