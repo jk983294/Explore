@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<contest>
+    <log>
+        <file>/tmp/contest/contest.log</file>
+        <dump_prefix>/tmp/contest/contest.dump</dump_prefix>
+    </log>
+
+    <mode>test</mode>
+
+    <modules>
+        <question_front>
+            <port>56701</port>
+        </question_front>
+
+        <answer_front>
+            <port>56702</port>
+        </answer_front>
+
+        <post_server>
+            <port>56703</port>
+        </post_server>
+
+        <game_engine>
+            <distribution_file>prob.csv</distribution_file>
+            <payoff_file>payoff.csv</payoff_file>
+        </game_engine>
+    </modules>
+
+    <accounts>
+        <account><user_name>DemoUser1</user_name><user_id>1</user_id><user_pin>123456</user_pin></account>
+        <account><user_name>DemoUser2</user_name><user_id>2</user_id><user_pin>123456</user_pin></account>
+        <account><user_name>DemoUser3</user_name><user_id>3</user_id><user_pin>123456</user_pin></account>
+        <account><user_name>DemoUser4</user_name><user_id>4</user_id><user_pin>123456</user_pin></account>
+        <account><user_name>DemoUser5</user_name><user_id>5</user_id><user_pin>123456</user_pin></account>
+        <account><user_name>DemoUser6</user_name><user_id>6</user_id><user_pin>123456</user_pin></account>
+        <account><user_name>DemoUser7</user_name><user_id>7</user_id><user_pin>123456</user_pin></account>
+        <account><user_name>DemoUser8</user_name><user_id>8</user_id><user_pin>123456</user_pin></account>
+        <account><user_name>DemoUser9</user_name><user_id>9</user_id><user_pin>123456</user_pin></account>
+        <account><user_name>DemoUser10</user_name><user_id>10</user_id><user_pin>123456</user_pin></account>
+        <account><user_name>DemoUser11</user_name><user_id>11</user_id><user_pin>123456</user_pin></account>
+        <account><user_name>DemoUser12</user_name><user_id>12</user_id><user_pin>123456</user_pin></account>
+        <account><user_name>DemoUser13</user_name><user_id>13</user_id><user_pin>123456</user_pin></account>
+        <account><user_name>DemoUser14</user_name><user_id>14</user_id><user_pin>123456</user_pin></account>
+        <account><user_name>DemoUser15</user_name><user_id>15</user_id><user_pin>123456</user_pin></account>
+        <account><user_name>DemoUser16</user_name><user_id>16</user_id><user_pin>123456</user_pin></account>
+        <account><user_name>DemoUser17</user_name><user_id>17</user_id><user_pin>123456</user_pin></account>
+        <account><user_name>DemoUser18</user_name><user_id>18</user_id><user_pin>123456</user_pin></account>
+        <account><user_name>DemoUser19</user_name><user_id>19</user_id><user_pin>123456</user_pin></account>
+        <account><user_name>DemoUser20</user_name><user_id>20</user_id><user_pin>123456</user_pin></account>
+        <account><user_name>DemoUser21</user_name><user_id>21</user_id><user_pin>123456</user_pin></account>
+        <account><user_name>DemoUser22</user_name><user_id>22</user_id><user_pin>123456</user_pin></account>
+        <account><user_name>DemoUser23</user_name><user_id>23</user_id><user_pin>123456</user_pin></account>
+        <account><user_name>DemoUser24</user_name><user_id>24</user_id><user_pin>123456</user_pin></account>
+        <account><user_name>DemoUser25</user_name><user_id>25</user_id><user_pin>123456</user_pin></account>
+    </accounts>
+</contest>
+

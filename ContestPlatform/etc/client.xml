@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<contest>
+    <client>
+        <user_name>DemoUser1</user_name>
+        <user_id>1</user_id>
+        <user_pin>123456</user_pin>
+        <question_front>localhost:56701</question_front>
+        <answer_front>localhost:56702</answer_front>
+    </client>
+</contest>
+
