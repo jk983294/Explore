@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+import "common.proto";
+
+// Private API for administrators
+service BrokerAdmin {
+    rpc status (Empty) returns (BrokerStatus);
+
+    rpc list_traders (Empty) returns (TraderSummaryList);
+}
+
+message BrokerStatus {
+    int32 id = 1;
+    string name = 2;
+    int32 registered_traders = 3;
+    int64 order_count = 4;
+    double total_value = 5;
+    double total_unrealized_pnl = 6;
+    double total_commission = 7;
+}
+
+// Statistics of a Trader to be displayed to the admin
+message TraderSummary {
+    int32 trader_id = 1;
+    string name = 2;
+    bool is_alive = 3;
+
+    double timestamp = 4;
+
+    double total_cash = 5;
+    double unrealized_pnl = 6;
+    double locked_cash = 7;
+    double occupied_cash = 8;
+    double realized_pnl = 9;
+    double commission = 10;
+
+    double pnl = 11;
+    double IR = 12;
+    double max_drawdown = 13;
+
+    int32 margin_call_count = 14;
+    int32 rpc_count = 15;
+}
+
+message TraderSummaryList {
+    repeated TraderSummary traders = 1;
+}

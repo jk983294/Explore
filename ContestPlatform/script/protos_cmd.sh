@@ -1,4 +1,5 @@
-#!/usr/bin/env bash
+#!/bin/bash
+
 /opt/anaconda3/bin/python -m grpc_tools.protoc -I./contest/protos --python_out=./contest/_pyprotos --grpc_python_out=./contest/_pyprotos ./contest/protos/common.proto
 /opt/anaconda3/bin/python -m grpc_tools.protoc -I./contest/protos --python_out=./contest/_pyprotos --grpc_python_out=./contest/_pyprotos ./contest/protos/question.proto
 /opt/anaconda3/bin/python -m grpc_tools.protoc -I./contest/protos --python_out=./contest/_pyprotos --grpc_python_out=./contest/_pyprotos ./contest/protos/contest.proto

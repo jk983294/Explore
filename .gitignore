@@ -8,3 +8,7 @@ cmake-build-debug/
 *_pb2_grpc.py
 *.pb.cc
 *.pb.h
+*.log
+*.pid
+*nohup.out
+ContestPlatform/peacock/broker/pb*.xml

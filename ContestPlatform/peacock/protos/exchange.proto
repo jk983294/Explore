@@ -1,0 +1,155 @@
+// API for Peacock Exchange module.
+
+syntax = "proto3";
+
+import "common.proto";
+
+//////////////////////////////////////////////////////////////////////////////
+// Services
+//////////////////////////////////////////////////////////////////////////////
+
+// Public API of the Exchange module for the Brokers and the MarketData.
+service Exchange {
+    // Returns static properties of the instruments in the Exchange.
+    rpc list_instruments (Empty) returns (InstrumentInfoList);
+
+    // Requests the Exchange to add a new order.
+    // If the response code is OK, expect to find BrokerUpdates related to
+    // this order in the subscribed-Broker's response stream.
+    rpc new_order (BrokerRequest) returns (BrokerResponse);
+
+    // Requests the Exchange to cancel an existing order.
+    // If the response code is OK, expect to find BrokerUpdates related to
+    // this order in the subscribed-Broker's response stream.
+    rpc cancel_order (BrokerRequest) returns (BrokerResponse);
+
+
+    rpc fetch_updates (BrokerRequest) returns (BrokerResponse);
+
+    rpc fetch_deliver_price (BrokerRequest) returns (DeliverResponse);
+
+    // Requests a stream of constantly updating market snapshots.
+    rpc subscribe_market (Empty) returns (stream MarketUpdate);
+
+    // Returns the running status of the Exchange.
+    rpc status (Empty) returns (ExchangeStatus);
+
+    rpc get_market_make_result (BrokerRequest) returns (MarketMakeResponse);
+}
+
+//////////////////////////////////////////////////////////////////////////////
+// Requests
+//////////////////////////////////////////////////////////////////////////////
+
+message BrokerRegister {
+    int32 broker_id = 1;
+}
+
+// Request sent from a Broker to the Exchange.
+message BrokerRequest {
+    int32 broker_id = 1;
+
+    RequestType request_type = 3;
+
+    // Required for NEW_ORDER or CANCEL_ORDER:
+    int32 trader_id = 4;
+    int64 order_id = 5;
+    string symbol = 6;
+
+    // Required only for NEW_ORDER:
+    Side side = 7;
+    int32 volume = 8;
+    double price = 9;
+    bool is_market = 10;
+
+    double orig_timestamp = 11;  // for tick-to-trade lag test
+
+    PositionType pos_type = 12;
+}
+
+//////////////////////////////////////////////////////////////////////////////
+// Responses
+//////////////////////////////////////////////////////////////////////////////
+
+// A simple (symbol, price) tuple.
+message InstrumentPrice {
+    string symbol = 1;
+    double price = 2;
+}
+
+// A single event of an order.
+message OrderEvent {
+    OrderState state = 1;
+    int32 trader_id = 2;
+    int64 order_id = 3;
+    double price = 4;
+    int32 volume = 5;
+    int32 left_volume = 6;  // How much volume is left in the order
+}
+
+// Response to be sent to the Broker.
+message BrokerResponse {
+    // Exchange time.
+    double timestamp = 1;
+
+    ResultCode result_code = 2;
+
+    // Monotonically increasing for each Broker
+    int64 batch_id = 3;
+
+    // List of trade records.
+    repeated OrderEvent order_events = 4;
+
+    // List of the latest instrument prices.
+    repeated InstrumentPrice prices = 5;
+
+    repeated TraderMarketInfo traders = 6;
+}
+
+message MarketMakeRecord {
+    string symbol = 1;
+    int32 complete = 2;
+    int32 total = 3;
+    double percent = 4;
+}
+
+message TraderMarketInfo {
+    int32 trader_id = 1;
+    // Market Make complete percent
+    repeated MarketMakeRecord market_records = 2;
+}
+
+message DeliverResponse {
+    // the price means how much long position earns
+    repeated InstrumentPrice deliveries = 1;
+    double timestamp = 2;
+}
+
+message InstrumentUpdate {
+    string symbol = 1;
+    repeated TradeRecord trades = 2;
+    repeated QuoteRecord bid_quotes = 3;
+    repeated QuoteRecord ask_quotes = 4;
+    double deliver_price = 5;
+}
+
+message MarketUpdate {
+    double timestamp = 1;
+    repeated InstrumentUpdate instruments = 2;
+}
+
+// Running status of the Exchange.
+message ExchangeStatus {
+    double timestamp = 1;
+    float api_call_speed = 2;
+    float new_order_speed = 3;
+    float cancel_order_speed = 4;
+    float market_update_speed = 5;
+    float average_t2t = 6;
+    int32 broker_count = 7;
+}
+
+message MarketMakeResponse {
+    double timestamp = 1;
+    float ratio = 2;
+}

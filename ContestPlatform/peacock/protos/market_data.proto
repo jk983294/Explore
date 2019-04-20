@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+import "common.proto";
+
+// Provides access to real-time market data
+service MarketData {
+    // Returns static properties of the instruments in the Exchange.
+    rpc list_instruments (Empty) returns (InstrumentInfoList);
+
+    rpc subscribe (Empty) returns (stream MarketSnapshot);
+}
+
+// Snapshot of an instrument's orderbook.
+message OrderBookSnapshot {
+    string symbol = 1;
+    double timestamp = 2;
+
+    double last_price = 4;
+    int64 traded_volume = 5;
+
+    int64 bid_volume = 6;
+    int64 ask_volume = 7;
+
+    int32 bid_order_count = 8;
+    int32 ask_order_count = 9;
+
+    int32 bid_depth = 10;
+    int32 ask_depth = 11;
+
+    repeated QuoteRecord bid_levels = 12;
+    repeated QuoteRecord ask_levels = 13;
+
+    // Latest trade records
+    repeated TradeRecord last_trades = 14;
+
+    double deliver_price = 15;
+}
+
+// Snapshot of multiple instrument orderbooks.
+message MarketSnapshot {
+    bool is_incremental = 1;
+    repeated OrderBookSnapshot instruments = 2;
+}

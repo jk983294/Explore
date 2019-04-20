@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+import "common.proto";
+
+// Allows remote control of the Robot Pool.
+service RobotPool {
+    rpc status (Empty) returns (PoolStatusResponse);
+
+    // Reloads the Robots defined in the config file. Does not change the
+    // running state.
+    rpc reload (Empty) returns (PoolStatusResponse);
+
+    // Starts running robots in this pool.
+    rpc start (Empty) returns (PoolStatusResponse);
+
+    // Stops the robots in this pool from running.
+    rpc stop (Empty) returns (PoolStatusResponse);
+}
+
+message PoolStatusResponse {
+    bool is_running = 1;
+    string error_message = 2;
+    int32 total_robots = 3;
+    double frequency = 4;
+    int32 total_reborns = 5;
+}

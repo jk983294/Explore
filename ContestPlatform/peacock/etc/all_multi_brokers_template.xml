@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<peacock>
+    <!-- This configures the modules to be run on the local host. -->
+    <modules>
+        <!--
+        Exchange module does not depend on other modules.
+        It only needs a service port to be specified.
+        -->
+        <exchange>
+            <port>51701</port>
+        </exchange>
+
+        <!--
+        Broker modules depend on Exchange module.
+        If a local Exchange object (specified in <exchange /> above)
+        does not exist, the endpoint of a remote Exchange service must
+        be specified, e.g., with:
+            <remote_exchange>10.18.0.102:56701</remote_exchange>
+
+        There can be more than one Brokers, provided they each have a
+        unique name and service ports.
+
+        The <name/> here determines the config XML for the Broker.
+        Make sure the name matches the XML in peacock/broker/.
+
+        <port/> and <admin_port/> are mandatory.
+        -->
+        <broker>
+            <name>robot</name>
+            <port>51702</port>
+        </broker>
+
+        <!--
+        Look, another Broker!
+
+        If a previous <broker/> has specified <remote_exchange/>, this
+        <broker/> need not to do it again.
+        -->
+        <broker_template>
+            <name_prefix>pb</name_prefix>
+            <start_port>52500</start_port>
+            <accounts>
+                <account name="1" pin="1"/>
+                <account name="2" pin="2"/>
+                <account name="3" pin="3"/>
+                <account name="4" pin="4"/>
+                <account name="5" pin="5"/>
+                <account name="6" pin="6"/>
+                <account name="7" pin="7"/>
+                <account name="8" pin="8"/>
+                <account name="9" pin="9"/>
+                <account name="10" pin="10"/>
+            </accounts>
+        </broker_template>
+
+        <!--
+        MarketData module also depends on Exchange module.
+        Specify the Exchange endpoint if no local object exists.
+        There should be only one MarketData instance.
+
+        <port/> is mandatory.
+        -->
+        <market_data>
+            <port>52600</port>
+        </market_data>
+
+        <!--
+        RobotPools depend on both Broker and MarketData modules.
+        For each dependency, either a local object or a remote endpoint
+        must be provided to initialize a robot pool.
+
+        If there are more than one local Broker objects, you must also
+        specify the name of the Broker you want to connect to with
+        <broker_name/>.
+        You can also specify a remote Broker with <broker_endpoint/>.
+
+        Precedence in deciding which Broker the pool is to connect:
+            <broker_name/> - <remote_broker> - (only local Broker)
+
+        There can be more than one RobotPools running simultaneously, but
+        they must have distinct names and ports.
+
+        <name/> is mandatory, and it must match the config XML file
+        located under peacock/robot_pool/
+        -->
+        <robot_pool>
+            <name>robot</name>
+            <broker_name>robot</broker_name>
+            <port>51704</port>
+        </robot_pool>
+    </modules>
+</peacock>

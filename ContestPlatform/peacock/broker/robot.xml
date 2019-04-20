@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<peacock>
+    <!-- NOTE: Each Broker must have a UNIQUE ID! -->
+    <broker id="101" name="B4B (Broker For Bots)"
+            pin_length="4"
+            thread_count="10"
+            allows_register="true"
+            margin_rate="0.01">
+
+        <commission rate="0.0">
+        </commission>
+    </broker>
+</peacock>

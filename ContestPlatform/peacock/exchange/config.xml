@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<peacock log_price="false" deliver_interval_second="900" maker_bp_diff='0.1' trader_num='33' twap_range='60' >
+
+    <log level="INFO" logfile="peacock_${YYYYMMDD}.log" print="false" />
+
+    <instruments>
+        <instrument symbol="A000.PSE" init_price="100" tick="0.01" />
+        <instrument symbol="A001.PSE" init_price="100"  tick="0.01" />
+        <instrument symbol="A002.PSE" init_price="100"  tick="0.01" />
+        <instrument symbol="B000.PSE" init_price="100"  tick="0.01" />
+        <instrument symbol="B001.PSE" init_price="100"  tick="0.01" />
+        <instrument symbol="B002.PSE" init_price="100"  tick="0.01" />
+    </instruments>
+
+</peacock>
